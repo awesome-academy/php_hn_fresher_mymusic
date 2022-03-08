@@ -1,0 +1,25 @@
+{
+    "name": "php_hn_fresher_mymusic",
+    "description": "",
+    "main": "",
+    "authors": [
+        "nguyen.manh.thang-b",
+        "doan.minh.quang"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/awesome-academy/php_hn_fresher_mymusic",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "bootstrap": "4.6.1",
+        "jquery": "3.6.0",
+        "fontawesome": "6.0.0",
+        "toast": "3.0.2"
+    }
+}
