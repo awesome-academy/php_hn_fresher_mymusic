@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @yield('seo')
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo.svg') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600&display=swap" rel="stylesheet">
@@ -33,7 +34,7 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
     <script src="{{ asset('bower_components/toast/dist/toast.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('js')
 
 </body>
