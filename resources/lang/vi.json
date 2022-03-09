@@ -1,3 +1,13 @@
 {
-
+    "To continue, log in to MyMusic." : "Để tiếp tục , hãy đăng nhập  vào MyMusic",
+    "Email address" : "Tài khoản email",
+    "Password" : "Mật khẩu",
+    "Forget Your Password?" : "Bạn quên mật khẩu?",
+    "Remember me?" : "Ghi nhớ đăng nhập ?",
+    "LOG IN" : "Đăng nhập",
+    "Don't have an account?" : "Bạn chưa có tài khoản ?",
+    "SIGN UP FOR MYMUSIC" : "Đăng ký tài khoản MyMusic",
+    "Forgot Your Password" : "Cài đặt lại Mật khẩu ",
+    "SENT" : "GỬI",
+    "Send Email": "Nhập tên email bạn đã dùng để đăng ký. Chúng tôi sẽ gửi email cho bạn với tên người dùng của bạn và một liên kết để đặt lại mật khẩu của bạn."
 }

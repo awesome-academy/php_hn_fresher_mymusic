@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title', env('APP_NAME'))</title>
     @stack('css')
 </head>

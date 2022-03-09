@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /public/bower_components
+/public/css/app.css
+/public/js/app.js
+package-lock.json
 /storage/*.key
 /vendor
 .env
