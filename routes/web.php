@@ -17,6 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Auth::routes();
