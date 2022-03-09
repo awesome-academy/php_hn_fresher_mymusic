@@ -15,4 +15,9 @@ class AuthController extends Controller
     {
         return view('pages.forgot-password');
     }
+
+    public function showRegisterForm()
+    {
+        return view('pages.register');
+    }
 }
