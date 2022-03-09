@@ -1,0 +1,45 @@
+#login-form{
+    border-bottom: 2px solid var(--dark-light);
+}
+#login-form input {
+    padding: 25px;
+}
+#login-form label {
+    color: var(--black);
+}
+#forgot-form .btn-custom{
+    padding: 10px 35px;
+    background-color: var(--fav);
+}
+.btn-custom {
+    padding: 10px;
+    border-radius: 50px;
+    transition: transform .3s;
+    font-weight: bold;
+}
+.btn-custom span{
+    margin-top: 5px;
+    display: inline-block;
+}
+#login-form button {
+   background-color: var(--fav);
+}
+.btn-register{
+    border: 2px solid var(--dark-light);
+}
+.btn-custom:hover{
+    transform: scale(1.05);
+    border: 2px solid var(--black);
+}
+.register-section p {
+    color: var(--black);
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+}
+.forget-password,.forget-password:hover{
+    color: var(--black);
+}
+.custom-control-input:checked ~ .custom-control-label::before{
+    background-color: var(--fav) !important;
+}

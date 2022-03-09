@@ -1,5 +1,25 @@
+:root {
+  /* color */
+  --black: #000;
+  --light-black: #070707;
+  --darker: #161616;
+  --fav: #1ed760;
+  --dark-light: #b6b6b6;
+}
 * {
   font-family: 'League Spartan', sans-serif;;
+}
+
+label.required {
+  position: relative;
+}
+
+label.required::before {
+  position: absolute;
+  content: '*';
+  color: red;
+  top: 0;
+  right: -8px;
 }
 
 img {
