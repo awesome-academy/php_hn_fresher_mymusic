@@ -4,11 +4,11 @@
     "Password" : "Mật khẩu",
     "Forget Your Password?" : "Bạn quên mật khẩu?",
     "Remember me?" : "Ghi nhớ đăng nhập ?",
-    "LOG IN" : "Đăng nhập",
+    "Login" : "Đăng nhập",
     "Don't have an account?" : "Bạn chưa có tài khoản ?",
     "SIGN UP FOR MYMUSIC" : "Đăng ký tài khoản MyMusic",
     "Forgot Your Password" : "Cài đặt lại Mật khẩu ",
-    "SENT" : "GỬI",
+    "Sent" : "Gửi",
     "Send Email": "Nhập tên email bạn đã dùng để đăng ký. Chúng tôi sẽ gửi email cho bạn với tên người dùng của bạn và một liên kết để đặt lại mật khẩu của bạn.",
     "Register": "Đăng ký tài khoản",
     "Sign up for free to start listening": "Đăng ký miễn phí để thưởng thức âm nhạc",
@@ -26,5 +26,8 @@
     "Login now": "Đăng nhập",
     "unverified_title": "Chưa xác thực tài khoản",
     "unverified_description": "Vui lòng xác thực tài khoản của bạn, nếu không nhận được email hãy nhấn vào",
-    "unverified_here": "đây"
+    "unverified_here": "đây",
+    "Reset Password" : "Cài đặt lại mật khẩu.",
+    "ResetDescription" : "Nhập mật khẩu mới để cập nhạt lại mật khẩu tài khoản của bạn",
+    "sendMailSuccess" : "Một tin nhắn đã được gửi cho bạn qua email với các hướng dẫn về cách cài đặt lại mật khẩu của bạn."
 }

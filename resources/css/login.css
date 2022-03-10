@@ -12,14 +12,15 @@
     background-color: var(--fav);
 }
 .btn-custom {
+    margin: 0 10px;
     padding: 10px;
     border-radius: 50px;
     transition: transform .3s;
     font-weight: bold;
+    color: var(--white);
 }
 .btn-custom span{
-    margin-top: 5px;
-    display: inline-block;
+     display: inline-block;
 }
 #login-form button {
    background-color: var(--fav);

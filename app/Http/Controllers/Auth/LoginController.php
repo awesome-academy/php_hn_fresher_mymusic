@@ -59,4 +59,11 @@ class LoginController extends Controller
         $this->performLogout($request);
         return redirect()->route('login');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (!$user->email_verified_at) {
+            return redirect()->route('verification.notice');
+        }
+    }
 }

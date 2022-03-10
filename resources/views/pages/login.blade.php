@@ -29,14 +29,14 @@
                     </div>
                     <div class="form-group pt-1">
                         <button class="btn btn-custom btn-block" type="submit">
-                            <span>{{ __('LOG IN') }}</span>
+                            <span>{{ __('Login') }}</span>
                         </button>
                     </div>
                 </form>
-                <div class="pt-3 register-section">
+                <div class="pt-3 mb-5 register-section">
                     <p>{{ __("Don't have an account?") }}</p>
                     <a class="btn-register btn-custom btn btn-block" href="/register">
-                        <span>{{ __('SIGN UP FOR MYMUSIC') }}</span>
+                        <span class="text-dark mt-1">{{ __('SIGN UP FOR MYMUSIC') }}</span>
                     </a>
                 </div>
             </div>

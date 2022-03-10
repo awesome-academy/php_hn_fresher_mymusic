@@ -2,5 +2,7 @@
     "Send Email": "Enter email name you used to register. We will email you with your user name and a link to reset your password.",
     "unverified_title": "Your account is not verified",
     "unverified_description": "Please verify your account, if you do not receive the email please click",
-    "unverified_here": "here"
+    "unverified_here": "here",
+    "ResetDescription" : "Import new password to update your account password",
+    "sendMailSuccess" : "An email has been sent to you with instructions on how to reset your password."
 }
