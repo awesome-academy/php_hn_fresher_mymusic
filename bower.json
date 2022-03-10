@@ -20,6 +20,7 @@
         "bootstrap": "4.6.1",
         "jquery": "3.6.0",
         "fontawesome": "6.0.0",
-        "toast": "3.0.2"
+        "toast": "3.0.2",
+        "admin_template": "https://github.com/ngmthaq/nice_admin_template.git"
     }
 }

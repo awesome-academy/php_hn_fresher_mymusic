@@ -4,5 +4,21 @@
     "unverified_description": "Please verify your account, if you do not receive the email please click",
     "unverified_here": "here",
     "ResetDescription" : "Import new password to update your account password",
-    "sendMailSuccess" : "An email has been sent to you with instructions on how to reset your password."
+    "sendMailSuccess" : "An email has been sent to you with instructions on how to reset your password.",
+    "dashboard": "Dashboard",
+    "admin": "System Admin",
+    "no_message": "No message found",
+    "manage_users": "Users management",
+    "manage_songs": "Songs management",
+    "add_song": "Add a new song",
+    "list_songs": "List of songs",
+    "manage_albums": "Albums management",
+    "add_album": "Add a new album",
+    "list_albums": "List of albums",
+    "manage_authors": "Authors management",
+    "add_author": "Add a new author",
+    "list_authors": "List of authors",
+    "manage_categories": "Categories management",
+    "add_category": "Add a new category",
+    "list_categories": "List of categories"
 }

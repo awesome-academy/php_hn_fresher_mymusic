@@ -50,6 +50,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'avatar_full_path',
+        'full_name',
+    ];
+
+    public function getAvatarFullPathAttribute()
+    {
+        return env('APP_URL') . '/' . $this->attributes['avatar'];
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
