@@ -23,5 +23,8 @@
     "Your avatar?": "Chọn ảnh đại diện của bạn",
     "Choose your avatar": "Chọn ảnh",
     "Do you have an account?": "Bạn đã có tài khoản?",
-    "Login now": "Đăng nhập"
+    "Login now": "Đăng nhập",
+    "unverified_title": "Chưa xác thực tài khoản",
+    "unverified_description": "Vui lòng xác thực tài khoản của bạn, nếu không nhận được email hãy nhấn vào",
+    "unverified_here": "đây"
 }

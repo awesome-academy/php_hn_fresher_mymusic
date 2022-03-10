@@ -1,3 +1,6 @@
 {
-    "Send Email": "Enter email name you used to register. We will email you with your user name and a link to reset your password."
+    "Send Email": "Enter email name you used to register. We will email you with your user name and a link to reset your password.",
+    "unverified_title": "Your account is not verified",
+    "unverified_description": "Please verify your account, if you do not receive the email please click",
+    "unverified_here": "here"
 }
