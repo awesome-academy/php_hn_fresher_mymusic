@@ -45,8 +45,8 @@ return [
             'title' => 'manage_categories',
             'icon' => '<i class="bi bi-bookmarks"></i>',
             'submenu' => [
-                'add' => ['title' => 'add_category', 'route' => 'admin.categories.add'],
-                'list' => ['title' => 'list_categories', 'route' => 'admin.categories.list'],
+                'add' => ['title' => 'add_category', 'route' => 'admin.categories.create'],
+                'list' => ['title' => 'list_categories', 'route' => 'admin.categories.index'],
             ],
         ],
     ],

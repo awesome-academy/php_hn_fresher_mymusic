@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,5 @@ Auth::routes(['verify' => true]);
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'showDashdoardScreen'])->name('dashboard');
     Route::resource('authors', AuthorController::class);
+    Route::resource('categories', CategoryController::class);
 });

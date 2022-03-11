@@ -57,5 +57,10 @@
     "song_name" : "Name of Song",
     "song_thumb" : "Mô tả bài hát",
     "song_des" : "Mô tả bài hát",
-    "album" : "Album"
+    "album" : "Album",
+    "categories": "Categories",
+    "categories_name": "Categories name",
+    "categories_description": "Categories description",
+    "edit_category": "Edit category",
+    "show_category": "Show category"
 }
