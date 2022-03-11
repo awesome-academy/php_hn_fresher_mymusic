@@ -83,6 +83,10 @@
     "created_at" : "Thời gian tạo",
     "update_at" : "Thời gian cập nhật",
     "action" : "Hành động",
-    "song_list_of_author" : "Danh sách bài hát của nghệ sĩ"
-
+    "song_list_of_author" : "Danh sách bài hát của nghệ sĩ",
+    "categories": "Danh mục",
+    "categories_name": "Tên danh mục",
+    "categories_description": "Mô tả danh mục",
+    "edit_category": "Sửa danh mục",
+    "show_category": "Xem chi tiết danh mục"
 }
