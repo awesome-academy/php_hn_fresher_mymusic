@@ -41,5 +41,21 @@
     "next" : "Next",
     "replay" : "Replay",
     "lyrics" : "Lyrics",
-    "volumn" : "Volumn"
+    "volumn" : "Volumn",
+    "author_name" : "Author Name",
+    "author_des" : "Author Description",
+    "author_thumb" : "Author Thumbnail",
+    "edit_author" : "Update Author",
+    "view_author" : "View author information",
+    "submit" : "Submit",
+    "created_at" : "Created At",
+    "updated_at" : "Updated At",
+    "action" : "Action",
+    "edit" : "Update",
+    "back" : "Back",
+    "song_list_of_author" : "List song of Author",
+    "song_name" : "Name of Song",
+    "song_thumb" : "Mô tả bài hát",
+    "song_des" : "Mô tả bài hát",
+    "album" : "Album"
 }

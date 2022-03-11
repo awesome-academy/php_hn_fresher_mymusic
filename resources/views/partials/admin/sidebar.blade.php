@@ -4,7 +4,11 @@
         @foreach (config('admin.sidebar') as $key => $item)
             <li class="nav-item">
                 @if (isset($item['route']) && Route::has($item['route']))
-                    <a class="nav-link collapsed justify-content-between" data-bs-target="#{{ $key }}-nav" data-bs-toggle="collapse" href="{{ route($item['route']) }}">
+                    @if (isset($item['submenu']))
+                        <a class="nav-link collapsed justify-content-between" data-bs-target="#{{ $key }}-nav" data-bs-toggle="collapse" href="{{ route($item['route']) }}">
+                    @else
+                        <a class="nav-link collapsed justify-content-between" href="{{ route($item['route']) }}">
+                    @endif
                         <span>
                             {!! $item['icon'] !!}
                             <span> {{ __($item['title']) }} </span>
@@ -25,11 +29,11 @@
                     </a>
                 @endif
                 @if (isset($item['submenu']))
-                    <ul id="{{ $key }}-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <ul id="{{ $key }}-nav" class="nav-content collapse @yield($key)" data-bs-parent="#sidebar-nav">
                         @foreach ($item['submenu'] as $subkey => $submenu )
                             @if (Route::has($submenu['route']))
                                 <li>
-                                    <a href="{{ $submenu['route'] }}">
+                                    <a class="{{ request()->routeIs($submenu['route']) ? 'active' : '' }}" href="{{ route($submenu['route']) }}">
                                         <i class="bi bi-circle"></i>
                                         <span> {{ __($submenu['title']) }} </span>
                                     </a>
