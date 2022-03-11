@@ -36,8 +36,8 @@ return [
             'title' => 'manage_authors',
             'icon' => '<i class="bi bi-person-lines-fill"></i>',
             'submenu' => [
-                'add' => ['title' => 'add_author', 'route' => 'admin.authors.add'],
-                'list' => ['title' => 'list_authors', 'route' => 'admin.authors.list'],
+                'add' => ['title' => 'add_author', 'route' => 'admin.authors.create'],
+                'list' => ['title' => 'list_authors', 'route' => 'admin.authors.index'],
             ],
         ],
 
