@@ -21,6 +21,8 @@
         "jquery": "3.6.0",
         "fontawesome": "6.0.0",
         "toast": "3.0.2",
-        "admin_template": "https://github.com/ngmthaq/nice_admin_template.git"
+        "admin_template": "https://github.com/ngmthaq/nice_admin_template.git",
+        "slick-carousel": "1.8.0",
+        "user_template" : "https://github.com/quangdm-2954/user_template.git"
     }
 }
