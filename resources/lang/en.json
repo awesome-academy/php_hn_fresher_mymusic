@@ -48,8 +48,8 @@
     "edit_author" : "Update Author",
     "view_author" : "View author information",
     "submit" : "Submit",
-    "created_at" : "Created At",
-    "updated_at" : "Updated At",
+    "created_at" : "Created at",
+    "updated_at" : "Updated at",
     "action" : "Action",
     "edit" : "Update",
     "back" : "Back",
@@ -64,9 +64,15 @@
     "edit_category": "Edit category",
     "show_category": "Show category",
     "list_album" : "List all of album",
-    "album_title" : "Album title",
     "album_des" : "Album description",
     "edit_album" : "Update album infomation",
     "view_album" : "View detail of album",
-    "song_list_of_album" : "List song of album"
+    "song_list_of_album" : "List song of album",
+    "album_list_of_author" : "List album of author",
+    "album_title" : "Album title",
+    "album_description" : "Album description",
+    "have_error" : "Sorry, an error occurred !!",
+    "delete_success" : "Deleted successfully !!!",
+    "update_success" : "Updated successfully!!!",
+    "create_success" : "Created successfully !!!"
 }

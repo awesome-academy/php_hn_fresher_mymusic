@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Admin\Author\AuthorRepoInterface;
+use App\Repositories\Admin\Author\AuthorRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            AuthorRepoInterface::class,
+            AuthorRepository::class
+        );
     }
 
     /**
@@ -23,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }
