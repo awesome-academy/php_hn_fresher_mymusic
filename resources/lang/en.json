@@ -55,12 +55,18 @@
     "back" : "Back",
     "song_list_of_author" : "List song of Author",
     "song_name" : "Name of Song",
-    "song_thumb" : "Mô tả bài hát",
-    "song_des" : "Mô tả bài hát",
+    "song_thumb" : "Song thumbnail",
+    "song_des" : "Song description",
     "album" : "Album",
     "categories": "Categories",
     "categories_name": "Categories name",
     "categories_description": "Categories description",
     "edit_category": "Edit category",
-    "show_category": "Show category"
+    "show_category": "Show category",
+    "list_album" : "List all of album",
+    "album_title" : "Album title",
+    "album_des" : "Album description",
+    "edit_album" : "Update album infomation",
+    "view_album" : "View detail of album",
+    "song_list_of_album" : "List song of album"
 }
