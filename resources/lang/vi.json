@@ -94,5 +94,11 @@
     "album_des" : "Mô tả album",
     "edit_album" : "Cập nhật thông tin album",
     "view_album" : "Xem chi tiết album",
-    "song_list_of_album" : "Danh sách bài hát trong album"
+    "song_list_of_album" : "Danh sách bài hát trong album",
+    "no_data": "Không có dữ liệu trả về",
+    "song_list_of_category" : "Danh sách bài hát của danh mục",
+    "create_category_success": "Tạo danh mục thành công",
+    "update_category_success": "Cập nhật danh mục thành công",
+    "delete_category_success": "Xoá danh mục thành công",
+    "confirm_delete": "Xác nhận xoá trường này"
 }

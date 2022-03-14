@@ -51,9 +51,10 @@ return [
         ],
     ],
     'paginate' =>[
-        "author" => 10
+        "author" => 10,
+        'category' => 10,
     ],
     'format' => [
-        'datetime' => 'd/m/Y H:i'
-    ]
+        'datetime' => 'd/m/Y H:i',
+    ],
 ];

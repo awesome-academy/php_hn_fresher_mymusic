@@ -18,39 +18,54 @@
                     <div class="card-body">
                         <h5 class="card-title"> {{ __('list_categories') }} </h5>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col"> {{ __('categories_name') }} </th>
                                     <th scope="col"> {{ __('categories_description') }} </th>
-                                    <th scope="col"> {{ __('create_at') }} </th>
+                                    <th scope="col"> {{ __('created_at') }} </th>
                                     <th scope="col"> {{ __('updated_at') }} </th>
                                     <th scope="col"> {{ __('action') }} </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    {{-- <th scope="row">1</th>
-                                    <td>Brandon Jacob</td>
-                                    <td>Designer</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>
-                                        <a href="{{ route('admin.categories.show', ['category' => 1]) }}" class="btn btn-sm btn-primary">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('admin.categories.edit', ['category' => 1]) }}" class="btn btn-sm btn-warning">
-                                            <i class="fa-solid fa-pencil"></i>
-                                        </a>
-                                        <a href="{{ route('admin.categories.destroy', ['category' => 1]) }}" class="btn btn-sm btn-danger">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td> --}}
-                                </tr>
+                                @forelse ($categories as $index => $category)
+                                    <tr>
+                                        <th scope="row"> {{ $index + 1 }} </th>
+                                        <td> {{ $category->name }} </td>
+                                        <td> {{ $category->description }} </td>
+                                        <td> {{ $category->created_at }} </td>
+                                        <td> {{ $category->updated_at }} </td>
+                                        <td>
+                                            <a href="{{ route('admin.categories.show', ['category' => $category->id]) }}"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </a>
+                                            <form
+                                                action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}"
+                                                class="d-inline" method="POST"
+                                                onsubmit="return confirm('{{ __('confirm_delete') }}')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center py-3"> {{ __('no_data') }} </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
-                        <!-- End Table with stripped rows -->
+                        {{ $categories->links() }}
                     </div>
                 </div>
             </div>
