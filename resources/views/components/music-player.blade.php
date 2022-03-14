@@ -3,15 +3,11 @@
     <div class="left-player">
         <div class="music-information-box">
             <div class="music-img">
-                <img src="{{ asset('bower_components/user_template/assets/img/music/thumbnail.jpg')}}" alt="music-thumbnail">
+                <img src="{{ asset('assets/img/logo.svg') }}" alt="">
             </div>
             <div class="music-information">
-                <span class="name">
-                    Runaway (U & J)
-                </span>
-                <small class="author">
-                    Galantis
-                </small>
+                <span class="name"></span>
+                <small class="author"></small>
             </div>
         </div>
         <div class="music-action-box">
@@ -33,7 +29,7 @@
             <div class="item prev-btn" title="{{ __('prev')}}">
                 <span><i class="fa-solid fa-backward-step"></i></span>
             </div>
-            <div class="item center-btn" title="{{ __('playPause')}}">
+            <div class="item center-btn" title="{{ __('playPause')}}" onclick="musicPlayer.handleEvents()">
                 <span class="play">
                     <i class="fa-solid fa-play"></i>
                 </span>
@@ -49,9 +45,9 @@
             </div>
         </div>
         <div class="music-range-time">
-            <small class="current-time">00:00</small>
-            <input type="range" id="range-time-control" class="range-time-control" value="0">
-            <small class="total-time">05:28</small>
+            <small class="current-time">0:00</small>
+            <input type="range" id="range-time-control" class="range-time-control" value="0" min="0" max="1000">
+            <small class="total-time">0:00</small>
         </div>
     </div>
 
@@ -68,7 +64,7 @@
             <span class="mute d-none"><i class="fa-solid fa-volume-xmark"></i></span>
         </div>
         <div class="volume-control">
-            <input type="range" id="range-volume-control" class="range-volume-control" value="10" min="0" max="10">
+            <input type="range" id="range-volume-control" class="range-volume-control" value="0.5" min="0" max="1" step="0.1">
         </div>
     </div>
 </div>

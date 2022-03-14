@@ -25,11 +25,14 @@
                 <img src="{{ asset(Auth::user()->avatar) }}" alt="avatar">
             </div>
             <div class="username">
-                <span>{{ Auth::user()->email }}</span>
+                <span>{{ Auth::user()->full_name }}</span>
                 <span><i class="fa-solid fa-caret-down"></i></span>
             </div>
             <div class="user-dropdown-list header-dropdown">
-                <a href="#">{{ __('Profile') }}<span>&crarr;</span></a>
+                <a href="#">{{ __('Profile') }}<span></span></a>
+                @if(Auth::user()->isAdmin())
+                <a href="{{ route('admin.dashboard') }}">{{ __('admin_page')}}</span></a>
+                @endif
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button class="dropdown-item d-flex align-items-center">
