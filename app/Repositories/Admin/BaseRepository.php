@@ -28,6 +28,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->paginate($paginateNumber)->withQueryString();
     }
 
+    public function getAllWithRelationPaginate(int $perPage, array $relations)
+    {
+        return $this->model->with($relations)->paginate($perPage)->withQueryString();
+    }
+
     public function find(int $id)
     {
         return $this->model->findOrFail($id);

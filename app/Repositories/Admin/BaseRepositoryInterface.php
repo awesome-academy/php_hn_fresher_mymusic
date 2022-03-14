@@ -21,4 +21,7 @@ interface BaseRepositoryInterface
 
     // Get all records of model with pagination
     public function getAllWithPaginate(int $paginateNumber);
+
+    // Get all records of model with pagination and relationships
+    public function getAllWithRelationPaginate(int $perPage, array $relations);
 }
