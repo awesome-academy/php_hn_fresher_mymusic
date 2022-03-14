@@ -27,8 +27,8 @@ return [
             'title' => 'manage_albums',
             'icon' => '<i class="bi bi-journal-album"></i>',
             'submenu' => [
-                'add' => ['title' => 'add_album', 'route' => 'admin.albums.add'],
-                'list' => ['title' => 'list_albums', 'route' => 'admin.albums.list'],
+                'add' => ['title' => 'add_album', 'route' => 'admin.albums.create'],
+                'list' => ['title' => 'list_albums', 'route' => 'admin.albums.index'],
             ],
         ],
 
