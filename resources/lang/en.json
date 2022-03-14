@@ -74,5 +74,11 @@
     "have_error" : "Sorry, an error occurred !!",
     "delete_success" : "Deleted successfully !!!",
     "update_success" : "Updated successfully!!!",
-    "create_success" : "Created successfully !!!"
+    "create_success" : "Created successfully !!!",
+    "no_data": "No data response",
+    "create_category_success": "Create category successfully",
+    "song_list_of_category" : "List song of category",
+    "update_category_success": "Update category successfully",
+    "delete_category_success": "Delete category successfully",
+    "confirm_delete": "Delete confirmation"
 }

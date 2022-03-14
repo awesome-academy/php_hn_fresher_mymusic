@@ -15,22 +15,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            {{ __('edit_category') }}
-                            {{-- <mark>V-Pop hahahehe</mark> --}}
-                        </h5>
-                        <form>
+                        <h5 class="card-title"> {{ __('edit_category') }} <mark> {{ $category->name }} </mark> </h5>
+                        <form action="{{ route('admin.categories.update', ['category' => $category->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="inputText" class="required"> {{ __('categories_name') }} </label>
-                                <input type="text" class="form-control" placeholder="{{ __('categories_name') }}" value="">
-                                <small class="text-danger"></small>
+                                <input type="text" name="name" class="form-control" placeholder="{{ __('categories_name') }}" value="{{ $category->name }}">
+                                <small class="text-danger"> {{ $errors->first('name') ?? '' }} </small>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail" class="required"> {{ __('categories_description') }} </label>
-                                <textarea class="form-control" rows="10">
-                                    {{-- V-Pop hahahehe --}}
-                                </textarea>
-                                <small class="text-danger"></small>
+                                <textarea class="form-control" name="description" rows="10">{{ $category->description }}</textarea>
+                                <small class="text-danger"> {{ $errors->first('description') ?? '' }} </small>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary"> {{ __('submit') }} </button>

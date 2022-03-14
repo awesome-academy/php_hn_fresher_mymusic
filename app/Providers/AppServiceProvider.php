@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Repositories\Admin\Author\AuthorRepoInterface;
 use App\Repositories\Admin\Author\AuthorRepository;
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\Admin\Category\CategoryRepository;
+use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             AuthorRepoInterface::class,
             AuthorRepository::class
+        );
+
+        $this->app->singleton(
+            CategoryRepositoryInterface::class,
+            CategoryRepository::class
         );
     }
 

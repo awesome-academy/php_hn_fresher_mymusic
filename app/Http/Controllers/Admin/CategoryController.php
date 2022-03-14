@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+    protected $categoryRepo;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepo)
+    {
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.list');
+        $categories = $this->categoryRepo
+            ->getAllWithPaginate(config('admin.paginate.category'));
+
+        return view('admin.categories.list', compact('categories'));
     }
 
     /**
@@ -33,9 +46,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        $request->flash();
+        $category = $this->categoryRepo
+            ->create($request->only(['name', 'description']));
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', __('create_category_success'));
     }
 
     /**
@@ -46,7 +64,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return view('admin.categories.show');
+        $category = $this->categoryRepo->find($id);
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -57,7 +77,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.categories.edit');
+        $category = $this->categoryRepo->find($id);
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -67,9 +89,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryStoreRequest $request, $id)
     {
-        //
+        $category = $this->categoryRepo
+            ->update($id, $request->only(['name', 'description']));
+
+        return redirect()
+            ->route('admin.categories.show', ['category' => $category->id])
+            ->with('success', __('update_category_success'));
     }
 
     /**
@@ -80,6 +107,20 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $this->categoryRepo->deleteSongsOfCategory($id);
+            $this->categoryRepo->delete($id);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            throw $th;
+        }
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', __('delete_category_success'));
     }
 }

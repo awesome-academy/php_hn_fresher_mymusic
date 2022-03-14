@@ -25,12 +25,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getAllWithPaginate(int $paginateNumber)
     {
-        return $this->model->paginate($paginateNumber);
+        return $this->model->paginate($paginateNumber)->withQueryString();
     }
 
     public function find(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function create(array $attributes)
