@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\AuthorStoreRequest;
+use App\Http\Requests\Admin\AuthorUpdateRequest;
+use App\Repositories\Admin\Author\AuthorRepoInterface;
+use DB;
 
 class AuthorController extends Controller
 {
+    protected $authorRepo;
+    public function __construct(AuthorRepoInterface $authorRepo)
+    {
+        $this->authorRepo = $authorRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('admin.author.list');
+        $authors = $this->authorRepo->getAllWithPaginate(config('admin.paginate.author'));
+
+        return view('admin.author.list', compact('authors'));
     }
 
     /**
@@ -33,9 +44,15 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorStoreRequest $request)
     {
-        //
+        $data = $request->except('_token');
+        $thumbnail = $request->file('thumbnail');
+        $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
+        $data['thumbnail'] = $path;
+        $rs = $this->authorRepo->create($data);
+
+        return $this->redirect($rs, __('create_success'));
     }
 
     /**
@@ -46,7 +63,9 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        return view('admin.author.view');
+        $author = $this->authorRepo->getAuthorWithSongAndAlbum($id);
+
+        return view('admin.author.view', compact('author'));
     }
 
     /**
@@ -57,7 +76,9 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.author.edit');
+        $author = $this->authorRepo->find($id);
+
+        return view('admin.author.edit', compact('author'));
     }
 
     /**
@@ -67,9 +88,19 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AuthorUpdateRequest $request, $id)
     {
-        //
+        $data = $request->except('_token');
+        $thumbnail = $request->file('thumbnail');
+        if (!$thumbnail) {
+            $data['thumbnail'] = $this->authorRepo->find($id)->thumbnail;
+        } else {
+            $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
+            $data['thumbnail'] = $path;
+        }
+        $rs = $this->authorRepo->update($id, $data);
+
+        return $this->redirect($rs, __('update_success'));
     }
 
     /**
@@ -80,6 +111,28 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $this->authorRepo->deleteSongOfAuthor($id);
+            $this->authorRepo->deleteALbumsOfAuthor($id);
+            $this->authorRepo->delete($id);
+
+            DB::commit();
+
+            return back()->with('success', __('delete_success'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', __('have_error'));
+        }
+    }
+
+    public function redirect($rs, $mess)
+    {
+        if ($rs) {
+            return back()->with('success', $mess);
+        }
+
+        return back()->with('error', __('have_error'));
     }
 }

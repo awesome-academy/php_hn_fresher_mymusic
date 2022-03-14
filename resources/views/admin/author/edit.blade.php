@@ -12,23 +12,31 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('edit_author') }}</h5>
-                        <form >
+                        <form action="{{ route('admin.authors.update', $author->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_name') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('author_name') }}" name="name">
+                                    <input type="text" class="form-control" placeholder="{{ __('author_name') }}" name="name" value="{{ $author->name }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_des') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('author_des') }}" name="description">
+                                    <input type="text" class="form-control" placeholder="{{ __('author_des') }}" name="description" value="{{ $author->description }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_thumb') }}</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="file" id="formFile" name="thumbnail">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10 image-author">
+                                    <img src="{{ asset($author->thumbnail) }}"alt="">
                                 </div>
                             </div>
                             <div class="row mb-3">
