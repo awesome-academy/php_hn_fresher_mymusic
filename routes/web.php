@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SongController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin'])->grou
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('albums', AlbumController::class);
+    Route::resource('songs', SongController::class);
 });

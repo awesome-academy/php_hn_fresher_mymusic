@@ -1,8 +1,94 @@
-.image-author{
-    max-width: 200px;
-    max-height: 200px;
+.image-author {
+  max-width: 200px;
+  max-height: 200px;
 }
-.table-thumb img{
-    max-width: 100px;
-    max-height: 100px;
+
+.table-thumb img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.select2-selection__choice {
+  margin-bottom: 5px;
+}
+
+.c-select2 {
+  display: flex;
+}
+
+.c-select2 .select2-selection {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem !important;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  -webkit-border-radius: 0.25rem !important;
+  -moz-border-radius: 0.25rem !important;
+  -ms-border-radius: 0.25rem !important;
+  -o-border-radius: 0.25rem !important;
+}
+
+.form-control.no-highlight {
+  box-shadow: none !important;
+  border: 1px solid #ced4da !important;
+}
+
+.create-song-layout .position-relative {
+  position: relative;
+}
+
+.create-song-layout .song-input::-webkit-file-upload-button {
+  display: none;
+}
+
+.create-song-layout .song-input {
+  opacity: 0;
+  width: calc(160px * 2 + 16px);
+  height: 160px;
+  position: absolute;
+  top: calc(50% + 8px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.create-song-layout .open-thumbnail-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  flex-direction: column;
+  border: 1px solid var(--gray);
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.create-song-layout .open-thumbnail-input>img {
+  width: 60%;
+  height: 60%;
+}
+
+.create-song-layout .open-thumbnail-input>span {
+  width: 100px;
+  text-align: center;
+}
+
+.create-song-layout .song-thumbnail-preview {
+  max-width: 160px;
+  max-height: 160px;
+  overflow: hidden;
+}
+
+.create-song-layout .song-thumbnail-preview img {
+  border-radius: 50%;
+  object-fit: cover;
 }

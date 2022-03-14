@@ -40,7 +40,6 @@
     "add_song": "Thêm bài hát mới",
     "list_songs": "Danh sách bài hát",
     "manage_albums": "Quản lý albums",
-    "add_album": "Tạo album mới",
     "list_albums": "Danh sách albums",
     "manage_authors": "Quản lý nghệ sĩ",
     "add_author": "Thêm mới nghệ sĩ",
@@ -100,5 +99,13 @@
     "create_category_success": "Tạo danh mục thành công",
     "update_category_success": "Cập nhật danh mục thành công",
     "delete_category_success": "Xoá danh mục thành công",
-    "confirm_delete": "Xác nhận xoá trường này"
+    "confirm_delete": "Xác nhận xoá trường này",
+    "song_album": "Album",
+    "song_authors": "Nghệ sĩ",
+    "select_author": "Chọn nghệ sĩ",
+    "select_album": "Chọn album",
+    "song_path": "Bài hát",
+    "edit_song": "Thay đổi thông tin bài hát",
+    "show_song": "Thông tin bài hát",
+    "add_music_to_album" : "Thêm bài hát vào album"
 }

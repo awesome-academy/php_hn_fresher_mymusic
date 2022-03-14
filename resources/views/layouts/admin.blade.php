@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('bower_components/admin_template/assets/vendor/remixicon/remixicon.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/admin_template/assets/vendor/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/admin_template/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @stack('head')
     <title>@yield('title', env('APP_NAME'))</title>
@@ -45,7 +47,7 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
-    <script src="{{ asset('bower_components/toast/dist/toast.min.js') }}"></script>
+    <script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/echarts/echarts.min.js') }}"></script>
@@ -54,7 +56,18 @@
     <script src="{{ asset('bower_components/admin_template/assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/js/main.js') }}"></script>
+    <script src="{{ asset('bower_components/select2/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ session('success') }}")
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script>
+            toastr.error("{{ session('error') }}")
+        </script>
+    @endif
     @stack('js')
 
 </body>
