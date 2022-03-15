@@ -1,11 +1,6 @@
-@props(['x-id', 'x-title', 'x-button', 'x-size'])
+@props(['x-id', 'x-title', 'x-size'])
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" title="{{ $xTitle }}" data-target="#{{ $xId }}">
-    {!! $xButton !!}
-</button>
-
-<!-- Modal -->
+<!-- {{ $xTitle }} modal -->
 <div class="modal fade" id="{{ $xId }}" tabindex="-1" aria-labelledby="{{ $xId }}Label"
     aria-hidden="true">
     <div class="modal-dialog {{ isset($xSize) ? 'modal-' . $xSize : '' }}">

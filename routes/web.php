@@ -40,3 +40,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
         Route::get('/', [UserController::class, 'index'])->name('index');
     });
 });
+
+Route::middleware(['auth', 'auth.admin'])->prefix('api')->name('api.')->group(function () {
+    Route::get('get-albums-of-authors', [AlbumController::class, 'getAlbumsOfAuthors'])
+        ->name('getAlbumsOfAuthors');
+});

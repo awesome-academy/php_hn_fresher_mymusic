@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AlbumOfAuthorRequest;
 use App\Http\Requests\Admin\AlbumStoreRequest;
 use App\Http\Requests\Admin\AlbumUpdateRequest;
 use App\Repositories\Admin\Album\AlbumRepoInterface;
@@ -121,6 +122,16 @@ class AlbumController extends Controller
             DB::rollBack();
             return back()->with('error', __('have_error'));
         }
+    }
+
+    public function getAlbumsOfAuthors(AlbumOfAuthorRequest $request)
+    {
+        $data = json_decode($request->query('author_id'));
+
+        $albums = $this->albumRepo
+            ->getRecordByWhereIn('author_id', $data);
+
+        return response()->json(compact('albums'));
     }
 
     public function redirect($rs, $mess)

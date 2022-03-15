@@ -6,10 +6,10 @@ use App\Repositories\Admin\Author\AuthorRepoInterface;
 use App\Repositories\Admin\Author\AuthorRepository;
 use App\Repositories\Admin\Category\CategoryRepository;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
-use App\Repositories\Admin\Song\SongRepository;
-use App\Repositories\Admin\Song\SongRepositoryInterface;
 use App\Repositories\Admin\Album\AlbumRepository;
 use App\Repositories\Admin\Album\AlbumRepoInterface;
+use App\Repositories\Admin\Song\SongRepository;
+use App\Repositories\Admin\Song\SongRepositoryInterface;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 

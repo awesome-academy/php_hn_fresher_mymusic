@@ -117,3 +117,29 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
 }
+
+.edit-song-thumbnail-preview {
+  max-width: 160px;
+  max-height: 160px;
+  overflow: hidden;
+  border-radius: 50%
+}
+
+.song-thumbnail {
+  width: 112px;
+  height: auto;
+}
+
+.edit-song-thumbnail-preview.show-blade {
+  max-width: 480px;
+  max-height: 480px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 16px auto;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+}
