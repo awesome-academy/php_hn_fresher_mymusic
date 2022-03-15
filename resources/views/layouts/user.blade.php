@@ -37,6 +37,7 @@
     <script src="{{ asset('bower_components/user_template/assets/js/main.js') }}"></script>
     <script src="{{ asset('bower_components/user_template/assets/js/eventHandle.js') }}"></script>
     <script src="{{ asset('bower_components/user_template/assets/js/slick.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('js')
 </body>
 

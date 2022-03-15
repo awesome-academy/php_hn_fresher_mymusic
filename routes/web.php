@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
+use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'showHomePage']);
 
 Auth::routes(['verify' => true]);
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'showDashdoardScreen'])->name('dashboard');
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);

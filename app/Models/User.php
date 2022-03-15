@@ -65,6 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
