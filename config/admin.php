@@ -18,8 +18,8 @@ return [
             'title' => 'manage_songs',
             'icon' => '<i class="bi bi-file-earmark-music"></i>',
             'submenu' => [
-                'add' => ['title' => 'add_song', 'route' => 'admin.songs.add'],
-                'list' => ['title' => 'list_songs', 'route' => 'admin.songs.list'],
+                'add' => ['title' => 'add_song', 'route' => 'admin.songs.create'],
+                'list' => ['title' => 'list_songs', 'route' => 'admin.songs.index'],
             ],
         ],
 

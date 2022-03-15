@@ -80,5 +80,13 @@
     "song_list_of_category" : "List song of category",
     "update_category_success": "Update category successfully",
     "delete_category_success": "Delete category successfully",
-    "confirm_delete": "Delete confirmation"
+    "confirm_delete": "Delete confirmation",
+    "song_album": "Album",
+    "song_authors": "Authors",
+    "select_author": "Select authors",
+    "select_album": "Select album",
+    "song_path": "Choose song",
+    "edit_song": "Edit song information",
+    "show_song": "Show song information",
+    "add_music_to_album" : "Add music to album"
 }
