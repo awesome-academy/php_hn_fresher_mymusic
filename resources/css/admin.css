@@ -1,3 +1,7 @@
+:root {
+  --admin-tr-lineheight: 32px;
+}
+
 .image-author {
   max-width: 200px;
   max-height: 200px;
@@ -91,4 +95,25 @@
 .create-song-layout .song-thumbnail-preview img {
   border-radius: 50%;
   object-fit: cover;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.admin-user-table th.center,
+.admin-user-table td.center {
+  text-align: center;
+  margin: auto;
+  line-height: var(--admin-tr-lineheight);
+}
+
+.admin-user-table .admin-user-avatar img {
+  width: var(--admin-tr-lineheight);
+  height: var(--admin-tr-lineheight);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }

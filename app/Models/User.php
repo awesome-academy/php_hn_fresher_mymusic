@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -16,7 +17,6 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_ADMIN = 1;
     const USER_UNACTIVE = 0;
     const USER_ACTIVE = 1;
-
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'avatar_full_path',
         'full_name',
+        'role_description',
+        'active_description'
     ];
 
     public function getAvatarFullPathAttribute()
@@ -68,6 +70,28 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+    
+    public function getRoleDescriptionAttribute()
+    {
+        return __('common.role' . $this->attributes['role']);
+    }
+
+    public function getActiveDescriptionAttribute()
+    {
+        return __('common.active' . $this->attributes['active']);
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)
+            ->format(config('admin.format.datetime'));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return $this->attributes['updated_at'] = Carbon::parse($value)
+            ->format(config('admin.format.datetime'));
     }
 
     public function comments()

@@ -10,7 +10,7 @@ return [
 
         'users' => [
             'title' => 'manage_users',
-            'route' => 'admin.manage.users',
+            'route' => 'admin.users.index',
             'icon' => '<i class="bi bi-people"></i>',
         ],
 

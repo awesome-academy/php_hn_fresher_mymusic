@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', __('list_categories'));
+@section('title', __('list_categories'))
 
-@section('categories', 'show');
+@section('categories', 'show')
 
 @section('content')
     <div class="pagetitle">

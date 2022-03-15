@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
     Route::resource('categories', CategoryController::class);
     Route::resource('albums', AlbumController::class);
     Route::resource('songs', SongController::class);
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+    });
 });
