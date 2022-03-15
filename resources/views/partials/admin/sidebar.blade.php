@@ -7,7 +7,7 @@
                     @if (isset($item['submenu']))
                         <a class="nav-link collapsed justify-content-between" data-bs-target="#{{ $key }}-nav" data-bs-toggle="collapse" href="{{ route($item['route']) }}">
                     @else
-                        <a class="nav-link collapsed justify-content-between" href="{{ route($item['route']) }}">
+                        <a class="nav-link {{ request()->routeIs($item['route']) ? '' : 'collapsed' }} justify-content-between" href="{{ route($item['route']) }}">
                     @endif
                         <span>
                             {!! $item['icon'] !!}
