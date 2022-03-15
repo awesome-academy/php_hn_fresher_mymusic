@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\AlbumStoreRequest;
+use App\Http\Requests\Admin\AlbumUpdateRequest;
+use App\Repositories\Admin\Album\AlbumRepoInterface;
+use App\Repositories\Admin\Author\AuthorRepoInterface;
+use DB;
 
 class AlbumController extends Controller
 {
+    protected $albumRepo;
+    protected $authorRepo;
+
+    public function __construct(AlbumRepoInterface $albumRepo, AuthorRepoInterface $authorRepo)
+    {
+        $this->albumRepo = $albumRepo;
+        $this->authorRepo = $authorRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,10 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('admin.album.list');
+        $albums = $this->albumRepo
+            ->getAllWithRelationPaginate(config('admin.paginate.album'), ['author']);
+
+        return view('admin.album.list', compact('albums'));
     }
 
     /**
@@ -24,7 +39,9 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('admin.album.create');
+        $authors = $this->authorRepo->getAll();
+
+        return view('admin.album.create', compact('authors'));
     }
 
     /**
@@ -33,9 +50,12 @@ class AlbumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AlbumStoreRequest $request)
     {
-        //
+        $data = $request->except('_token');
+        $rs = $this->albumRepo->create($data);
+
+        return $this->redirect($rs, __('create_success'));
     }
 
     /**
@@ -46,7 +66,9 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        return view('admin.album.view');
+        $album = $this->albumRepo->getAlbumWithSong($id);
+
+        return view('admin.album.view', compact('album'));
     }
 
     /**
@@ -57,7 +79,10 @@ class AlbumController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.album.edit');
+        $authors = $this->authorRepo->getAll();
+        $album = $this->albumRepo->find($id);
+
+        return view('admin.album.edit', compact('authors', 'album'));
     }
 
     /**
@@ -67,9 +92,12 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AlbumUpdateRequest $request, $id)
     {
-        //
+        $data = $request->except('_token');
+        $rs = $this->albumRepo->update($id, $data);
+
+        return $this->redirect($rs, __('update_success'));
     }
 
     /**
@@ -80,6 +108,27 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $this->albumRepo->deleteSongOfAlbum($id);
+            $this->albumRepo->delete($id);
+
+            DB::commit();
+
+            return back()->with('success', __('delete_success'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', __('have_error'));
+        }
+    }
+
+    public function redirect($rs, $mess)
+    {
+        if ($rs) {
+            return back()->with('success', $mess);
+        }
+
+        return back()->with('error', __('have_error'));
     }
 }

@@ -12,11 +12,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('add_album') }}</h5>
-                        <form>
+                        <form action="{{ route('admin.albums.store') }}" method="post">
+                            @csrf
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('album_title') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="{{ __('album_title') }}" name="name">
+                                    <input type="text" class="form-control" placeholder="{{ __('album_title') }}" name="title">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -27,13 +28,14 @@
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_name') }}</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="{{ __('author_name') }}">
-                                    <datalist id="datalistOptions">
-                                        <option value="Author 01">
-                                        <option value="Author 02">
-                                        <option value="Author 03">
-                                    </datalist>
+                                <div class="c-select2 col-sm-10">
+                                    <select id="authors-select" class="custom-select" name="author_id">
+                                        @forelse ($authors as $author )
+                                            <option value="{{ $author->id}}"> {{ $author->name}}</option>
+                                        @empty
+                                            <option value="">{{ __('no_data') }}</option>
+                                        @endforelse
+                                    </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
