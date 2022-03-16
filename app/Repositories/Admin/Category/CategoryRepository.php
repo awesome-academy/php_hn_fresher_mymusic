@@ -18,4 +18,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
         return $category->songs()->delete();
     }
+
+    public function getAllCategoryWithSong()
+    {
+        return $this->model->with('songs')->get();
+    }
 }

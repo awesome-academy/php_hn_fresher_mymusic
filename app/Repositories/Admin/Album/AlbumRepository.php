@@ -21,4 +21,9 @@ class AlbumRepository extends BaseRepository implements AlbumRepoInterface
     {
         return $this->find($id)->songs()->delete();
     }
+
+    public function getAllAlbumWithSong()
+    {
+        return $this->model->with('songs')->get();
+    }
 }
