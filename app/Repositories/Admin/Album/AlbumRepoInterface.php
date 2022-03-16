@@ -11,4 +11,7 @@ interface AlbumRepoInterface extends BaseRepositoryInterface
 
     //Delete all song of album by album id
     public function deleteSongOfAlbum($id);
+
+    //Get all album and song belong to this album
+    public function getAllAlbumWithSong();
 }
