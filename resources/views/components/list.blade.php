@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="horizontal-list-slick {{ $className }}">
+        <div class="side horizontal-list-slick {{ $className }}">
             {{ $slot }}
         </div>
     </div>

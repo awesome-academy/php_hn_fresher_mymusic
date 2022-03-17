@@ -7,6 +7,7 @@ use App\Repositories\Admin\Album\AlbumRepoInterface;
 use App\Repositories\Admin\Author\AuthorRepoInterface;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use App\Repositories\Admin\Song\SongRepositoryInterface;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,29 @@ class HomeController extends Controller
         $this->authorRepo = $authorRepo;
     }
 
+    public function index()
+    {
+        return view('welcome', $this->loadDataForHomePage());
+    }
+
     public function showHomePage()
+    {
+        return response()->view('user.homepage', $this->loadDataForHomePage());
+    }
+
+    public function showSearchPage()
+    {
+        return response()->view('user.search');
+    }
+
+    public function showCategory(Request $request)
+    {
+        $category = $this->categoryRepo->find($request->id);
+
+        return response()->view('user.category', compact('category'));
+    }
+
+    public function loadDataForHomePage()
     {
         $songs = $this->songRepo->getAllSongWithAuthors();
 
@@ -37,6 +60,11 @@ class HomeController extends Controller
 
         $albums = $this->albumRepo->getAllAlbumWithSong();
 
-        return view('welcome', compact('songs', 'categories', 'authors', 'albums'));
+        return [
+            'songs' => $songs,
+            'categories' => $categories,
+            'authors' => $authors,
+            'albums' => $albums,
+        ];
     }
 }

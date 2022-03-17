@@ -34,9 +34,6 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js') }}"></script>
-    <script src="{{ asset('bower_components/user_template/assets/js/main.js') }}"></script>
-    <script src="{{ asset('bower_components/user_template/assets/js/eventHandle.js') }}"></script>
-    <script src="{{ asset('bower_components/user_template/assets/js/slick.js') }}"></script>
     <script src="{{ asset('js/user/app.js') }}"></script>
     @stack('js')
 </body>
