@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', [HomeController::class, 'showHomePage']);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/homepage', [HomeController::class, 'showHomePage']);
+Route::get('/search', [HomeController::class, 'showSearchPage']);
+Route::get('/category', [HomeController::class, 'showCategory']);
 
 Auth::routes(['verify' => true]);
 
