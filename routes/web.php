@@ -25,6 +25,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/homepage', [HomeController::class, 'showHomePage']);
 Route::get('/search', [HomeController::class, 'showSearchPage']);
 Route::get('/category', [HomeController::class, 'showCategory']);
+Route::get('/album', [HomeController::class, 'showAlbum']);
+Route::get('/author', [HomeController::class, 'showAuthor']);
 
 Auth::routes(['verify' => true]);
 

@@ -21,7 +21,7 @@ const main = {
         if (resp && resp.status === 200) {
             sidebar.unactiveMenuItems();
             $("#homepage-button").addClass("c-active");
-            uri.updateQueryStringParameter({ key: "ac", value: "homepage" });
+            uri.updateQueryStringParameter({ key: "", value: "homepage" });
             main.render(resp.data);
             musicPlayer.handleEvents();
             slick();
@@ -31,30 +31,50 @@ const main = {
         let resp = await axios.get("/search");
         sidebar.unactiveMenuItems();
         $("#search-button").addClass("c-active");
-        uri.updateQueryStringParameter({ key: "ac", value: "search" });
+        uri.updateQueryStringParameter({ key: "", value: "search" });
         main.render(resp.data);
     },
     categorypage: async function (id) {
         let resp = await axios.get("/category?id=" + id);
-        uri.updateQueryStringParameter({ key: "ac", value: "category" });
+        uri.updateQueryStringParameter({ key: "", value: "category" },{ param: "id", val: id });
         main.render(resp.data);
         musicPlayer.handleEvents();
     },
-    getUrlParam: function () {
+    albumpage: async function (id) {
+        let resp = await axios.get("/album?id=" + id);
+        uri.updateQueryStringParameter({ key: "", value: "album" },{ param: "id", val: id });
+        main.render(resp.data);
+        musicPlayer.handleEvents();
+    },
+    authorpage: async function (id) {
+        let resp = await axios.get("/author?id=" + id);
+        uri.updateQueryStringParameter({ key: "", value: "author" },{ param: "id", val: id });
+        main.render(resp.data);
+        musicPlayer.handleEvents();
+    },
+    getUrlParam: async function (url= null) {
         const params = new URLSearchParams(window.location.search);
-        switch (params.get("ac")) {
+        let _url = url || params.get("") ;
+        switch (_url) {
             case "homepage":
-                main.homepage();
+                await main.homepage();
                 break;
             case "search":
-                main.searchpage();
+                await main.searchpage(params.get("id"));
                 break;
             case "category":
-                main.categorypage();
+                await main.categorypage(params.get("id"));
+                break;
+            case "album":
+                await main.albumpage(params.get("id"));
+                break;
+            case "author":
+                await main.authorpage(params.get("id"));
                 break;
             default:
                 break;
         }
+
     },
 };
 
@@ -67,10 +87,16 @@ const sidebar = {
 };
 
 const uri = {
-    updateQueryStringParameter: function (cx) {
+    updateQueryStringParameter: function (cx,pr) {
         const { key, value } = cx;
         const url = new URL(window.location);
+        url.searchParams.delete('id');
         url.searchParams.set(key, value);
+        if(pr)
+        {
+            const { param, val } = pr;
+            url.searchParams.set(param, val);
+        }
         window.history.pushState({}, "", url);
     },
 };
