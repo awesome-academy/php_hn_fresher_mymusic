@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> {{ __('list_songs') }} </h5>
-                        <table class="table datatable">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -32,31 +32,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Fake data --}}
-                                {{-- <tr>
-                                    <th scope="row">1</th>
-                                    <td>Brandon Jacob</td>
-                                    <td>Designer</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>2016-05-25</td>
-                                    <td>
-                                        <a href="{{ route('admin.songs.show', ['song' => 1]) }}"
-                                            class="btn btn-sm btn-primary">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('admin.songs.edit', ['song' => 1]) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="fa-solid fa-pencil"></i>
-                                        </a>
-                                        <a href="{{ route('admin.songs.destroy', ['song' => 1]) }}"
-                                            class="btn btn-sm btn-danger">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr> --}}
+                                @forelse ($songs as $index => $song)
+                                    <tr>
+                                        <th scope="row"> {{ $index + 1 }} </th>
+                                        <td> {{ $song->name }} </td>
+                                        <td><img class="song-thumbnail" src="{{ asset($song->thumbnail) }}"></td>
+                                        <td> {{ $song->album->title ?? __('no_data') }} </td>
+                                        <td>
+                                            @if (count($song->authors) > 0)
+                                                {{ implode(', ', $song->authors->pluck('name')->toArray()) }}
+                                            @else
+                                                {{ __('no_data') }}
+                                            @endif
+                                        </td>
+                                        <td> {{ $song->description }} </td>
+                                        <td> {{ $song->created_at }} </td>
+                                        <td> {{ $song->updated_at }} </td>
+                                        <td>
+                                            <a href="{{ route('admin.songs.show', ['song' => $song->id]) }}"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.songs.edit', ['song' => $song->id]) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('admin.songs.destroy', ['song' => $song->id]) }}"
+                                                class="d-inline" method="POST"
+                                                onsubmit="return confirm('{{ __('confirm_delete') }}')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9"> {{ __('no_data') }} </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

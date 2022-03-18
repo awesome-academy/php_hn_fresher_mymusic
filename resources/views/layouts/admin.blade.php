@@ -43,6 +43,10 @@
         @include('partials.admin.footer')
     </div>
 
+    <script>
+        window.translations = {!! $translation !!};
+        window.translationJsons = {!! $translationJson !!};
+    </script>
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/admin_template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

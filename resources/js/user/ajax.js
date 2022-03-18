@@ -8,12 +8,7 @@ const _$$ = document.querySelectorAll.bind(document);
 const main = {
     el: _$("#main"),
     render: function (html) {
-        let r = `
-      <div class="main-content">
-        ${html}
-      </div>
-    `;
-
+        let r = `<div class="main-content">${html}</div>`;
         this.el.innerHTML = r;
     },
     homepage: async function (e) {

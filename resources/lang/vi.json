@@ -115,5 +115,7 @@
     "active": "Trạng thái",
     "song" : "bài hát",
     "moreby" : "Xem thêm",
-    "Overview" : "Tổng quan"
+    "Overview" : "Tổng quan",
+    "Choose": "Chọn",
+    "choose_author": "Vui lòng chọn nghệ sĩ trước"
 }

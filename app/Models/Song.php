@@ -18,6 +18,7 @@ class Song extends Model
         'thumbnail',
         'path',
         'description',
+        'durations',
     ];
 
     public function playLists()

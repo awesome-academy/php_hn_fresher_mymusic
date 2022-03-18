@@ -63,4 +63,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         return $result->delete();
     }
+
+    public function getRecordByWhereIn(string $condition, array $attributes)
+    {
+        return $this->model->whereIn($condition, $attributes)->get();
+    }
 }

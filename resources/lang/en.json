@@ -93,5 +93,6 @@
     "role": "Role",
     "active": "Status",
     "song" : "song",
-    "moreby" : "More by"
+    "moreby" : "More by",
+    "choose_author": "Choose author first"
 }

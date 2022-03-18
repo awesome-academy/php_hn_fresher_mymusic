@@ -27,4 +27,7 @@ interface BaseRepositoryInterface
 
     // Get all records of model with pagination and relationships
     public function getAllWithRelationPaginate(int $perPage, array $relations);
+
+    // Get records by where in
+    public function getRecordByWhereIn(string $condition, array $attributes);
 }
