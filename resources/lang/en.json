@@ -91,5 +91,7 @@
     "add_music_to_album" : "Add music to album",
     "user_fullname": "Fullname",
     "role": "Role",
-    "active": "Status"
+    "active": "Status",
+    "song" : "song",
+    "moreby" : "More by"
 }

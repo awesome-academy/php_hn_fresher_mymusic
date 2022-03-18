@@ -3,14 +3,16 @@
         <div class="header">
             <div class="info">
                 <div class="profile__img">
-                    @if ($category->songs->count())
-                        <img src="{{ asset($category->songs->first()->thumbnail) }}" alt="">
+                    @if ($album->songs->count())
+                        <img src="{{ asset($album->author->thumbnail) }}" alt="">
                     @endif
                 </div>
                 <div class="info__meta">
-                    <div class="info__type">Category</div>
-                    <div class="info__name">{{ $category->name }}</div>
-                    <div class="info__description">{{ $category->description }}</div>
+                    <div class="info__type">Albums</div>
+                    <div class="info__name">{{ $album->title }}</div>
+                    <div class="info__description">{{ $album->description }}</div>
+                    <span class="info__author">{{ __('Author') }} : {{ $album->author->name }}</span>
+                    <span class="info__amount">{{ $album->songs->count() }} {{ __('songs')}}</span>
                 </div>
             </div>
         </div>
@@ -19,19 +21,21 @@
                 <div role="tabpanel" class="tab-pane active" id="overview">
                     <div class="overview">
                         <div class="overview_item">
-                            <div class="section-title">{{ $category->name }}</div>
+                            <div class="section-title">{{ $album->title }}</div>
                             <div class="tracks">
                                 <table>
                                     <thead>
                                         <tr class="title-table">
                                             <td class="track__number">#</td>
                                             <td>{{ __('song_name') }}</td>
-                                            <td>{{ __('album_title') }}</td>
-                                            <td><i class="fa-solid fa-clock"></i></td>
+                                            <td>
+                                                <i class="fa-solid fa-clock"></i>
+                                            </td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($category->songs as $key => $song)
+                                        @forelse ($album->songs as $key => $song)
                                             <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
                                                 data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }}
                                                 data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
@@ -45,11 +49,6 @@
                                                             class="track__author">{{ implode(', ', $song->authors->pluck('name')->toArray()) }}</span>
                                                     </div>
                                                 </td>
-                                                <td class="track__album">
-                                                    <span class="a-album" data-id="{{ $song->album->id}}">
-                                                        {{ $song->album->title }}
-                                                    </span>
-                                                </td>
                                                 <td class="track__time">
                                                 </td>
                                             </tr>
@@ -59,6 +58,20 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="related">
+                            <div class="section-title">{{__('moreby')}} {{$album->author->name}}</div>
+                            <x-list class-name="albums" list-title="" heading-class="mt-5">
+                                @forelse ($relatedAlbum as $album)
+                                    <x-card card-class="album" :card-name="$album->title" :description="$album->description" :data-id="$album->id">
+                                        @if ($album->songs->count())
+                                            <img src="{{asset($album->songs->first()->thumbnail)}}" alt="burn-out">
+                                        @endif
+                                    </x-card>
+                                @empty
+                                    <p> {{ __('no_data') }}</p>
+                                @endforelse
+                            </x-list>
                         </div>
                     </div>
                 </div>

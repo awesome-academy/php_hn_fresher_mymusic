@@ -10,6 +10,9 @@ interface BaseRepositoryInterface
     // Find an record of model
     public function find(int $id);
 
+    // Find by where and order by
+    public function findByWhere(array $where, $orderBy = 'id', $order = 'asc');
+
     // Create new record
     public function create(array $attributes);
 

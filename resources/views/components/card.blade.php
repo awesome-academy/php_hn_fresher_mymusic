@@ -1,6 +1,6 @@
-@props(['card-name', 'description'])
+@props(['card-class','card-name', 'description'])
 
-<div class="card-box" {{ $attributes }}>
+<div class="card-box {{$cardClass}}" {{ $attributes }}>
     <div class="card-img">
         {{ $slot }}
     </div>

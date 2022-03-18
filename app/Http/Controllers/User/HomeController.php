@@ -50,6 +50,27 @@ class HomeController extends Controller
         return response()->view('user.category', compact('category'));
     }
 
+    public function showAlbum(Request $request)
+    {
+        $album = $this->albumRepo->find($request->id);
+
+        $relatedAlbum = $this->albumRepo->findByWhere([
+            ['author_id', $album->author->id],
+            ['id', '<>', $request->id],
+        ]);
+
+        return response()->view('user.album', compact('album', 'relatedAlbum'));
+    }
+
+    public function showAuthor(Request $request)
+    {
+        $author = $this->authorRepo->find($request->id);
+
+        $albums = $this->albumRepo->findByWhere([['author_id', $request->id]]);
+
+        return response()->view('user.author', compact('author', 'albums'));
+    }
+
     public function loadDataForHomePage()
     {
         $songs = $this->songRepo->getAllSongWithAuthors();

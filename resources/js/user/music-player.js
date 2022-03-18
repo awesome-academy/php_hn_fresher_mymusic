@@ -112,7 +112,7 @@ const app = {
                 list[i].addEventListener(event, fn, false);
             }
         }
-        addEventListenerList(_$$(".card-box"), "click", function (e) {
+        addEventListenerList(_$$(".song"), "click", function (e) {
             audio.src = this.getAttribute("data-song");
             songThumbnail.src = this.getAttribute("data-thumbnail");
             nameSong.innerText = this.getAttribute("data-title");

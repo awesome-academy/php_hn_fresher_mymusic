@@ -112,5 +112,8 @@
     "Avatar": "Ảnh đại diện",
     "Email": "Email",
     "role": "Phân quyền",
-    "active": "Trạng thái"
+    "active": "Trạng thái",
+    "song" : "bài hát",
+    "moreby" : "Xem thêm",
+    "Overview" : "Tổng quan"
 }
