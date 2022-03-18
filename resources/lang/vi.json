@@ -121,5 +121,9 @@
     "user_search_placeholder": "Nghệ sĩ, album hoặc bài hát",
     "authors": "nghệ sĩ",
     "albums": "albums",
-    "songs": "bài hát"
+    "songs": "bài hát",
+    "create_playlist" : "Tạo mới Playlist",
+    "playlist_name" : "Tên Playlist",
+    "admin_page" : "Trang quản trị",
+    "your_playlist" : "Playlist của bạn"
 }

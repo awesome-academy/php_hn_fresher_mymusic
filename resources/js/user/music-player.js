@@ -159,14 +159,14 @@ const app = {
             if (idSongPlay >= _this.lengListSong) {
                 idSongPlay = 0;
             }
-            $("[data-id=" + idSongPlay + "]").click();
+            $(".track[data-id=" + idSongPlay + "]").click();
         }
         function prevSong() {
             let idSongPlay = --_this.idSongPlay;
             if (idSongPlay < 0) {
                 idSongPlay = _this.lengListSong - 1;
               }
-            $("[data-id=" + idSongPlay + "]").click();
+            $(".track[data-id=" + idSongPlay + "]").click();
         }
         //Replay
         replayBtn.onclick = function () {
@@ -183,7 +183,7 @@ const app = {
             do {
                 newIndex = Math.floor(Math.random() * _this.lengListSong);
             } while (newIndex == _this.idSongPlay);
-            $("[data-id=" + newIndex + "]").click();
+            $(".track[data-id=" + newIndex + "]").click();
         }
     },
 };

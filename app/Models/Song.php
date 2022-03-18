@@ -21,6 +21,11 @@ class Song extends Model
         'durations',
     ];
 
+    public function getTimeSongAttribute()
+    {
+        return gmdate("i:s", $this->attributes['durations']);
+    }
+
     public function playLists()
     {
         return $this->belongsToMany(Playlist::class, self::PIVOT_TABLE_PLAYLIST);

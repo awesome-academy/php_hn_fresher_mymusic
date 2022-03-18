@@ -95,5 +95,9 @@
     "song" : "song",
     "moreby" : "More by",
     "choose_author": "Choose author first",
-    "user_search_placeholder": "Authors, albums or songs"
+    "user_search_placeholder": "Authors, albums or songs",
+    "create_playlist" : "Create new playlist",
+    "playlist_name" : "Playlist Name",
+    "admin_page" : "Trang quản trị",
+    "your_playlist" : "Your Playlist"
 }

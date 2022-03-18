@@ -3,6 +3,7 @@ import { slick } from "./slick";
 import ajax from "./ajax";
 //Call slide function
 slick();
+ajax.sidebar.getPlaylist();
 //Call handleEvent for play music
 musicPlayer.handleEvents();
 //Call handle url history function to navigation
@@ -18,4 +19,10 @@ $(document).on("click", ".album", function (event) {
 });
 $(document).on("click", ".author", function (event) {
     ajax.main.authorpage(this.getAttribute("data-id"));
+});
+$(document).on("click", ".author", function (event) {
+    ajax.main.authorpage(this.getAttribute("data-id"));
+});
+$(document).on("click", ".menu-item", function (event) {
+    ajax.main.playlistPage(this.getAttribute("data-id"));
 });
