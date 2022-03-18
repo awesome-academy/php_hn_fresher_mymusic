@@ -117,5 +117,9 @@
     "moreby" : "Xem thêm",
     "Overview" : "Tổng quan",
     "Choose": "Chọn",
-    "choose_author": "Vui lòng chọn nghệ sĩ trước"
+    "choose_author": "Vui lòng chọn nghệ sĩ trước",
+    "user_search_placeholder": "Nghệ sĩ, album hoặc bài hát",
+    "authors": "nghệ sĩ",
+    "albums": "albums",
+    "songs": "bài hát"
 }

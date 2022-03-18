@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('bower_components/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/slick-carousel/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/user_template/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title', env('APP_NAME'))</title>
     @stack('css')
 </head>

@@ -38,11 +38,6 @@ class HomeController extends Controller
         return response()->view('user.homepage', $this->loadDataForHomePage());
     }
 
-    public function showSearchPage()
-    {
-        return response()->view('user.search');
-    }
-
     public function showCategory(Request $request)
     {
         $category = $this->categoryRepo->find($request->id);
