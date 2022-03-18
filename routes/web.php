@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/homepage', [HomeController::class, 'showHomePage']);
-Route::get('/search', [HomeController::class, 'showSearchPage']);
 Route::get('/category', [HomeController::class, 'showCategory']);
 Route::get('/album', [HomeController::class, 'showAlbum']);
 Route::get('/author', [HomeController::class, 'showAuthor']);
+Route::get('/search', [SearchController::class, 'showSearchPage']);
 
 Auth::routes(['verify' => true]);
 

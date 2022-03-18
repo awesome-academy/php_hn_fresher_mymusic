@@ -94,5 +94,6 @@
     "active": "Status",
     "song" : "song",
     "moreby" : "More by",
-    "choose_author": "Choose author first"
+    "choose_author": "Choose author first",
+    "user_search_placeholder": "Authors, albums or songs"
 }
