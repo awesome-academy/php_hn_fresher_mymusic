@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\PlaylistController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\SearchController;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,10 @@ Route::get('/category', [HomeController::class, 'showCategory']);
 Route::get('/album', [HomeController::class, 'showAlbum']);
 Route::get('/author', [HomeController::class, 'showAuthor']);
 Route::get('/search', [SearchController::class, 'showSearchPage']);
+Route::prefix('playlist')->name('playlist.')->middleware(['auth','verified'])->group(function () {
+    Route::get('', [PlaylistController::class, 'showPlaylists']);
+    Route::get('/{id}', [PlaylistController::class, 'showDetailPlaylist']);
+});
 
 Auth::routes(['verify' => true]);
 

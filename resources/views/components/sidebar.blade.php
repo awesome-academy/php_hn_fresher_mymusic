@@ -20,32 +20,25 @@
         <ul class="menu pt-lg-4 pb-lg-2 c-border-bottom">
             <li class="menu-item">
                 <span class="icon"><i class="fa-solid fa-square-plus"></i></span>
-                <span class="title">{{ __('Create Playlist') }}</span>
+                <span class="title" data-toggle="modal" data-target="#create-playlist">
+                    {{ __('Create Playlist') }}
+                </span>
+                <x-user-modal x-id="create-playlist" x-title="{{ __('create_playlist') }}" x-size="md">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="name">{{ __('playlist_name') }}</label>
+                            <input id="name" class="form-control" type="text" placeholder="{{ __('playlist_name') }}">
+                        </div>
+                        <button class="btn-custom" type="submit"> {{ __('submit')}} </button>
+                    </form>
+                </x-user-modal>
             </li>
             <li class="menu-item">
                 <span class="icon"><i class="fa-solid fa-heart"></i></span>
                 <span class="title">{{ __('Liked Song') }}</span>
             </li>
         </ul>
-        <ul class="menu user-playlist mt-lg-2 pb-lg-2">
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
-            <li class="menu-item menu-item-light">
-                <span class="title">Playlist </span>
-            </li>
+        <ul id="sidebar-playlist" class="menu user-playlist mt-lg-2 pb-lg-2">
         </ul>
     </div>
 </div>
