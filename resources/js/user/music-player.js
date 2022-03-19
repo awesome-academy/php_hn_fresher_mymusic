@@ -1,3 +1,6 @@
+import ajax from "./ajax";
+import trans from "../trans";
+
 const _$ = document.querySelector.bind(document);
 const _$$ = document.querySelectorAll.bind(document);
 //Define const
@@ -14,11 +17,12 @@ const currentTime = _$(".current-time");
 const totalTime = _$(".total-time");
 const songThumbnail = _$(".music-img img");
 const nameSong = _$(".name");
-const authorName = _$(".author");
+const authorName = _$("#author");
 const nextBtn = _$(".next-btn");
 const preBtn = _$(".prev-btn");
 const replayBtn = _$(".loop-btn");
 const randomBtn = _$(".mix-btn");
+const songId = _$("#song-id");
 
 const app = {
     isPlaying: false,
@@ -42,6 +46,9 @@ const app = {
             _this.isPlaying = true;
             play.classList.add("d-none");
             pause.classList.remove("d-none");
+            $(".track[data-id=" + _this.idSongPlay + "]").addClass(
+                "track-active"
+            );
         };
         //Event pause song
         audio.onpause = function () {
@@ -118,6 +125,7 @@ const app = {
             nameSong.innerText = this.getAttribute("data-title");
             let authorArr = this.getAttribute("data-author");
             authorName.innerText = authorArr;
+            songId.value = this.getAttribute("song-id");
             audio.play();
         });
         function addEventListenerList(list, event, fn) {
@@ -125,15 +133,28 @@ const app = {
                 list[i].addEventListener(event, fn, false);
             }
         }
-        addEventListenerList(_$$(".track"), "click", function (e) {
-            audio.src = this.getAttribute("data-song");
-            songThumbnail.src = this.getAttribute("data-thumbnail");
-            nameSong.innerText = this.getAttribute("data-title");
-            let authorArr = this.getAttribute("data-author");
-            _this.idSongPlay = this.getAttribute("data-id");
-            authorName.innerText = authorArr;
-            audio.play();
-            _this.lengListSong = $('.track').length;
+        addEventListenerList(_$$(".track"), "click", async function (e) {
+            if ($(e.target).is("svg") || $(e.target).is("path")) {
+                let resp = await ajax.playlist.removePlaylist(
+                    this.getAttribute("song-id")
+                );
+                if (resp.status === 200) {
+                    toastr.success(trans.__("delete_song_success"));
+                    _$( `.playlist-song.track[song-id='${this.getAttribute("song-id")}']`).remove();
+                } else {
+                    toastr.error(trans.__("delete_song_error"));
+                }
+            } else {
+                $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
+                audio.src = this.getAttribute("data-song");
+                songThumbnail.src = this.getAttribute("data-thumbnail");
+                nameSong.innerText = this.getAttribute("data-title");
+                let authorArr = this.getAttribute("data-author");
+                _this.idSongPlay = this.getAttribute("data-id");
+                authorName.innerText = authorArr;
+                audio.play();
+                _this.lengListSong = $(".track").length;
+            }
         });
 
         //Next + Prev
@@ -155,6 +176,7 @@ const app = {
         };
 
         function nextSong() {
+            $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
             let idSongPlay = ++_this.idSongPlay;
             if (idSongPlay >= _this.lengListSong) {
                 idSongPlay = 0;
@@ -162,10 +184,11 @@ const app = {
             $(".track[data-id=" + idSongPlay + "]").click();
         }
         function prevSong() {
+            $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
             let idSongPlay = --_this.idSongPlay;
             if (idSongPlay < 0) {
                 idSongPlay = _this.lengListSong - 1;
-              }
+            }
             $(".track[data-id=" + idSongPlay + "]").click();
         }
         //Replay
@@ -179,6 +202,7 @@ const app = {
             randomBtn.classList.toggle("active", _this.isRandom);
         };
         function playRandomSong() {
+            $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
             let newIndex;
             do {
                 newIndex = Math.floor(Math.random() * _this.lengListSong);

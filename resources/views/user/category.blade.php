@@ -33,7 +33,7 @@
                                     <tbody>
                                         @forelse ($category->songs as $key => $song)
                                             <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
-                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }}
+                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id ={{ $song->id}}
                                                 data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
                                                 <td class="track__number">{{ $key + 1 }}</td>
                                                 <td class="track__art">
@@ -51,6 +51,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="track__time">
+                                                    {{$song->time_song}}
                                                 </td>
                                             </tr>
                                         @empty

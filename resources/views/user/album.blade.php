@@ -37,7 +37,7 @@
                                     <tbody>
                                         @forelse ($album->songs as $key => $song)
                                             <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
-                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }}
+                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id ={{ $song->id}}
                                                 data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
                                                 <td class="track__number">{{ $key + 1 }}</td>
                                                 <td class="track__art">
@@ -50,6 +50,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="track__time">
+                                                    {{$song->time_song}}
                                                 </td>
                                             </tr>
                                         @empty
@@ -59,19 +60,32 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="related">
+
+                        <div class="related overview__albums">
                             <div class="section-title">{{__('moreby')}} {{$album->author->name}}</div>
-                            <x-list class-name="albums" list-title="" heading-class="mt-5">
-                                @forelse ($relatedAlbum as $album)
-                                    <x-card card-class="album" :card-name="$album->title" :description="$album->description" :data-id="$album->id">
-                                        @if ($album->songs->count())
-                                            <img src="{{asset($album->songs->first()->thumbnail)}}" alt="burn-out">
-                                        @endif
-                                    </x-card>
-                                @empty
-                                    <p> {{ __('no_data') }}</p>
-                                @endforelse
-                            </x-list>
+                            @forelse ($relatedAlbum as $album)
+                                <div class="album-item">
+                                    <div class="album__info">
+                                        <div class="album__info__art">
+                                            @if ($album->songs->count())
+                                                <img src="{{ asset($album->songs->first()->thumbnail) }}"
+                                                    alt="burn-out">
+                                            @endif
+                                        </div>
+                                        <div class="album__info__meta">
+                                            <div class="album__year">{{ $album->songs->count() }}
+                                                {{ __('songs') }}</div>
+                                            <div class="album__name">{{ $album->title }}</div>
+                                            <div class="album__actions">
+                                                <button data-id="{{ $album->id }}"
+                                                    class="album button-light save">{{ __('view') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <p> {{ __('no_data') }}</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,10 @@
                     <div class="info__type">{{ __('your_playlist') }}</div>
                     <div class="info__name">{{ $playlist->name }}</div>
                     <div class="info__description">{{ $playlist->user->full_name }}</div>
+                    <div class="d-inline delete-playlist">
+                        <input class="playlist-id" type="hidden" value="{{$playlist->id}}">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,12 +32,13 @@
                                             <td>{{ __('song_name') }}</td>
                                             <td>{{ __('album_title') }}</td>
                                             <td><i class="fa-solid fa-clock"></i></td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($playlist->songs as $key => $song)
-                                            <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
-                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }}
+                                            <tr class="playlist-song track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
+                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id = {{$song->id}}
                                                 data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
                                                 <td class="track__number">{{ $key + 1 }}</td>
                                                 <td class="track__art">
@@ -54,6 +59,11 @@
                                                 </td>
                                                 <td class="track__time">
                                                     {{$song->time_song}}
+                                                </td>
+                                                <td>
+                                                    <span class="d-inline remove-song">
+                                                        <i class="fa-solid fa-xmark"></i>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         @empty
