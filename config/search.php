@@ -16,4 +16,9 @@ return [
         '#e13300',
         '#bc8f8f',
     ],
+    'randomNumber' => [
+        'authors' => 12,
+        'songs' => 12,
+        'albums' => 12,
+    ],
 ];

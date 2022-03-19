@@ -22,7 +22,7 @@
   border-top-right-radius: 20px;
   border: 1px solid var(--light);
   background-color: var(--light);
-  padding-right: 16px;
+  padding: .375rem .75rem !important;
 }
 
 .search-container .c-btn path {

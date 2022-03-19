@@ -98,6 +98,10 @@
     "user_search_placeholder": "Authors, albums or songs",
     "create_playlist" : "Create new playlist",
     "playlist_name" : "Playlist Name",
-    "admin_page" : "Trang quản trị",
-    "your_playlist" : "Your Playlist"
+    "admin_page" : "Admin manager",
+    "your_playlist" : "Your Playlist",
+    "add_to_playlist" : "Add song to your playlist",
+    "exits_song" : "The song is already in this playlist",
+    "add_song_success" : "Add song success to playlist",
+    "delete_song_error" : "Have error when delete song from playlist"
 }

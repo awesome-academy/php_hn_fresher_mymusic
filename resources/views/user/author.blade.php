@@ -58,16 +58,18 @@
                                                     </div>
                                                 </td>
                                                 <td class="track__album">
-                                                    <span class="a-album" data-id="{{ $song->album->id }}">
-                                                        {{ $song->album->title }}
-                                                    </span>
+                                                    @if ($song->album)
+                                                        <span class="a-album" data-id="{{ $song->album->id }}">
+                                                            {{ $song->album->title }}
+                                                        </span>
+                                                    @endif
                                                 </td>
                                                 <td class="track__time">
                                                     {{$song->time_song}}
                                                 </td>
                                             </tr>
                                         @empty
-                                            <td> {{ __('no_data') }}</td>
+                                            <td colspan="4"> {{ __('no_data') }}</td>
                                         @endforelse
                                     </tbody>
                                 </table>

@@ -45,7 +45,7 @@ class Helpers
         return 'storage/' . self::STORE_SONG_DRIVER . '/' . $path;
     }
 
-    public function randomSearchBgColor()
+    public static function randomColor()
     {
         $colors = config('search.bgColor');
 

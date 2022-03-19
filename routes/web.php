@@ -52,7 +52,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
     });
 });
 
-Route::middleware(['auth', 'auth.admin'])->prefix('api')->name('api.')->group(function () {
+Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {
     Route::get('get-albums-of-authors', [AlbumController::class, 'getAlbumsOfAuthors'])
-        ->name('getAlbumsOfAuthors');
+        ->name('getAlbumsOfAuthors')
+        ->middleware('auth.admin');
+
+    Route::get('search', [SearchController::class, 'search'])->name('user.search');
 });

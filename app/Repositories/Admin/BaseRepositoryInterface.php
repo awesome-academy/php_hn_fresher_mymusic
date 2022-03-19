@@ -30,4 +30,10 @@ interface BaseRepositoryInterface
 
     // Get records by where in
     public function getRecordByWhereIn(string $condition, array $attributes);
+
+    // Get random records
+    public function getRandomRecords(int $limitSongNumber, array $relations = []);
+
+    // Find by where like
+    public function findByWhereLike(array $where, array $relations = []);
 }

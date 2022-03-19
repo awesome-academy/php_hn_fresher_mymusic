@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Admin;
 
+use App\Helpers\Helpers;
+use Illuminate\Support\Str;
+
 abstract class BaseRepository implements BaseRepositoryInterface
 {
     protected $model;
@@ -67,5 +70,37 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function getRecordByWhereIn(string $condition, array $attributes)
     {
         return $this->model->whereIn($condition, $attributes)->get();
+    }
+
+    public function getRandomRecords(int $limitSongNumber, array $relations = [])
+    {
+        $records = $this->model
+            ->with($relations)
+            ->inRandomOrder()
+            ->limit($limitSongNumber)
+            ->get();
+
+        $records->each(function ($record) {
+            $record->rand_color = Helpers::randomColor();
+        });
+
+        return $records;
+    }
+
+    public function findByWhereLike(array $where, array $relations = [])
+    {
+        $builder = $this->model;
+        foreach ($where as $key => $condition) {
+            $query = 'UPPER('. $condition[0] . ') LIKE \'%' . Str::upper($condition[1]) .'%\'';
+            $builder = $builder->whereRaw($query);
+        }
+
+        $records = $builder->with($relations)->get();
+
+        $records->each(function ($record) {
+            $record->rand_color = Helpers::randomColor();
+        });
+
+        return $records;
     }
 }
