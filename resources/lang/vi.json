@@ -125,5 +125,9 @@
     "create_playlist" : "Tạo mới Playlist",
     "playlist_name" : "Tên Playlist",
     "admin_page" : "Trang quản trị",
-    "your_playlist" : "Playlist của bạn"
+    "your_playlist" : "Playlist của bạn",
+    "add_to_playlist" : "Thêm bài hát vào danh sách phát của bạn",
+    "exits_song" : "Bài hát đã có sẵn trong playlist",
+    "add_song_success" : "Thêm bài hát thành công",
+    "delete_song_error" : "Không thể xóa bài hát khỏi playlist"
 }

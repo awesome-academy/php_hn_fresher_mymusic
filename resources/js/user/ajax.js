@@ -29,7 +29,7 @@ const main = {
         $("#search-button").addClass("c-active");
         uri.updateQueryStringParameter({ key: "", value: "search" });
         main.render(resp.data);
-        slick();
+        musicPlayer.handleEvents();
     },
     categorypage: async function (id) {
         let resp = await axios.get("/category?id=" + id);
@@ -192,9 +192,74 @@ const playlist = {
     },
 };
 
+const search = {
+    formEl: '#search-form',
+    inputEl: '#search-form .c-form-control',
+    authorsBox: '.search-container .authors-box .search-result-box',
+    songsBox: '.search-container .songs-box .search-result-box',
+    albumsBox: '.search-container .albums-box .search-result-box',
+    search: async function () {
+        let res = await axios.get('/api/search', { value: _$(this.inputEl).value });
+        this.render.songs(res.data.songs);
+        this.render.albums(res.data.albums);
+        this.render.authors(res.data.authors);
+        musicPlayer.handleEvents();
+    },
+    render: {
+        authors: function (authors) {
+            let html = '';
+            authors.forEach(author => {
+                html += `
+                    <div class="search-result-item author" style="background-color: ${author.rand_color}" data-id="${author.id}">
+                        <h5> ${author.name} </h5>
+                        <img src="${author.thumbnail}">
+                    </div>`
+            });
+            _$(search.authorsBox).innerHTML = html;
+        },
+        albums: function (albums) {
+            let html = '';
+            albums.forEach(album => {
+                if (album.songs && album.songs.length > 0) {
+                    html += `
+                        <div class="search-result-item album" style="background-color: ${album.rand_color}" data-id="${album.id}">
+                            <h5 class="mb-1"> ${album.title} </h5>
+                            <small class="d-inline-block px-2"> ${album.author.name} </small>
+                            <img src="${album.songs[0].thumbnail}">
+                        </div>
+                    `;
+                }
+            });
+            _$(search.albumsBox).innerHTML = html;
+        },
+        songs: function (songs) {
+            let html = '';
+            songs.forEach((song, key) => {
+                let dataAuthor = '';
+                if (song.authors && song.authors.length > 0) {
+                    dataAuthor = song.authors.map(author => {
+                        return author.name;
+                    }).join(', ');
+                }
+                html += `
+                    <div class="search-result-item song" style="background-color: ${song.rand_color}"
+                        data-song="${song.path}" data-title="${song.name}" data-thumbnail="${song.thumbnail}"
+                        data-id="${key}" data-author="${dataAuthor}">
+                        <h5 class="mb-1"> ${song.name} </h5>
+                        <small class="d-inline-block px-2">${dataAuthor}</small>
+                        <img src="${song.thumbnail}">
+                    </div>
+                `;
+            });
+            _$(search.songsBox).innerHTML = html;
+        }
+    }
+};
+
 export default {
     sidebar,
     main,
     uri,
     playlist,
+    search,
 };
