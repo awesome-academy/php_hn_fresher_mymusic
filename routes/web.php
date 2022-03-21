@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
     Route::get('/homepage', 'showHomePage');
     Route::get('/category', 'showCategory');
     Route::get('/album', 'showAlbum');
@@ -45,6 +45,9 @@ Route::prefix('account')->name('user.account.')->middleware('auth')->group(funct
     Route::get('/', [AccountController::class, 'show'])->name('show');
     Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
     Route::get('/password', [AccountController::class, 'changePassword'])->name('changePassword');
+    Route::match(['PUT', 'PATCH'], '/update', [AccountController::class, 'update'])->name('update');
+    Route::match(['PUT', 'PATCH'], '/password/change', [AccountController::class, 'updatePassword'])
+        ->name('updatePassword');
 });
 
 Auth::routes(['verify' => true]);

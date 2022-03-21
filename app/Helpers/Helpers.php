@@ -10,11 +10,12 @@ class Helpers
 {
     const USER_FILESYSTEM_DRIVER = 'user';
     const STORE_SONG_DRIVER = 'song';
+    const DEFAULT_AVATAR_PATH = 'assets/img/default-avatar.png';
 
     public static function storeUserAvatar($file)
     {
         if (!$file) {
-            return 'assets/img/default-avatar.png';
+            return self::DEFAULT_AVATAR_PATH;
         }
 
         $fileName = $file->getClientOriginalName();
@@ -50,5 +51,16 @@ class Helpers
         $colors = config('search.bgColor');
 
         return $colors[rand(0, count($colors) - 1)];
+    }
+
+    public static function removeUserAvatar($path)
+    {
+        if (strcmp($path, self::DEFAULT_AVATAR_PATH) == 0) {
+            return true;
+        }
+
+        $path = str_replace('storage', 'public', $path);
+
+        return Storage::delete($path);
     }
 }

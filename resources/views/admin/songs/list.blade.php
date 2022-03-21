@@ -75,6 +75,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $songs->links() }}
                     </div>
                 </div>
             </div>

@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title', env('APP_NAME'))</title>
     @stack('css')
@@ -30,11 +31,25 @@
         @yield('content')
     </div>
 
+    <script>
+        window.translations = {!! $translation !!};
+        window.translationJsons = {!! $translationJson !!};
+    </script>
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
-    <script src="{{ asset('bower_components/toast/dist/toast.min.js') }}"></script>
+    <script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ session('success') }}")
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script>
+            toastr.error("{{ session('error') }}")
+        </script>
+    @endif
     @stack('js')
 
 </body>
