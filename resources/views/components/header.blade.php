@@ -33,7 +33,7 @@
                     <span><i class="fa-solid fa-caret-down"></i></span>
                 </div>
                 <div class="user-dropdown-list header-dropdown">
-                    <a href="#">{{ __('Profile') }}<span></span></a>
+                    <a href="{{ route('user.account.show') }}">{{ __('Profile') }}<span></span></a>
                     @if(Auth::user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}">{{ __('admin_page')}}</span></a>
                     @endif

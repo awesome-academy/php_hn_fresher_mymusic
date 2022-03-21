@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
+use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,12 @@ Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->
 });
 
 Route::get('/search', [SearchController::class, 'showSearchPage']);
+
+Route::prefix('account')->name('user.account.')->middleware('auth')->group(function () {
+    Route::get('/', [AccountController::class, 'show'])->name('show');
+    Route::get('/edit', [AccountController::class, 'edit'])->name('edit');
+    Route::get('/password', [AccountController::class, 'changePassword'])->name('changePassword');
+});
 
 Auth::routes(['verify' => true]);
 Route::get('language/{language}', [LangController::class, 'changeLanguage'])->name('language');
