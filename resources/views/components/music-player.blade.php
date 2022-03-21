@@ -7,15 +7,20 @@
             </div>
             <div class="music-information">
                 <span class="name"></span>
-                <small class="author"></small>
+                <small id="author"></small>
+                <input id="song-id" type="hidden" value="">
             </div>
         </div>
         <div class="music-action-box">
             <div class="add-to-favorite" title="{{ __('like') }}">
-                <span class="fav"><i class="fa-solid fa-heart"></i></span>
+                <span class="fav">
+                    <i class="fa-solid fa-heart"></i>
+                </span>
             </div>
             <div class="add-to-playlist" title="{{ __('addToPlaylist') }}">
-                <span><i class="fa-solid fa-plus"></i></span>
+                <span data-toggle="modal" data-target="#add-playlist">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
             </div>
         </div>
     </div>
@@ -68,3 +73,16 @@
         </div>
     </div>
 </div>
+
+<x-user-modal x-id="add-playlist" x-title="{{ __('add_to_playlist') }}" x-size="md">
+    <form id="add-playlist" method="post">
+        @csrf
+        <div class="form-group">
+            <input type="hidden" value="" name="song_id" id="song-id-select">
+            <label for="name">{{ __('playlist_name') }}</label>
+            <select name="playlist_id" id="select-playlist" class="form-select" aria-label="" required>
+            </select>
+        </div>
+        <button class="btn-add btn-custom" type="submit"> {{ __('submit')}} </button>
+    </form>
+ </x-user-modal>

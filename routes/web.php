@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,16 +23,21 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/homepage', [HomeController::class, 'showHomePage']);
-Route::get('/category', [HomeController::class, 'showCategory']);
-Route::get('/album', [HomeController::class, 'showAlbum']);
-Route::get('/author', [HomeController::class, 'showAuthor']);
-Route::get('/search', [SearchController::class, 'showSearchPage']);
-Route::prefix('playlist')->name('playlist.')->middleware(['auth','verified'])->group(function () {
-    Route::get('', [PlaylistController::class, 'showPlaylists']);
-    Route::get('/{id}', [PlaylistController::class, 'showDetailPlaylist']);
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/homepage', 'showHomePage');
+    Route::get('/category', 'showCategory');
+    Route::get('/album', 'showAlbum');
+    Route::get('/author', 'showAuthor');
 });
+
+Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::resource('playlist', PlaylistController::class)->except(['create', 'edit']);
+    Route::post('playlist/add-song/', 'addSongToPlaylist');
+    Route::delete('playlist/remove-song', 'removeSongFromPlaylist');
+});
+
+Route::get('/search', [SearchController::class, 'showSearchPage']);
 
 Auth::routes(['verify' => true]);
 

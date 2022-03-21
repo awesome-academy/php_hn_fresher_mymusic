@@ -11,4 +11,21 @@ class PlaylistRepository extends BaseRepository implements PlaylistRepoInterface
     {
         return Playlist::class;
     }
+
+    public function addSongToPlaylist($playlistId, $songId)
+    {
+        return $this->find($playlistId)->songs()->syncWithoutDetaching($songId);
+    }
+
+    public function removeSongFromPlaylist($playlistId, $songId)
+    {
+        return $this->find($playlistId)->songs()->detach($songId);
+    }
+
+    public function deletePlaylist($playlistId)
+    {
+        $playlist = $this->find($playlistId);
+        $playlist->songs()->sync([]);
+        return $this->delete($playlistId);
+    }
 }

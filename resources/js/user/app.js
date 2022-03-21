@@ -23,6 +23,24 @@ $(document).on("click", ".author", function (event) {
 $(document).on("click", ".author", function (event) {
     ajax.main.authorpage(this.getAttribute("data-id"));
 });
-$(document).on("click", ".menu-item", function (event) {
+$(document).on("click", ".user-playlist .menu-item", function (event) {
     ajax.main.playlistPage(this.getAttribute("data-id"));
+});
+$(document).on("click", "#create-playlist .btn-create", async function (event) {
+    event.preventDefault();
+    await ajax.playlist.createPlaylist();
+});
+
+$(document).on("click", ".add-to-playlist", async function () {
+    await ajax.playlist.getPlaylistSelect();
+});
+
+$(document).on("click", ".btn-add", async function () {
+    $("#song-id-select").val($("#song-id").val());
+    event.preventDefault();
+    await ajax.playlist.addToPlaylist();
+});
+
+$(document).on("click", ".delete-playlist", async function () {
+    await ajax.playlist.deletePlaylist();
 });

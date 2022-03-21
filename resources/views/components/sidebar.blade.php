@@ -24,12 +24,13 @@
                     {{ __('Create Playlist') }}
                 </span>
                 <x-user-modal x-id="create-playlist" x-title="{{ __('create_playlist') }}" x-size="md">
-                    <form action="">
+                    <form id="create-playlist" method="post">
+                        @csrf
                         <div class="form-group">
                             <label for="name">{{ __('playlist_name') }}</label>
-                            <input id="name" class="form-control" type="text" placeholder="{{ __('playlist_name') }}">
+                            <input name="name" id="name" class="form-control" type="text" placeholder="{{ __('playlist_name') }}" required>
                         </div>
-                        <button class="btn-custom" type="submit"> {{ __('submit')}} </button>
+                        <button class="btn-create btn-custom" type="submit"> {{ __('submit')}} </button>
                     </form>
                 </x-user-modal>
             </li>
