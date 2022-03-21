@@ -141,5 +141,11 @@
     "delete_playlist_error" : "Có lỗi xảy ra, không thể xóa playlist !!",
     "create_playlist_success" : "Tạo mới playlist thành công",
     "create_playlist_error" : "Có lỗi xảy ra, không thể tạo mới playlist !!",
-    "confirm_delete_playlist" : "Bạn có chắc chắn muốn xóa playlist này không ?"
+    "confirm_delete_playlist" : "Bạn có chắc chắn muốn xóa playlist này không ?",
+    "Edit profile": "Thay đổi thông tin cá nhân",
+    "Change password": "Thay đổi mật khẩu",
+    "Exit": "Thoát",
+    "Current password": "Mật khẩu hiện tại",
+    "New password": "Mật khẩu mới",
+    "Password confirmation": "Xác nhận lại mật khẩu"
 }

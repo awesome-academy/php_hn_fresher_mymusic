@@ -43,3 +43,58 @@ img {
   width: 84px;
   height: 84px;
 }
+
+.account-container .user-avt {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 24px 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.account-container .menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  padding-top: 8px;
+  border-top: 1px solid var(--gray);
+}
+
+.account-container .account-sidebar {
+  height: calc(100vh - 121px);
+  box-shadow: 4px 0px 4px -4px var(--dark);
+}
+
+.account-container .menu a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 24px;
+  padding: 8px 16px;
+  display: inline-block;
+  transition: all .2s ease-in-out;
+  background-color: transparent;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.account-container .menu a:hover {
+  color: var(--fav);
+  background-color: rgba(0, 0, 0, .01);
+}
+
+.account-container .account-content {
+  height: calc(100vh - 121px);
+  overflow-y: scroll;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.c-active {
+  color: var(--fav) !important;
+}
