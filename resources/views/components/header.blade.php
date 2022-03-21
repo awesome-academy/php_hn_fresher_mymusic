@@ -8,8 +8,8 @@
             <span class="mx-2">{{ __('Language') }}</span>
             <span><i class="fa-solid fa-caret-down"></i></span>
             <div class="lang-list header-dropdown">
-                <a href="#">{{ __('Vietnamese') }}</a>
-                <a href="#">{{ __('English') }}</a>
+                <a href="{{ route('language', ['vi']) }}">{{ __('Vietnamese') }}</a>
+                <a href="{{ route('language', ['en']) }}">{{ __('English') }}</a>
             </div>
         </div>
         @guest

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
 use App\Http\Controllers\User\SearchController;
@@ -40,6 +41,7 @@ Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->
 Route::get('/search', [SearchController::class, 'showSearchPage']);
 
 Auth::routes(['verify' => true]);
+Route::get('language/{language}', [LangController::class, 'changeLanguage'])->name('language');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'showDashdoardScreen'])->name('dashboard');

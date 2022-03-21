@@ -139,10 +139,10 @@ const app = {
                     this.getAttribute("song-id")
                 );
                 if (resp.status === 200) {
-                    toastr.success(trans.__("delete_song_success"));
+                    toastr.success(trans.__('delete_song_success'));
                     _$( `.playlist-song.track[song-id='${this.getAttribute("song-id")}']`).remove();
                 } else {
-                    toastr.error(trans.__("delete_song_error"));
+                    toastr.error(trans.__('delete_song_error'));
                 }
             } else {
                 $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
