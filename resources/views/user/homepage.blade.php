@@ -14,6 +14,7 @@
         @forelse ($songs as $song)
             <x-card card-class="song" :card-name="$song->name" :description="implode(', ',$song->authors->pluck('name')->toArray())"
                 :data-song="$song->path" :data-title="$song->name"
+                data-fav="{{ in_array('favorite', $song->playLists->pluck('name')->toArray()) }}"
                 :data-thumbnail="$song->thumbnail" :song-id="$song->id"
                 :data-author="implode(', ',$song->authors->pluck('name')->toArray())">
                 <img src="{{ asset($song->thumbnail) }}" alt="burn-out">

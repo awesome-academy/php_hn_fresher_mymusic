@@ -1,11 +1,14 @@
 import musicPlayer from "./music-player";
 import { slick } from "./slick";
 import ajax from "./ajax";
+import trans from "../trans"
 
 //Call slide function
 slick();
 
 ajax.sidebar.getPlaylist();
+
+ajax.sidebar.getFavoritePlaylist();
 
 //Call handleEvent for play music
 musicPlayer.handleEvents();
@@ -34,9 +37,25 @@ $(document).on("click", ".user-playlist .menu-item", function (event) {
     ajax.main.playlistPage(this.getAttribute("data-id"));
 });
 
+$(document).on("click", ".favorite", function (event) {
+    ajax.main.playlistPage(this.getAttribute("data-id"));
+    ajax.sidebar.unactiveMenuItems();
+    this.classList.add("c-active");
+});
+
 $(document).on("click", "#create-playlist .btn-create", async function (event) {
     event.preventDefault();
     await ajax.playlist.createPlaylist();
+});
+
+$(document).on("click", ".unlike", async function () {
+    $("#song-id-select").val($("#song-id").val());
+    await ajax.playlist.addToFavorite();
+});
+
+$(document).on("click", ".liked", async function () {
+    $("#song-id-select").val($("#song-id").val());
+    await ajax.playlist.removeFromFavorite();
 });
 
 $(document).on("click", ".add-to-playlist", async function () {
@@ -50,7 +69,8 @@ $(document).on("click", ".btn-add", async function () {
 });
 
 $(document).on("click", ".delete-playlist", async function () {
-    await ajax.playlist.deletePlaylist();
+    if(confirm(trans.__('confirm_delete_playlist')))
+        await ajax.playlist.deletePlaylist();
 });
 
 $(document).on('submit', ajax.search.formEl, function (e) {

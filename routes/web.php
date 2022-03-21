@@ -36,7 +36,8 @@ Route::controller(HomeController::class)->group(function () {
 Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::resource('playlist', PlaylistController::class)->except(['create', 'edit']);
     Route::post('playlist/add-song/', 'addSongToPlaylist');
-    Route::delete('playlist/remove-song', 'removeSongFromPlaylist');
+    Route::post('playlist/remove-song', 'removeSongFromPlaylist');
+    Route::get('/favorite', 'getFavoritePlaylist');
 });
 
 Route::get('/search', [SearchController::class, 'showSearchPage']);

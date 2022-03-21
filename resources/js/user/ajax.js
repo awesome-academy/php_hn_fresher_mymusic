@@ -120,6 +120,10 @@ const sidebar = {
             $("#homepage-button").addClass("c-active");
         }
     },
+    getFavoritePlaylist : async function(){
+        let resp = await axios.get("/favorite");
+        _$('.favorite').setAttribute("data-id",resp.data.favorite.id);
+    }
 };
 
 const uri = {
@@ -159,7 +163,7 @@ const playlist = {
         resp.status = 200
             ? toastr.success(trans.__("create_playlist_success"))
             : toastr.success(trans.__("create_playlist_error"));
-        this.renderPlaylist(res.data.playlist);
+        this.renderPlaylist(resp.data.playlist);
         _$(".close").click();
     },
     addToPlaylist: async function () {
@@ -172,6 +176,18 @@ const playlist = {
             : toastr.success(trans.__("add_song_success"));
 
         _$("#add-playlist .close").click();
+    },
+    addToFavorite : async function(){
+        let favoriteId = _$('.favorite').getAttribute('data-id');
+        let resp = await axios.post("/playlist/add-song", {
+            playlist_id: favoriteId,
+            song_id: this.songId.value,
+        });
+        if(!resp.data.song.attached.length == 0){
+            $('.fav-btn').addClass('liked');
+            $('.fav-btn').removeClass('unlike');
+            toastr.success(trans.__("add_song_success"));
+        }
     },
     deletePlaylist: async function () {
         let playlistId = _$(".playlist-id").value;
@@ -187,11 +203,24 @@ const playlist = {
         this.renderPlaylistSelect(resp.data.playlists);
     },
     removePlaylist: async function (songId) {
+        let playlistId = _$(".playlist-id").value;
         let resp = await axios.post("/playlist/remove-song", {
-            playlist_id: $(".playlist-id").value,
+            playlist_id: playlistId,
             song_id: songId,
         });
         return resp;
+    },
+    removeFromFavorite : async function(){
+        let favoriteId = _$('.favorite').getAttribute('data-id');
+        let resp = await axios.post("/playlist/remove-song", {
+            playlist_id: favoriteId,
+            song_id: this.songId.value,
+        });
+        if(resp.status == 200){
+            $('.fav-btn').addClass('unlike');
+            $('.fav-btn').removeClass('liked');
+            toastr.success(trans.__("delete_song_success"));
+        }
     },
 };
 
