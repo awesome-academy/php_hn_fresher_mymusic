@@ -67,7 +67,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <td> {{ __('no_data') }}</td>
+                                            <tr> <td colspan="4"> {{ __('no_data') }}</td></tr>
                                         @endforelse
                                     </tbody>
                                 </table>

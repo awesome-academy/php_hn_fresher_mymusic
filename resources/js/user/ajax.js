@@ -155,7 +155,10 @@ const playlist = {
         this.select.innerHTML = r;
     },
     createPlaylist: async function () {
-        let res = await axios.post("/playlist", { name: this.name.value });
+        let resp = await axios.post("/playlist", { name: this.name.value });
+        resp.status = 200
+            ? toastr.success(trans.__("create_playlist_success"))
+            : toastr.success(trans.__("create_playlist_error"));
         this.renderPlaylist(res.data.playlist);
         _$(".close").click();
     },
@@ -174,8 +177,8 @@ const playlist = {
         let playlistId = _$(".playlist-id").value;
         let resp = await axios.delete("/playlist/" + playlistId);
         resp.status === 200
-            ? toastr.success(trans.__("delete_playlist_success"))
-            : toastr.success(trans.__("delete_playlist_success"));
+            ? toastr.success(trans.__('delete_playlist_success'))
+            : toastr.success(trans.__('delete_playlist_error'));
         $("#homepage-button").click();
         $(`#sidebar-playlist .menu-item[data-id='${playlistId}']`).remove();
     },

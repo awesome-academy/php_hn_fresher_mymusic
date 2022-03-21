@@ -40,16 +40,16 @@
                 {{-- i18n Dropdown Items --}}
                 <ul class="dropdown-menu dropdown-menu-end i18n" style="min-width: 6rem;">
                     <li>
-                        <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
-                            <span> VIE </span>
+                        <a href="{{ route('language', ['vi']) }}" class="dropdown-item d-flex align-items-center justify-content-center">
+                            <span> {{ __('Vietnamese') }} </span>
                         </a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
-                            <span> ENG </span>
+                        <a href="{{ route('language', ['en']) }}" class="dropdown-item d-flex align-items-center justify-content-center">
+                            <span> {{ __('English') }} </span>
                         </a>
                     </li>
                 </ul>

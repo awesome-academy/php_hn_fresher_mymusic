@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('authors', 'show')
-@section('title', __('List Author'))
+@section('title', __('list_authors'))
 @section('content')
     <div class="pagetitle">
-        <h1>{{ __('List Author') }}</h1>
-        <x-breadcrumb :items="['Author','List Author']"> </x-breadcrumb>
+        <h1>{{ __('list_authors') }}</h1>
+        <x-breadcrumb :items="['Author','list_authors']"> </x-breadcrumb>
     </div>
     <section class="section">
         <div class="row">

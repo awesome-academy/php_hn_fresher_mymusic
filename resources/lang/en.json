@@ -98,10 +98,18 @@
     "user_search_placeholder": "Authors, albums or songs",
     "create_playlist" : "Create new playlist",
     "playlist_name" : "Playlist Name",
-    "admin_page" : "Admin manager",
-    "your_playlist" : "Your Playlist",
     "add_to_playlist" : "Add song to your playlist",
     "exits_song" : "The song is already in this playlist",
     "add_song_success" : "Add song success to playlist",
-    "delete_song_error" : "Have error when delete song from playlist"
+    "delete_song_error" : "Have error when delete song from playlist",
+    "admin_page" : "Admin Page",
+    "your_playlist" : "Your Playlist",
+    "hot_song" : "Hot Song",
+    "author" : "Author/Artist",
+    "view" : "View",
+    "delete_playlist_success" : "Delete playlist success !!",
+    "delete_playlist_error" : "Have error , can't delete playlist !!",
+    "create_playlist_success" : "Create new playlist success !!",
+    "create_playlist_error" : "Have error , can't create playlist !!",
+    "confirm_delete_playlist" : "Are you sure about delete this playlist ?"
 }
