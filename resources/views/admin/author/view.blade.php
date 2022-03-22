@@ -63,7 +63,7 @@
                                         <img src="{{ asset($song->thumbnail) }}" alt="">
                                     </td>
                                     <td>{{ $song->description}}</td>
-                                    <td>{{ $song->album}}</td>
+                                    <td>@if($song->album){{ $song->album->title }} @endif</td>
                                     <td>{{ $song->created_at}}</td>
                                     <td>{{ $song->updated_at}}</td>
                                     <td>

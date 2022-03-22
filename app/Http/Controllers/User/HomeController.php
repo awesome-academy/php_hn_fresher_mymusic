@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Admin\Album\AlbumRepoInterface;
 use App\Repositories\Admin\Author\AuthorRepoInterface;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
+use App\Repositories\Admin\Playlist\PlaylistRepoInterface;
 use App\Repositories\Admin\Song\SongRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -15,17 +16,20 @@ class HomeController extends Controller
     protected $categoryRepo;
     protected $albumRepo;
     protected $authorRepo;
+    protected $playlistRepo;
 
     public function __construct(
         SongRepositoryInterface $songRepo,
         CategoryRepositoryInterface $categoryRepo,
         AlbumRepoInterface $albumRepo,
-        AuthorRepoInterface $authorRepo
+        AuthorRepoInterface $authorRepo,
+        PlaylistRepoInterface $playlistRepo
     ) {
         $this->songRepo = $songRepo;
         $this->categoryRepo = $categoryRepo;
         $this->albumRepo = $albumRepo;
         $this->authorRepo = $authorRepo;
+        $this->playlistRepo = $playlistRepo;
     }
 
     public function index()
@@ -42,7 +46,9 @@ class HomeController extends Controller
     {
         $category = $this->categoryRepo->find($request->id);
 
-        return response()->view('user.category', compact('category'));
+        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+
+        return response()->view('user.category', compact('category', 'favorite'));
     }
 
     public function showAlbum(Request $request)
@@ -54,7 +60,9 @@ class HomeController extends Controller
             ['id', '<>', $request->id],
         ]);
 
-        return response()->view('user.album', compact('album', 'relatedAlbum'));
+        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+
+        return response()->view('user.album', compact('album', 'relatedAlbum', 'favorite'));
     }
 
     public function showAuthor(Request $request)
@@ -63,7 +71,9 @@ class HomeController extends Controller
 
         $albums = $this->albumRepo->findByWhere([['author_id', $request->id]]);
 
-        return response()->view('user.author', compact('author', 'albums'));
+        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+
+        return response()->view('user.author', compact('author', 'albums', 'favorite'));
     }
 
     public function loadDataForHomePage()
@@ -76,11 +86,13 @@ class HomeController extends Controller
 
         $albums = $this->albumRepo->getAllAlbumWithSong();
 
+        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
         return [
             'songs' => $songs,
             'categories' => $categories,
             'authors' => $authors,
             'albums' => $albums,
+            'favorite' => $favorite,
         ];
     }
 }

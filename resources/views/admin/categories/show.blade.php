@@ -42,6 +42,11 @@
                 </div>
                 <div class="card">
                     <h4 class="p-3">{{ __('song_list_of_category') }}</h4>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#add-song-to-category">
+                        <span> {{ __('add_music_to_album')}}</span>
+
+                        <i class="fa-solid fa-music"></i>
+                    </a>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -65,19 +70,24 @@
                                             <img src="{{ asset($song->thumbnail) }}" alt="">
                                         </td>
                                         <td>{{ $song->description }}</td>
-                                        <td>{{ $song->album }}</td>
+                                        <td>@if($song->album){{ $song->album->title }} @endif</td>
                                         <td>{{ $song->created_at }}</td>
                                         <td>{{ $song->updated_at }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('admin.songs.show',$song->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('admin.songs.edit',$song->id) }}" class="btn btn-sm btn-warning">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-danger">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
+                                            <form action="{{ route('admin.categories.removeSong') }}"  method="post">
+                                                @csrf
+                                                <input type="hidden" name="song_id" value="{{ $song->id }}">
+                                                <input type="hidden" name="category_id" value="{{ $category->id }}">
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
@@ -92,4 +102,28 @@
             </div>
         </div>
     </section>
+    <x-modal x-id="add-song-to-category" x-title="{{ __('add_music_to_album') }}" x-size="lg">
+        <form action="{{ route('admin.categories.addSong') }}" method="post">
+            @csrf
+            <div class="form-group col-lg-12">
+                <label for="song-album"> {{ __('song_album') }} </label>
+                <input type="hidden" value="{{ $category->id }}" name="category_id">
+                <div class="c-select2">
+                    <select class="song-album-select2 form-control" id="song-album" name="song_id[]" multiple="multiple" >
+                        @foreach ($songs as $song)
+                            @if($song->categories )
+                                {{-- <option value="{{ $song->id }}"> {{ $song->name }} </option> --}}
+                                <option value="{{ $song->id }}"> {{ $song->name }} </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <div class="pr-1"></div>
+                    <a href="{{ route('admin.songs.create') }}" class="btn btn-primary"><i class="bi bi-plus"></i></a>
+
+                </div>
+                <small class="text-danger"> {{ $errors->first('album_id') ?? '' }} </small>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </x-modal>
 @endsection

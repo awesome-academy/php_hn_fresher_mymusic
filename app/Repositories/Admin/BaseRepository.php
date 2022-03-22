@@ -46,6 +46,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->where($where)->orderBy($orderBy, $order)->get();
     }
 
+    public function whereNotIn(string $condition, array $attributes)
+    {
+        return $this->model->whereNotIn($condition, $attributes)->get();
+    }
+
     public function create(array $attributes)
     {
         return $this->model->create($attributes);
@@ -91,7 +96,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $builder = $this->model;
         foreach ($where as $key => $condition) {
-            $query = 'UPPER('. $condition[0] . ') LIKE \'%' . Str::upper($condition[1]) .'%\'';
+            $query = 'UPPER(' . $condition[0] . ') LIKE \'%' . Str::upper($condition[1]) . '%\'';
             $builder = $builder->whereRaw($query);
         }
 

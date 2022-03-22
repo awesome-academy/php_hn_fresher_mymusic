@@ -8,17 +8,24 @@ use App\Http\Requests\Admin\AlbumStoreRequest;
 use App\Http\Requests\Admin\AlbumUpdateRequest;
 use App\Repositories\Admin\Album\AlbumRepoInterface;
 use App\Repositories\Admin\Author\AuthorRepoInterface;
+use App\Repositories\Admin\Song\SongRepositoryInterface;
 use DB;
+use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
     protected $albumRepo;
     protected $authorRepo;
+    protected $songRepo;
 
-    public function __construct(AlbumRepoInterface $albumRepo, AuthorRepoInterface $authorRepo)
-    {
+    public function __construct(
+        AlbumRepoInterface $albumRepo,
+        AuthorRepoInterface $authorRepo,
+        SongRepositoryInterface $songRepo
+    ) {
         $this->albumRepo = $albumRepo;
         $this->authorRepo = $authorRepo;
+        $this->songRepo = $songRepo;
     }
     /**
      * Display a listing of the resource.
@@ -67,9 +74,11 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        $album = $this->albumRepo->getAlbumWithSong($id);
+        $album = $this->albumRepo->find($id);
 
-        return view('admin.album.view', compact('album'));
+        $author = $this->authorRepo->getAuthorWithSongAndAlbum($album->author_id);
+
+        return view('admin.album.view', compact('album', 'author'));
     }
 
     /**
@@ -132,6 +141,35 @@ class AlbumController extends Controller
             ->getRecordByWhereIn('author_id', $data);
 
         return response()->json(compact('albums'));
+    }
+
+    public function addSongToAlbum(Request $request)
+    {
+        $album = $request->only('album_id');
+        $songIds = $request->input('song_id');
+        try {
+            DB::beginTransaction();
+
+            foreach ($songIds as $item) {
+                $this->songRepo->update((int) $item, $album);
+            }
+
+            DB::commit();
+
+            return back()->with('success', __('create_album_success'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', __('have_error'));
+        }
+    }
+
+    public function removeSongFromAlbum(Request $request)
+    {
+        $albums = ["album_id" => null];
+        $songId = $request->input('song_id');
+        $rs = $this->songRepo->update((int) $songId, $albums);
+
+        return redirect()->back()->with('success', __('remove_song_success'));
     }
 
     public function redirect($rs, $mess)

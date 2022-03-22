@@ -19,6 +19,7 @@ class Song extends Model
         'path',
         'description',
         'durations',
+        'album_id',
     ];
 
     public function getTimeSongAttribute()

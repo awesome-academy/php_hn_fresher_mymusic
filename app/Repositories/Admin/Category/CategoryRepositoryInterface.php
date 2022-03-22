@@ -11,4 +11,10 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 
     // Get all category and all song of this category
     public function getAllCategoryWithSong();
+
+    // Add song to category
+    public function addSongToCategory($id, $songId);
+
+    // Remove song from category
+    public function removeSongFromCategory($id, $songId);
 }
