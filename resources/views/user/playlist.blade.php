@@ -5,16 +5,20 @@
                 <div class="profile__img">
                     @if ($playlist->songs->count())
                         <img src="{{ asset($playlist->songs->first()->thumbnail) }}" alt="">
+                    @else
+                        <img src="{{ asset('assets/img/logo.svg') }}" alt="">
                     @endif
                 </div>
                 <div class="info__meta">
                     <div class="info__type">{{ __('your_playlist') }}</div>
                     <div class="info__name">{{ $playlist->name }}</div>
                     <div class="info__description">{{ $playlist->user->full_name }}</div>
-                    <div class="d-inline delete-playlist">
-                        <input class="playlist-id" type="hidden" value="{{$playlist->id}}">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
+                    @if (!$playlist->isFavoritePlaylist())
+                        <div class="d-inline delete-playlist">
+                            <input class="playlist-id" type="hidden" value="{{ $playlist->id }}">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -37,8 +41,10 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($playlist->songs as $key => $song)
-                                            <tr class="playlist-song track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
-                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id = {{$song->id}}
+                                            <tr class="playlist-song track" data-song="{{ $song->path }}"
+                                                data-title="{{ $song->name }}"
+                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }}
+                                                song-id={{ $song->id }}
                                                 data-fav="{{ in_array('favorite', $song->playLists->pluck('name')->toArray()) }}"
                                                 data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
                                                 <td class="track__number">{{ $key + 1 }}</td>
@@ -52,14 +58,14 @@
                                                     </div>
                                                 </td>
                                                 <td class="track__album">
-                                                    @if(!empty($song->album))
-                                                    <span class="a-album" data-id="{{ $song->album->id}}">
-                                                        {{ $song->album->title }}
-                                                    </span>
+                                                    @if (!empty($song->album))
+                                                        <span class="a-album" data-id="{{ $song->album->id }}">
+                                                            {{ $song->album->title }}
+                                                        </span>
                                                     @endif
                                                 </td>
                                                 <td class="track__time">
-                                                    {{$song->time_song}}
+                                                    {{ $song->time_song }}
                                                 </td>
                                                 <td>
                                                     <span class="d-inline remove-song">
@@ -68,7 +74,9 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr> <td colspan="4"> {{ __('no_data') }}</td></tr>
+                                            <tr>
+                                                <td colspan="4"> {{ __('no_data') }}</td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>

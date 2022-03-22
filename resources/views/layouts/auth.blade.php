@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title', env('APP_NAME'))</title>
     @stack('css')
@@ -21,12 +22,12 @@
 <body>
     <div id="root">
         <div class="auth-header">
-            <div class="d-flex justify-content-center align-items-center">
+            <a href="{{ route('home') }}" class="d-flex justify-content-center align-items-center text-decoration-none">
                 <div class="auth-logo">
                     <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo my music">
                 </div>
-                <h2>MYMUSIC</h2>
-            </div>
+                <h2 class="text-dark">MYMUSIC</h2>
+            </a>
         </div>
         @yield('content')
     </div>
@@ -39,6 +40,7 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
     <script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('bower_components/select2/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     @if (Session::has('success'))
         <script>

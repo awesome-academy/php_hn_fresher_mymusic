@@ -28,7 +28,9 @@
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
                                         <td>{{ $album->title}}</td>
-                                        <td>{{ $album->description}}</td>
+                                        <td title="{{ $album->description }}">
+                                            <span class="desc">{{ $album->description}}</span>
+                                        </td>
                                         <td>{{ $album->author->name}}</td>
                                         <td>{{ $album->created_at}}</td>
                                         <td>{{ $album->updated_at}}</td>

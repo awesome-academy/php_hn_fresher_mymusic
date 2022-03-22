@@ -19,18 +19,21 @@
                                 <label  class="col-sm-2 col-form-label">{{ __('author_name') }}</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="{{ __('author_name') }}" name="name" value="{{ $author->name }}">
+                                    <small class="text-danger"> {{ $errors->first('name') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_des') }}</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="{{ __('author_des') }}" name="description" value="{{ $author->description }}">
+                                    <small class="text-danger"> {{ $errors->first('description') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('author_thumb') }}</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="file" id="formFile" name="thumbnail">
+                                    <small class="text-danger"> {{ $errors->first('thumbnail') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">

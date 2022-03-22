@@ -12,10 +12,6 @@
                 <span class="icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <span class="title">{{ __('Search') }}</span>
             </li>
-            <li class="menu-item">
-                <span class="icon"><i class="fa-solid fa-layer-group"></i></span>
-                <span class="title">{{ __('Library') }}</span>
-            </li>
         </ul>
         <ul class="menu pt-lg-4 pb-lg-2 c-border-bottom">
             <li class="menu-item">

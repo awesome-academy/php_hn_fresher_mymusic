@@ -10,11 +10,17 @@ class Playlist extends Model
     use HasFactory;
 
     const PIVOT_TABLE = 'playlist_song';
+    const FAVROITE_PLAYLIST = 'favorite';
 
     protected $fillable = [
         'name',
         'user_id',
     ];
+
+    public function isFavoritePlaylist()
+    {
+        return $this->attributes['name'] == self::FAVROITE_PLAYLIST;
+    }
 
     public function user()
     {

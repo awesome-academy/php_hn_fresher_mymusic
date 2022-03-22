@@ -39,7 +39,7 @@
                     @endif
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <button class="dropdown-item d-flex align-items-center">
+                        <button class="dropdown-item d-flex align-items-center py-2">
                             <i class="bi bi-box-arrow-right"></i>
                             <span> {{ __('Logout') }} </span>
                         </button>

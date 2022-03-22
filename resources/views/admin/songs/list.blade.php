@@ -45,7 +45,9 @@
                                                 {{ __('no_data') }}
                                             @endif
                                         </td>
-                                        <td> {{ $song->description }} </td>
+                                        <td title="{{ $song->description }}">
+                                            <span class="desc">{{ $song->description }}</span>
+                                        </td>
                                         <td> {{ $song->created_at }} </td>
                                         <td> {{ $song->updated_at }} </td>
                                         <td>
