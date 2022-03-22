@@ -36,4 +36,7 @@ interface BaseRepositoryInterface
 
     // Find by where like
     public function findByWhereLike(array $where, array $relations = []);
+
+    // Get record where not in
+    public function whereNotIn(string $condition, array $attributes);
 }

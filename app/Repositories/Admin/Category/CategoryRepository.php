@@ -23,4 +23,14 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return $this->model->with('songs')->get();
     }
+
+    public function addSongToCategory($id, $songId)
+    {
+        return $this->model->find($id)->songs()->attach($songId);
+    }
+
+    public function removeSongFromCategory($id, $songId)
+    {
+        return $this->model->find($id)->songs()->detach($songId);
+    }
 }

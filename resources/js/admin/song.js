@@ -27,7 +27,8 @@ export function song() {
     })
 
     $('.song-album-select2').select2({
-      tags: true
+      tags: true,
+      width: '100%',
     });
 
     $('.song-thumbnail-preview').css('display', 'none');

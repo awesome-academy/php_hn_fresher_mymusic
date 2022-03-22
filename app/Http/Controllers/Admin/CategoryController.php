@@ -5,16 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
+use App\Repositories\Admin\Song\SongRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     protected $categoryRepo;
+    protected $songRepo;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepo)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepo,
+        SongRepositoryInterface $songRepo
+    ) {
         $this->categoryRepo = $categoryRepo;
+        $this->songRepo = $songRepo;
     }
 
     /**
@@ -65,8 +70,9 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = $this->categoryRepo->find($id);
+        $songs = $this->songRepo->whereNotIn('id', $category->songs->pluck('id')->toArray());
 
-        return view('admin.categories.show', compact('category'));
+        return view('admin.categories.show', compact('category', 'songs'));
     }
 
     /**
@@ -122,5 +128,35 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.categories.index')
             ->with('success', __('delete_category_success'));
+    }
+
+    public function addSongToCategory(Request $request)
+    {
+        $categories = $request->input('category_id');
+        $data = $request->only('song_id');
+        try {
+            DB::beginTransaction();
+
+            foreach ($data as $item) {
+                $this->categoryRepo->addSongToCategory((int) $categories, $item);
+            }
+
+            DB::commit();
+
+            return back()->with('success', __('add_song_success'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return back()->with('error', __('have_error'));
+        }
+    }
+
+    public function removeFromCategory(Request $request)
+    {
+        $categories = $request->input('category_id');
+        $data = $request->only('song_id');
+        $rs = $this->categoryRepo->removeSongFromCategory((int) $categories, $data);
+
+        return redirect()->back()->with('success', __('remove_song_success'));
     }
 }

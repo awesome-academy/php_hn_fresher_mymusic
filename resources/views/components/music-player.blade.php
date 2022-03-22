@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="music-action-box">
-            <div class="add-to-favorite" title="{{ __('like') }}">
+            <div class="fav-btn unlike" title="{{ __('like') }}">
                 <span class="fav">
                     <i class="fa-solid fa-heart"></i>
                 </span>

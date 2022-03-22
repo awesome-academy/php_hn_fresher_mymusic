@@ -17,7 +17,7 @@ class SongRepository extends BaseRepository implements SongRepositoryInterface
         return $this->model->with('authors')->get();
     }
 
-    
+
     public function createNewSong(array $attributes, array $authorIds)
     {
         $song = $this->create($attributes);
