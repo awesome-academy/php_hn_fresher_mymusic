@@ -8,9 +8,11 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Repositories\Admin\Playlist\PlaylistRepoInterface;
 
 class VerificationController extends Controller
 {
+    protected $playlistRepo;
     /*
     |--------------------------------------------------------------------------
     | Email Verification Controller
@@ -36,11 +38,12 @@ class VerificationController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PlaylistRepoInterface $playlistRepo)
     {
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->playlistRepo = $playlistRepo;
     }
 
     /**
@@ -68,6 +71,8 @@ class VerificationController extends Controller
         $user = User::find($id);
         $user->email_verified_at = Carbon::now();
         $user->save();
+
+        $this->playlistRepo->createFavoritePlaylist($user->id);
 
         return redirect($this->redirectPath());
     }

@@ -34,9 +34,9 @@
                     </form>
                 </x-user-modal>
             </li>
-            <li class="menu-item">
+            <li class="favorite menu-item">
                 <span class="icon"><i class="fa-solid fa-heart"></i></span>
-                <span class="title">{{ __('Liked Song') }}</span>
+                <span class="title" data-id="">{{ __('Liked Song') }}</span>
             </li>
         </ul>
         <ul id="sidebar-playlist" class="menu user-playlist mt-lg-2 pb-lg-2">

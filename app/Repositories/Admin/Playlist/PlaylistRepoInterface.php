@@ -11,4 +11,13 @@ interface PlaylistRepoInterface extends BaseRepositoryInterface
 
     //Remove song to playlist
     public function removeSongFromPlaylist($playlistId, $songId);
+
+    //Create favorite playlist for per user
+    public function createFavoritePlaylist($userId);
+
+    //Get all playlist of user except favorite playlist
+    public function getAllPlaylistOfUser();
+
+    //Get favorite playlist
+    public function getFavoritePlaylist();
 }

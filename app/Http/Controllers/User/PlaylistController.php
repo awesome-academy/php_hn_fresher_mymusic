@@ -17,7 +17,7 @@ class PlaylistController extends Controller
 
     public function index()
     {
-        $playlists = $this->playlistRepo->findByWhere([['user_id', auth()->user()->id]]);
+        $playlists = $this->playlistRepo->getAllPlaylistOfUser();
 
         return response()->json(compact('playlists'));
     }
@@ -47,8 +47,8 @@ class PlaylistController extends Controller
 
     public function addSongToPlaylist(Request $request)
     {
-        $playlistId = $request->input('playlist_id');
-        $songId = $request->input('song_id');
+        $playlistId = $request->playlist_id;
+        $songId = $request->song_id;
         $song = $this->playlistRepo->addSongToPlaylist($playlistId, $songId);
 
         return response()->json(compact('song'));
@@ -56,10 +56,17 @@ class PlaylistController extends Controller
 
     public function removeSongFromPlaylist(Request $request)
     {
-        $playlistId = $request->input('playlist_id');
-        $songId = $request->input('song_id');
+        $playlistId = $request->playlist_id;
+        $songId = $request->song_id;
         $song = $this->playlistRepo->removeSongFromPlaylist($playlistId, $songId);
 
         return response()->json(compact('song'));
+    }
+
+    public function getFavoritePlaylist()
+    {
+        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+
+        return response()->json(compact('favorite'));
     }
 }

@@ -23,6 +23,7 @@ const preBtn = _$(".prev-btn");
 const replayBtn = _$(".loop-btn");
 const randomBtn = _$(".mix-btn");
 const songId = _$("#song-id");
+const favBtn = _$(".fav-btn");
 
 const app = {
     isPlaying: false,
@@ -120,13 +121,25 @@ const app = {
             }
         }
         addEventListenerList(_$$(".song"), "click", function (e) {
+            const isFav = 1;
+            let authorArr = this.getAttribute("data-author");
             audio.src = this.getAttribute("data-song");
             songThumbnail.src = this.getAttribute("data-thumbnail");
             nameSong.innerText = this.getAttribute("data-title");
-            let authorArr = this.getAttribute("data-author");
             authorName.innerText = authorArr;
             songId.value = this.getAttribute("song-id");
+            if(this.getAttribute("data-fav") == isFav)
+            {
+                favBtn.classList.remove('unlike')
+                favBtn.classList.add('liked')
+            }
+            else{
+                favBtn.classList.remove('liked');
+                favBtn.classList.add('unlike')
+            }
+
             audio.play();
+
         });
         function addEventListenerList(list, event, fn) {
             for (var i = 0, len = list.length; i < len; i++) {
@@ -145,15 +158,26 @@ const app = {
                     toastr.error(trans.__('delete_song_error'));
                 }
             } else {
+                const isFav = 1;
+                let authorArr = this.getAttribute("data-author");
                 $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
                 audio.src = this.getAttribute("data-song");
                 songThumbnail.src = this.getAttribute("data-thumbnail");
                 nameSong.innerText = this.getAttribute("data-title");
-                let authorArr = this.getAttribute("data-author");
+                songId.value = this.getAttribute("song-id");
                 _this.idSongPlay = this.getAttribute("data-id");
                 authorName.innerText = authorArr;
-                audio.play();
                 _this.lengListSong = $(".track").length;
+                if(this.getAttribute("data-fav") == isFav)
+                {
+                    favBtn.classList.remove('unlike')
+                    favBtn.classList.add('liked')
+                }
+                else{
+                    favBtn.classList.remove('liked');
+                    favBtn.classList.add('unlike')
+                }
+                audio.play();
             }
         });
 

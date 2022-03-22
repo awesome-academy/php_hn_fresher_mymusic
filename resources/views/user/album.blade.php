@@ -12,7 +12,7 @@
                     <div class="info__name">{{ $album->title }}</div>
                     <div class="info__description">{{ $album->description }}</div>
                     <span class="info__author">{{ __('Author') }} : {{ $album->author->name }}</span>
-                    <span class="info__amount">{{ $album->songs->count() }} {{ __('songs')}}</span>
+                    <span class="info__amount">{{ $album->songs->count() }} {{ __('songs') }}</span>
                 </div>
             </div>
         </div>
@@ -28,6 +28,7 @@
                                         <tr class="title-table">
                                             <td class="track__number">#</td>
                                             <td>{{ __('song_name') }}</td>
+                                            <td>{{ __('album_title') }}</td>
                                             <td>
                                                 <i class="fa-solid fa-clock"></i>
                                             </td>
@@ -36,25 +37,11 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($album->songs as $key => $song)
-                                            <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
-                                                data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id ={{ $song->id}}
-                                                data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
-                                                <td class="track__number">{{ $key + 1 }}</td>
-                                                <td class="track__art">
-                                                    <img src="{{ asset($song->thumbnail) }}"
-                                                        alt="{{ $song->name }}" />
-                                                    <div class="track__info">
-                                                        <span class="track__title">{{ $song->name }}</span>
-                                                        <span
-                                                            class="track__author">{{ implode(', ', $song->authors->pluck('name')->toArray()) }}</span>
-                                                    </div>
-                                                </td>
-                                                <td class="track__time">
-                                                    {{$song->time_song}}
-                                                </td>
-                                            </tr>
+                                            @include('user.track')
                                         @empty
-                                            <tr> <td colspan="4"> {{ __('no_data') }}</td></tr>
+                                            <tr>
+                                                <td colspan="4"> {{ __('no_data') }}</td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -62,7 +49,7 @@
                         </div>
 
                         <div class="related overview__albums">
-                            <div class="section-title">{{__('moreby')}} {{$album->author->name}}</div>
+                            <div class="section-title">{{ __('moreby') }} {{ $album->author->name }}</div>
                             @forelse ($relatedAlbum as $album)
                                 <div class="album-item">
                                     <div class="album__info">
