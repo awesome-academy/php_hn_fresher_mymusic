@@ -19,12 +19,14 @@
                                 <label  class="col-sm-2 col-form-label">{{ __('album_title') }}</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="{{ __('album_title') }}" name="title" value="{{ $album->title}}">
+                                    <small class="text-danger"> {{ $errors->first('title') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label  class="col-sm-2 col-form-label">{{ __('album_des') }}</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" rows="10" placeholder="{{ __('album_des') }}" name="description"> {{ $album->description}}</textarea>
+                                    <small class="text-danger"> {{ $errors->first('description') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -37,6 +39,7 @@
                                             <option value="">{{ __('no_data') }}</option>
                                         @endforelse
                                     </select>
+                                    <small class="text-danger"> {{ $errors->first('author_id') ?? '' }} </small>
                                 </div>
                             </div>
                             <div class="row mb-3">

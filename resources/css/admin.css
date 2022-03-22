@@ -143,3 +143,13 @@
   -ms-border-radius: 0 !important;
   -o-border-radius: 0 !important;
 }
+
+.desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  width: 300px;
+  -webkit-box-orient: vertical;
+}

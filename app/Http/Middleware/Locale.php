@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 use Session;
 
 class Locale
@@ -25,6 +27,23 @@ class Locale
         );
 
         App::setLocale($lang);
+
+        View::share(
+            'translation',
+            collect(File::allFiles(resource_path('lang/' . App::getLocale())))
+                ->flatMap(
+                    function ($file) {
+                        return [
+                            ($translation = $file->getBasename('.php')) => trans($translation),
+                        ];
+                    }
+                )->toJson()
+        );
+
+        View::share(
+            'translationJson',
+            File::get(resource_path('lang/' . App::getLocale() . '.json'))
+        );
 
         return $next($request);
     }

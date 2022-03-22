@@ -153,9 +153,15 @@ const playlist = {
     },
     renderPlaylistSelect: function (playlists) {
         let r = "";
-        playlists.forEach((playlist) => {
-            r += `<option value="${playlist.id}">${playlist.name}</option>`;
-        });
+
+        if (playlists.length == 0) {
+            r = `<option value="">${trans.__('Choose')}</option>`;
+        } else {
+            playlists.forEach((playlist) => {
+                r += `<option value="${playlist.id}">${playlist.name}</option>`;
+            });
+        }
+
         this.select.innerHTML = r;
     },
     createPlaylist: async function () {

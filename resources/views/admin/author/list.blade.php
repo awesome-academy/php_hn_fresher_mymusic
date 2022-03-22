@@ -28,7 +28,9 @@
                                 <tr>
                                     <th scope="row">{{ $key+1 }}</th>
                                     <td>{{ $author->name }}</td>
-                                    <td>{{ $author->description}}</td>
+                                    <td title="{{ $author->description }}">
+                                        <span class="desc">{{ $author->description}}</span>
+                                    </td>
                                     <td class="table-thumb">
                                         <img src="{{ asset($author->thumbnail)}}"alt="">
                                     </td>
