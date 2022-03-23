@@ -40,17 +40,21 @@ class PlaylistRepository extends BaseRepository implements PlaylistRepoInterface
 
     public function getAllPlaylistOfUser()
     {
-        return $this->findByWhere([
-            ['user_id', auth()->user()->id],
-            ['name','!=',self::FAVORITE_NAME]
-        ]);
+        return auth()->check()
+            ? $this->findByWhere([
+                ['user_id', auth()->user()->id],
+                ['name', '!=', self::FAVORITE_NAME]
+            ])
+            : new Playlist();
     }
 
     public function getFavoritePlaylist()
     {
-        return $this->findByWhere([
-            ['user_id', auth()->user()->id],
-            ['name',self::FAVORITE_NAME]
-        ]);
+        return auth()->check()
+            ? $this->findByWhere([
+                ['user_id', auth()->user()->id],
+                ['name', self::FAVORITE_NAME]
+            ])->first()
+            : new Playlist();
     }
 }

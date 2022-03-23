@@ -111,5 +111,8 @@
     "delete_playlist_error" : "Have error , can't delete playlist !!",
     "create_playlist_success" : "Create new playlist success !!",
     "create_playlist_error" : "Have error , can't create playlist !!",
-    "confirm_delete_playlist" : "Are you sure about delete this playlist ?"
+    "confirm_delete_playlist" : "Are you sure about delete this playlist ?",
+    "delete_song_success" : "Delete song success to playlist",
+    "add_music_to_category": "Add song to category",
+    "song_category": "Songs"
 }

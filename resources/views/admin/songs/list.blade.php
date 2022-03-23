@@ -52,15 +52,15 @@
                                         <td> {{ $song->updated_at }} </td>
                                         <td>
                                             <a href="{{ route('admin.songs.show', ['song' => $song->id]) }}"
-                                                class="btn btn-sm btn-primary">
+                                                class="btn btn-sm btn-primary mb-1">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
                                             <a href="{{ route('admin.songs.edit', ['song' => $song->id]) }}"
-                                                class="btn btn-sm btn-warning">
+                                                class="btn btn-sm btn-warning mb-1">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
                                             <form action="{{ route('admin.songs.destroy', ['song' => $song->id]) }}"
-                                                class="d-inline" method="POST"
+                                                class="d-inline mb-1" method="POST"
                                                 onsubmit="return confirm('{{ __('confirm_delete') }}')">
                                                 @csrf
                                                 @method('DELETE')

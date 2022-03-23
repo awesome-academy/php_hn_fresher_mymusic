@@ -14,7 +14,7 @@
         @forelse ($songs as $song)
             <x-card card-class="song" :card-name="$song->name" :description="implode(', ',$song->authors->pluck('name')->toArray())"
                 :data-song="$song->path" :data-title="$song->name"
-                data-fav="{{ $favorite->songs->contains($song)}}"
+                data-fav="{{ $favorite->songs ? $favorite->songs->contains($song) : false }}"
                 :data-thumbnail="$song->thumbnail" :song-id="$song->id"
                 :data-author="implode(', ',$song->authors->pluck('name')->toArray())">
                 <img src="{{ asset($song->thumbnail) }}" alt="burn-out">

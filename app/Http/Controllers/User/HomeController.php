@@ -46,7 +46,7 @@ class HomeController extends Controller
     {
         $category = $this->categoryRepo->find($request->id);
 
-        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
 
         return response()->view('user.category', compact('category', 'favorite'));
     }
@@ -60,7 +60,7 @@ class HomeController extends Controller
             ['id', '<>', $request->id],
         ]);
 
-        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
 
         return response()->view('user.album', compact('album', 'relatedAlbum', 'favorite'));
     }
@@ -71,7 +71,7 @@ class HomeController extends Controller
 
         $albums = $this->albumRepo->findByWhere([['author_id', $request->id]]);
 
-        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
 
         return response()->view('user.author', compact('author', 'albums', 'favorite'));
     }
@@ -86,7 +86,8 @@ class HomeController extends Controller
 
         $albums = $this->albumRepo->getAllAlbumWithSong();
 
-        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
+
         return [
             'songs' => $songs,
             'categories' => $categories,

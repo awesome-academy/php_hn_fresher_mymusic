@@ -65,7 +65,7 @@ class PlaylistController extends Controller
 
     public function getFavoritePlaylist()
     {
-        $favorite = $this->playlistRepo->getFavoritePlaylist()->first();
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
 
         return response()->json(compact('favorite'));
     }
