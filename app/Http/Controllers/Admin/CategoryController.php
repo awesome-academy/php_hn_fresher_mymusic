@@ -157,6 +157,6 @@ class CategoryController extends Controller
         $data = $request->only('song_id');
         $rs = $this->categoryRepo->removeSongFromCategory((int) $categories, $data);
 
-        return redirect()->back()->with('success', __('remove_song_success'));
+        return redirect()->back()->with('success', __('delete_success'));
     }
 }

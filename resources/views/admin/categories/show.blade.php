@@ -42,8 +42,8 @@
                 </div>
                 <div class="card">
                     <h4 class="p-3">{{ __('song_list_of_category') }}</h4>
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#add-song-to-category">
-                        <span> {{ __('add_music_to_album')}}</span>
+                    <a class="btn btn-primary mx-3" data-toggle="modal" data-target="#add-song-to-category">
+                        <span> {{ __('add_music_to_category')}}</span>
 
                         <i class="fa-solid fa-music"></i>
                     </a>
@@ -74,13 +74,13 @@
                                         <td>{{ $song->created_at }}</td>
                                         <td>{{ $song->updated_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.songs.show',$song->id) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('admin.songs.show',$song->id) }}" class="btn btn-sm btn-primary mb-1">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.songs.edit',$song->id) }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('admin.songs.edit',$song->id) }}" class="btn btn-sm btn-warning mb-1">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
-                                            <form action="{{ route('admin.categories.removeSong') }}"  method="post">
+                                            <form action="{{ route('admin.categories.removeSong') }}" class="d-inline mb-1" method="post">
                                                 @csrf
                                                 <input type="hidden" name="song_id" value="{{ $song->id }}">
                                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
@@ -102,11 +102,11 @@
             </div>
         </div>
     </section>
-    <x-modal x-id="add-song-to-category" x-title="{{ __('add_music_to_album') }}" x-size="lg">
+    <x-modal x-id="add-song-to-category" x-title="{{ __('add_music_to_category') }}" x-size="lg">
         <form action="{{ route('admin.categories.addSong') }}" method="post">
             @csrf
             <div class="form-group col-lg-12">
-                <label for="song-album"> {{ __('song_album') }} </label>
+                <label for="song-album"> {{ __('song_category') }} </label>
                 <input type="hidden" value="{{ $category->id }}" name="category_id">
                 <div class="c-select2">
                     <select class="song-album-select2 form-control" id="song-album" name="song_id[]" multiple="multiple" >

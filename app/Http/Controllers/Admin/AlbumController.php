@@ -156,7 +156,7 @@ class AlbumController extends Controller
 
             DB::commit();
 
-            return back()->with('success', __('create_album_success'));
+            return back()->with('success', __('create_success'));
         } catch (\Throwable $th) {
             DB::rollBack();
             return back()->with('error', __('have_error'));
@@ -169,7 +169,7 @@ class AlbumController extends Controller
         $songId = $request->input('song_id');
         $rs = $this->songRepo->update((int) $songId, $albums);
 
-        return redirect()->back()->with('success', __('remove_song_success'));
+        return redirect()->back()->with('success', __('delete_success'));
     }
 
     public function redirect($rs, $mess)

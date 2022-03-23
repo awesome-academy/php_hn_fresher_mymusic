@@ -49,8 +49,6 @@
                                     <th scope="col">{{ __('song_thumb') }}</th>
                                     <th scope="col">{{ __('song_des') }}</th>
                                     <th scope="col">{{ __('album') }}</th>
-                                    <th scope="col">{{ __('created_at') }}</th>
-                                    <th scope="col">{{ __('updated_at') }}</th>
                                     <th scope="col">{{ __('action') }}</th>
                                 </tr>
                             </thead>
@@ -58,28 +56,32 @@
                                 @forelse ($author->songs as $key => $song)
                                 <tr>
                                     <th scope="row">{{ $key + 1 }}</th>
-                                    <td>{{ $song->name}} </td>
+                                    <td> <span class="desc w-50">{{ $song->name}}</span> </td>
                                     <td class="table-thumb">
                                         <img src="{{ asset($song->thumbnail) }}" alt="">
                                     </td>
-                                    <td>{{ $song->description}}</td>
+                                    <td><span class="desc">{{ $song->description}}</span></td>
                                     <td>@if($song->album){{ $song->album->title }} @endif</td>
-                                    <td>{{ $song->created_at}}</td>
-                                    <td>{{ $song->updated_at}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.songs.show', ['song' => $song->id]) }}" class="btn btn-sm btn-primary">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.songs.edit', ['song' => $song->id]) }}" class="btn btn-sm btn-warning">
                                             <i class="fa-solid fa-pencil"></i>
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-danger">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
+                                        <form action="{{ route('admin.songs.destroy', ['song' => $song->id]) }}"
+                                            class="d-inline" method="POST"
+                                            onsubmit="return confirm('{{ __('confirm_delete') }}')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @empty
-                                    <tr><td colspan="8" class="text-center pt-3"> {{ __('no_data') }} </td></tr>
+                                    <tr><td colspan="6" class="text-center pt-3"> {{ __('no_data') }} </td></tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -104,7 +106,7 @@
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>
                                     <td>{{ $album->title}} </td>
-                                    <td>{{ $album->description}}</td>
+                                    <td><span class="desc">{{ $album->description}}</span></td>
                                     <td>{{ $album->created_at}}</td>
                                     <td>{{ $album->updated_at}}</td>
                                     <td>

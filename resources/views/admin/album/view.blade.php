@@ -40,7 +40,7 @@
                 </div>
                 <div class="card">
                     <h4 class="p-3">{{ __('song_list_of_album') }}</h4>
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#add-song-to-album">
+                    <a class="btn btn-primary mx-3" data-toggle="modal" data-target="#add-song-to-album">
                         <span> {{ __('add_music_to_album')}}</span>
                         <i class="fa-solid fa-music"></i>
                     </a>
@@ -52,8 +52,6 @@
                                     <th scope="col">{{ __('song_name') }}</th>
                                     <th scope="col">{{ __('song_thumb') }}</th>
                                     <th scope="col">{{ __('song_des') }}</th>
-                                    <th scope="col">{{ __('created_at') }}</th>
-                                    <th scope="col">{{ __('updated_at') }}</th>
                                     <th scope="col">{{ __('action') }}</th>
                                 </tr>
                             </thead>
@@ -65,9 +63,7 @@
                                     <td class="table-thumb">
                                         <img src="{{ asset($song->thumbnail) }}" alt="">
                                     </td>
-                                    <td>{{ $song->description}}</td>
-                                    <td>{{ $song->created_at}}</td>
-                                    <td>{{ $song->updated_at}}</td>
+                                    <td><span class="desc">{{ $song->description}}</span></td>
                                     <td>
                                         <a href="{{ route('admin.songs.show',$song->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa-solid fa-eye"></i>
@@ -75,7 +71,7 @@
                                         <a href="{{ route('admin.songs.edit',$song->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fa-solid fa-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.albums.removeSong') }}"  method="post">
+                                        <form action="{{ route('admin.albums.removeSong') }}" class="d-inline" method="post">
                                             @csrf
                                             @method('put')
                                             <input type="hidden" name="song_id" value="{{ $song->id }}">
@@ -86,7 +82,7 @@
                                     </td>
                                 </tr>
                                 @empty
-                                    <tr><td colspan="8" class="text-center pt-3"> {{ __('no_data') }} </td></tr>
+                                    <tr><td colspan="6" class="text-center pt-3"> {{ __('no_data') }} </td></tr>
                                 @endforelse
                             </tbody>
                         </table>

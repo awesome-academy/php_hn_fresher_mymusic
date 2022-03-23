@@ -147,5 +147,8 @@
     "Exit": "Thoát",
     "Current password": "Mật khẩu hiện tại",
     "New password": "Mật khẩu mới",
-    "Password confirmation": "Xác nhận lại mật khẩu"
+    "Password confirmation": "Xác nhận lại mật khẩu",
+    "add_music_to_category": "Thêm nhạc vào danh mục",
+    "delete_song_success" : "Xoá bài hát thành công",
+    "song_category": "Bài hát"
 }
