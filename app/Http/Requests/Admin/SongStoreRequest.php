@@ -24,7 +24,7 @@ class SongStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', 'unique:songs,name'],
             'thumbnail' => ['required', 'image'],
             'song' => ['required', 'mimes:mp3'],
             'description' => ['required'],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use App\Repositories\Admin\Song\SongRepositoryInterface;
 use Illuminate\Http\Request;
@@ -95,7 +96,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryStoreRequest $request, $id)
+    public function update(CategoryUpdateRequest $request, $id)
     {
         $category = $this->categoryRepo
             ->update($id, $request->only(['name', 'description']));

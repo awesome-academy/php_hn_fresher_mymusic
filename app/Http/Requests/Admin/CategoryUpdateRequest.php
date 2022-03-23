@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AlbumStoreRequest extends FormRequest
+class CategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class AlbumStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100|unique:albums,title',
-            'description' => 'required|min:10',
-            'author_id' => 'required',
+            'name' => 'required|max:255|unique:categories,name,' . $this->route('category'),
+            'description' => 'required',
         ];
     }
 }

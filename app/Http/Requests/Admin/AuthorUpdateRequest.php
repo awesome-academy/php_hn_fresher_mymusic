@@ -24,7 +24,7 @@ class AuthorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:authors,name,' . $this->route('author'),
             'description' => 'required|min:10',
         ];
     }
