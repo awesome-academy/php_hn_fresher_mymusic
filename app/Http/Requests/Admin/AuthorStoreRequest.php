@@ -24,9 +24,9 @@ class AuthorStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:authors,name',
             'description' => 'required|min:10',
-            'thumbnail' => 'required|image'
+            'thumbnail' => 'required|image',
         ];
     }
 }

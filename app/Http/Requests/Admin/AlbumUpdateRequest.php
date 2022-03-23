@@ -24,9 +24,9 @@ class AlbumUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
+            'title' => 'required|max:100|unique:albums,title,' . $this->route('album'),
             'description' => 'required|min:10',
-            'author_id' => 'required'
+            'author_id' => 'required',
         ];
     }
 }

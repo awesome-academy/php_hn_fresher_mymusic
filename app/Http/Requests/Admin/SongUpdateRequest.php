@@ -24,6 +24,7 @@ class SongUpdateRequest extends SongStoreRequest
     public function rules()
     {
         return array_merge(parent::rules(), [
+            'name' => ['required', 'max:255', 'unique:songs,name,' . $this->route('song')],
             'thumbnail' => ['nullable', 'image'],
             'song' => ['nullable', 'mimes:mp3'],
         ]);

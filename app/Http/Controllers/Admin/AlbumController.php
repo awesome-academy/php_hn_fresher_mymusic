@@ -129,6 +129,7 @@ class AlbumController extends Controller
             return back()->with('success', __('delete_success'));
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return back()->with('error', __('have_error'));
         }
     }
@@ -159,6 +160,7 @@ class AlbumController extends Controller
             return back()->with('success', __('create_success'));
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return back()->with('error', __('have_error'));
         }
     }
