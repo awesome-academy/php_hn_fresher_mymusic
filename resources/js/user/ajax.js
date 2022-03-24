@@ -68,6 +68,15 @@ const main = {
         main.render(resp.data);
         musicPlayer.handleEvents();
     },
+    songPage : async function(id){
+        let resp = await axios.get("/song?id=" +id);
+        uri.updateQueryStringParameter(
+            { key: "", value: "song"},
+            { param: "id", val: id}
+        );
+        main.render(resp.data);
+        musicPlayer.handleEvents();
+    },
     getUrlParam: async function (url = null) {
         const params = new URLSearchParams(window.location.search);
         let _url = url || params.get("");
@@ -89,6 +98,9 @@ const main = {
                 break;
             case "playlist":
                 await main.playlistPage(params.get("id"));
+                break;
+            case "song":
+                await main.songPage(params.get("id"));
                 break;
             default:
                 break;

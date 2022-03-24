@@ -50,12 +50,12 @@ const app = {
             $(".track[data-id=" + _this.idSongPlay + "]").addClass(
                 "track-active"
             );
+            showPauseButton(_$('.is-playing'));
         };
         //Event pause song
         audio.onpause = function () {
             _this.isPlaying = false;
-            pause.classList.add("d-none");
-            play.classList.remove("d-none");
+            showPlayButton(_$('.is-playing'));
         };
         //Event end of song
         audio.onended = function () {
@@ -115,32 +115,67 @@ const app = {
             );
         }
         // Click box event multiple
-        function addEventListenerListBox(list, event, fn) {
-            for (var i = 0, len = list.length; i < len; i++) {
-                list[i].addEventListener(event, fn, false);
-            }
-        }
         addEventListenerList(_$$(".song"), "click", function (e) {
-            const isFav = 1;
-            let authorArr = this.getAttribute("data-author");
-            audio.src = this.getAttribute("data-song");
-            songThumbnail.src = this.getAttribute("data-thumbnail");
-            nameSong.innerText = this.getAttribute("data-title");
-            authorName.innerText = authorArr;
-            songId.value = this.getAttribute("song-id");
-            if(this.getAttribute("data-fav") == isFav)
-            {
-                favBtn.classList.remove('unlike')
-                favBtn.classList.add('liked')
-            }
-            else{
-                favBtn.classList.remove('liked');
-                favBtn.classList.add('unlike')
-            }
+            if ($(e.target).is("svg") || $(e.target).is("path") || $(e.target).hasClass("quick-play") ) {
+                const isFav = 1;
+                let authorArr = this.getAttribute("data-author");
 
-            audio.play();
+                unActivePlaying();
+                this.querySelector('.quick-play').classList.add('is-playing');
+                audio.src = this.getAttribute("data-song");
+                songThumbnail.src = this.getAttribute("data-thumbnail");
+                nameSong.innerText = this.getAttribute("data-title");
+                authorName.innerText = authorArr;
+                songId.value = this.getAttribute("song-id");
+                if(!_this.isPlaying){
+                    audio.play();
+                    showPauseButton(this);
+                    _this.isPlaying = !_this.isPlaying;
+                }
+                else{
+                    audio.pause();
+                    showPlayButton(this);
+                    _this.isPlaying = !_this.isPlaying;
+                }
+                if(this.getAttribute("data-fav") == isFav){
+                    favBtn.classList.remove('unlike')
+                    favBtn.classList.add('liked')
+                }
+                else{
+                    favBtn.classList.remove('liked');
+                    favBtn.classList.add('unlike')
+                }
+            }else{
+                ajax.main.songPage(this.getAttribute('song-id'));
+            }
 
         });
+
+        function showPlayButton(selector)
+        {
+            selector.querySelector('.fa-play').classList.remove('d-none');
+            selector.querySelector('.fa-pause').classList.add('d-none');
+            play.classList.remove("d-none");
+            pause.classList.add("d-none");
+        }
+
+        function showPauseButton(selector)
+        {
+            selector.querySelector('.fa-play').classList.add('d-none');
+            selector.querySelector('.fa-pause').classList.remove('d-none');
+            play.classList.add("d-none");
+            pause.classList.remove("d-none");
+        }
+
+        //Unactive playing
+        function unActivePlaying() {
+            _$$(".quick-play").forEach((e) => {
+                e.classList.remove("is-playing");
+                e.querySelector('.fa-play').classList.remove('d-none');
+                e.querySelector('.fa-pause').classList.add('d-none');
+            });
+        };
+
         function addEventListenerList(list, event, fn) {
             for (var i = 0, len = list.length; i < len; i++) {
                 list[i].addEventListener(event, fn, false);

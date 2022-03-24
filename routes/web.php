@@ -31,6 +31,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/category', 'showCategory');
     Route::get('/album', 'showAlbum');
     Route::get('/author', 'showAuthor');
+    Route::get('/song', 'showSong');
 });
 
 Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->group(function () {

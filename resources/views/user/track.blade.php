@@ -1,6 +1,6 @@
 <tr class="track" data-song="{{ $song->path }}" data-title="{{ $song->name }}"
     data-thumbnail="{{ $song->thumbnail }}" data-id={{ $key }} song-id={{ $song->id }}
-    data-fav="{{ $favorite->songs->contains($song) }}"
+    data-fav="{{ $favorite ? $favorite->songs->contains($song) : false }}"
     data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
     <td class="track__number">{{ $key + 1 }}</td>
     <td class="track__art">
@@ -19,5 +19,10 @@
     </td>
     <td class="track__time">
         {{ $song->time_song }}
+    </td>
+    <td class="show-song">
+        <span song-id={{ $song->id }} class="d-inline song-detail">
+            <i class="fa-solid fa-info"></i>
+        </span>
     </td>
 </tr>
