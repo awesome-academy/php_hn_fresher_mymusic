@@ -50,11 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = [
+    public $appends = [
         'avatar_full_path',
         'full_name',
         'role_description',
-        'active_description'
+        'active_description',
     ];
 
     public function getAvatarFullPathAttribute()
@@ -74,12 +74,12 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function getRoleDescriptionAttribute()
     {
-        return __('common.role' . $this->attributes['role']);
+        return __('common.role.' . $this->attributes['role']);
     }
 
     public function getActiveDescriptionAttribute()
     {
-        return __('common.active' . $this->attributes['active']);
+        return __('common.active.' . $this->attributes['active']);
     }
 
     public function getCreatedAtAttribute($value)
