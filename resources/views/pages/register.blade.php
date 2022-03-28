@@ -71,7 +71,7 @@
                             </div>
                         </form>
                         <p class="text-center mt-3">
-                            {{ __('Do you have an account?') }} <a href="{{ route('login') }}"> {{ __('Login now') }} </a>
+                            {{ __('Do you have an account?') }} <a class="login-btn" href="{{ route('login') }}"> {{ __('Login now') }} </a>
                         </p>
                     </div>
                 </div>
