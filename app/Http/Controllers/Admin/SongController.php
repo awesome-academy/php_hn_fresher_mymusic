@@ -20,6 +20,7 @@ class SongController extends Controller
 
     protected $songRepo;
 
+
     public function __construct(
         AuthorRepoInterface $authorRepo,
         AlbumRepoInterface $albumRepo,
@@ -84,14 +85,14 @@ class SongController extends Controller
                 ]
             );
 
-            $song = $this->songRepo
+            $newSong = $this->songRepo
                 ->createNewSong($data, $request->input('author_id') ?? []);
 
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            abort(500);
+            return redirect()->back()->with('error', __('have_error'));
         }
 
         return redirect()->back()->with('success', __('create_success'));
@@ -105,7 +106,11 @@ class SongController extends Controller
      */
     public function show($id)
     {
-        $song = $this->songRepo->find($id);
+        try {
+            $song = $this->songRepo->find($id);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.songs.index')->with('error', __('have_error'));
+        }
 
         return view('admin.songs.show', compact('song'));
     }
@@ -118,8 +123,12 @@ class SongController extends Controller
      */
     public function edit($id)
     {
-        $song = $this->songRepo->find($id);
-        $authors = $this->authorRepo->getAll();
+        try {
+            $song = $this->songRepo->find($id);
+            $authors = $this->authorRepo->getAll();
+        } catch (\Exception $e) {
+            return redirect()->route('admin.songs.index')->with('error', __('have_error'));
+        }
 
         return view('admin.songs.edit', compact('song', 'authors'));
     }
@@ -170,7 +179,7 @@ class SongController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            abort(500);
+            return redirect()->back()->with('error', __('have_error'));
         }
 
         return redirect()->back()->with('success', __('update_success'));
@@ -192,7 +201,8 @@ class SongController extends Controller
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
-            abort(500);
+
+            return redirect()->route('admin.songs.index')->with('error', __('have_error'));
         }
 
         return redirect()->back()->with('success', __('delete_success'));
