@@ -171,7 +171,7 @@ class AlbumController extends Controller
         $songId = $request->input('song_id');
         $rs = $this->songRepo->update((int) $songId, $albums);
 
-        return redirect()->back()->with('success', __('delete_success'));
+        return $this->redirect($rs, __('delete_success'));
     }
 
     public function redirect($rs, $mess)
