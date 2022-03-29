@@ -28,34 +28,45 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Fake data --}}
-                                {{-- <tr>
-                                    <td class="center">1</td>
-                                    <td class="center">
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <span class="admin-user-avatar">
-                                                <img src="{{ asset('assets/img/default-avatar.png') }}">
-                                            </span>
-                                            <span class="d-inline-block ml-3">Nguyen Manh Thang</span>
-                                        </div>
-                                    </td>
-                                    <td class="center">admin@sun.com</td>
-                                    <td class="center">Admin</td>
-                                    <td class="center">2022-03-09 10:44:33</td>
-                                    <td class="center">2022-03-09 10:44:33</td>
-                                    <td class="center">
-                                        <form class="d-inline-block">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input user-select-none cursor-pointer" id="active-user-2">
-                                                    <label class="custom-control-label user-select-none cursor-pointer" for="active-user-2"></label>
-                                                </div>
+                                @forelse ($users as $key => $user)
+                                    <tr>
+                                        <td class="center"> {{ $key + 1 }} </td>
+                                        <td class="center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <span class="admin-user-avatar">
+                                                    <img src="{{ $user->avatar_full_path }}">
+                                                </span>
+                                                <span class="d-inline-block ml-3"> {{ $user->full_name }} </span>
                                             </div>
-                                        </form>
-                                    </td>
-                                </tr> --}}
+                                        </td>
+                                        <td class="center"> {{ $user->email }} </td>
+                                        <td class="center"> {{ $user->getRoleDescriptionAttribute() }} </td>
+                                        <td class="center"> {{ $user->created_at }} </td>
+                                        <td class="center"> {{ $user->updated_at }} </td>
+                                        <td class="center">
+                                            <form class="d-inline-block">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox"
+                                                            class="user-manage custom-control-input user-select-none cursor-pointer"
+                                                            id="active-user-{{ $user->id }}" data-user-id="{{ $user->id }}"
+                                                            {{ $user->isActive() ? 'checked' : '' }}>
+                                                        <label class="custom-control-label user-select-none cursor-pointer"
+                                                            for="active-user-{{ $user->id }}">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7"> {{ __('no_data') }} </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

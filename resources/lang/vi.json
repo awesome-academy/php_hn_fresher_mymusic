@@ -150,5 +150,10 @@
     "Password confirmation": "Xác nhận lại mật khẩu",
     "add_music_to_category": "Thêm nhạc vào danh mục",
     "delete_song_success" : "Xoá bài hát thành công",
-    "song_category": "Bài hát"
+    "song_category": "Bài hát",
+    "user_not_found": "Không tìm thấy user",
+    "Block user confirmation": "Xác nhận khoá tài khoản người dùng",
+    "Unblock user confirmation": "Xác nhận mở tài khoản của người dùng",
+    "Cannot block admin": "Không thể khoá tài khoản của quản trị viên",
+    "have_error": "Một lỗi đã đột ngột xảy ra"
 }

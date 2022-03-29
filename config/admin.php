@@ -55,6 +55,7 @@ return [
         'category' => 10,
         'album' =>10,
         'song' => 10,
+        'user' => 10,
     ],
     'format' => [
         'datetime' => 'd/m/Y H:i',

@@ -68,6 +68,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
 
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::put('/{id}/block', [UserController::class, 'blockUser'])->name('block');
+        Route::put('/{id}/unblock', [UserController::class, 'unblockUser'])->name('unblock');
     });
 });
 
