@@ -2,6 +2,7 @@ import musicPlayer from "./music-player";
 import { slick } from "./slick";
 import ajax from "./ajax";
 import trans from "../trans"
+import comment from "../user/comment"
 
 //Call slide function
 slick();
@@ -40,6 +41,11 @@ $(document).on("click", ".author", function (event) {
 
 $(document).on("click", ".user-playlist .menu-item", function (event) {
     ajax.main.playlistPage(this.getAttribute("data-id"));
+});
+
+$(document).on("click", ".send-mess-btn", function (event) {
+    event.preventDefault();
+    comment.storeComment(this);
 });
 
 $(document).on("click", ".favorite", function (event) {

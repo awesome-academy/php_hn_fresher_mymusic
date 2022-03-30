@@ -64,24 +64,23 @@
                             <div class="comment-form">
                                 <div class="comment-form-mess">
                                     <form action="" method="POST">
-                                        @csrf
-                                        <input name="commentable_id" value="" hidden>
-                                        <input type="text" name="user_id" value="{!! Auth::check() ? Auth::user()->id : '' !!}" hidden>
-                                        <input name="commentable_type" value="posts" hidden>
-                                        <textarea class="message" placeholder="{{ __('comment-content')}}" name="content" cols="30" rows="5"></textarea>
+                                        <input name="song_id" value="{{ $song->id}}" hidden>
+                                        <input name="parent_id" value="0" hidden>
+                                        <textarea class="message" placeholder="{{ __('comment_content')}}" name="content" cols="30" rows="5"></textarea>
                                         <button type="submit" class="send-mess-btn">
                                             <i class="fa-solid fa-paper-plane"></i>
                                         </button>
                                     </form>
                                 </div>
-                                <div class="comment-form-body">
+                                <div id="comment" class="comment-form-body">
+                                   @forelse  ($comments as $comment )
                                     <div class="comment-body-items">
                                         <div class="avatar-account">
-                                            <img src="{{ asset('/storage/user/avatar/1571802458800-600-1647912643.jpg') }}" alt="">
+                                            <img src="{{ asset($comment->user->avatar) }}" alt="">
                                         </div>
                                         <div class="comment-content">
-                                            <div class="name-account"></div>
-                                            <div class="comment"></div>
+                                            <div class="name-account">{{ $comment->user->full_name }}</div>
+                                            <div class="comment">{{ $comment->content }}</div>
                                             <div class="option option-comment">
                                                 <div class="option-left">
                                                     <a class="comment-reply">
@@ -89,31 +88,36 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="comment-form-mess reply-input">
-                                                <form action="" method="POST">
-                                                    @csrf
-                                                    <input name="commentable_id" value="" hidden>
-                                                    <input type="email" name="user_id" value="{!! Auth::check() ? Auth::user()->id : '' !!}" hidden>
-                                                    <input name="commentable_type" value="posts" hidden>
-                                                    <textarea maxlength="150" class="message" placeholder="{{ __('comment_content')}}" name="content" cols="30"rows="6"></textarea>
-                                                    <button type="submit" class="send-mess-btn">
+                                            <div class="comment-form-mess reply-input" data-parent="{{ $comment->id}}">
+                                                <form method="POST">
+                                                    <input name="song_id" value="{{ $comment->song_id}}" hidden>
+                                                    <input name="parent_id" value="{{ $comment->id }}" hidden>
+                                                    <textarea class="message" placeholder="{{ __('comment_content') }}" name="content"></textarea>
+                                                    <button type="button" class="send-mess-btn">
                                                         <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                                     </button>
                                                 </form>
-                                            </div>
-                                            <div class="reply-list">
-                                                <div class="reply-item">
-                                                    <div class="avatar-account">
-                                                        <img src="{{ asset('/storage/user/avatar/1571802458800-600-1647912643.jpg') }}" alt="">
+                                                @foreach ($replies as $reply )
+                                                    @if($reply->parent_id == $comment->id)
+                                                    <div class="reply-list active">
+                                                        <div class="reply-item">
+                                                            <div class="avatar-account">
+                                                                <img src="{{ asset($reply->user->avatar) }}" alt="">
+                                                            </div>
+                                                            <div class="reply-items-content">
+                                                                <div class="name-account">{{ $reply->user->full_name }}</div>
+                                                                <div class="comment">{{ $reply->content }}</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="reply-items-content">
-                                                        <div class="name-account"></div>
-                                                        <div class="comment"></div>
-                                                    </div>
-                                                </div>
+                                                    @endif
+                                                @endforeach
                                             </div>
+
                                         </div>
                                     </div>
+                                    @empty
+                                    @endforelse
                                 </div>
                             </div>
                         </div>

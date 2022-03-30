@@ -11,6 +11,7 @@ use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
 use App\Http\Controllers\User\SearchController;
+use App\Http\Controllers\User\CommentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,8 @@ Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->
 });
 
 Route::get('/search', [SearchController::class, 'showSearchPage']);
+Route::get('/comment', [CommentController::class, 'getListComment']);
+Route::post('/comment', [CommentController::class, 'storeComment']);
 
 Route::prefix('account')->name('user.account.')->middleware('auth')->group(function () {
     Route::get('/', [AccountController::class, 'show'])->name('show');
