@@ -31,7 +31,7 @@ const apiService = {
 
             return result;
         } catch (e) {
-            throw e;
+            return e;
         }
     },
 
@@ -41,7 +41,7 @@ const apiService = {
 
             return result;
         } catch (e) {
-            throw e;
+            return e;
         }
     },
 
@@ -51,7 +51,7 @@ const apiService = {
 
             return result;
         } catch (e) {
-            throw e;
+            return e;
         }
     },
 
@@ -61,7 +61,7 @@ const apiService = {
 
             return result;
         } catch (e) {
-            throw e;
+            return e;
         }
     }
 }

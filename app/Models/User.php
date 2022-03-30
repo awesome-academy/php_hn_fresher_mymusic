@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -70,6 +71,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isActive()
+    {
+        return $this->active === self::USER_ACTIVE;
+    }
+
+    public function scopeActive(Builder $builder)
+    {
+        return $builder->where('active', User::USER_ACTIVE);
     }
     
     public function getRoleDescriptionAttribute()
