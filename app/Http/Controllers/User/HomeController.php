@@ -8,6 +8,7 @@ use App\Repositories\Admin\Author\AuthorRepoInterface;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use App\Repositories\Admin\Playlist\PlaylistRepoInterface;
 use App\Repositories\Admin\Song\SongRepositoryInterface;
+use App\Repositories\User\CommentRepoInterface;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,19 +18,22 @@ class HomeController extends Controller
     protected $albumRepo;
     protected $authorRepo;
     protected $playlistRepo;
+    protected $commentRepo;
 
     public function __construct(
         SongRepositoryInterface $songRepo,
         CategoryRepositoryInterface $categoryRepo,
         AlbumRepoInterface $albumRepo,
         AuthorRepoInterface $authorRepo,
-        PlaylistRepoInterface $playlistRepo
+        PlaylistRepoInterface $playlistRepo,
+        CommentRepoInterface $commentRepo
     ) {
         $this->songRepo = $songRepo;
         $this->categoryRepo = $categoryRepo;
         $this->albumRepo = $albumRepo;
         $this->authorRepo = $authorRepo;
         $this->playlistRepo = $playlistRepo;
+        $this->commentRepo = $commentRepo;
     }
 
     public function index()
@@ -82,7 +86,11 @@ class HomeController extends Controller
 
         $favorite = $this->playlistRepo->getFavoritePlaylist();
 
-        return response()->view('user.song', compact('song', 'favorite'));
+        $comments = $this->commentRepo->getAllCommentWithUserFromSongId($request->id);
+
+        $replies = $this->commentRepo->getAllReplyWithUserFromSongId($request->id);
+
+        return response()->view('user.song', compact('song', 'favorite', 'comments', 'replies'));
     }
 
     public function loadDataForHomePage()

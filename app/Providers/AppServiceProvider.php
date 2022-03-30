@@ -14,6 +14,8 @@ use App\Repositories\Admin\Playlist\PlaylistRepository;
 use App\Repositories\Admin\Playlist\PlaylistRepoInterface;
 use App\Repositories\User\UserRepoInterface;
 use App\Repositories\User\UserRepository;
+use App\Repositories\User\CommentRepository;
+use App\Repositories\User\CommentRepoInterface;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -54,6 +56,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             UserRepoInterface::class,
             UserRepository::class
+        );
+
+        $this->app->singleton(
+            CommentRepoInterface::class,
+            CommentRepository::class
         );
     }
 

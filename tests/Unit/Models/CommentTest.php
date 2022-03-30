@@ -44,6 +44,8 @@ class CommentTest extends TestCase
         $fillable = [
             'content',
             'parent_id',
+            'song_id',
+            'user_id',
         ];
 
         $this->assertEquals($fillable, $this->comment->getFillable());
