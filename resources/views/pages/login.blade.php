@@ -11,7 +11,7 @@
                     @csrf
                     <div class="form-group required">
                         <label for="email">{{ __('Email address') }}</label>
-                        <input placeholder="Email address" type="email" class="form-control email" id="email" name="email">
+                        <input placeholder="Email address" type="text" class="form-control email" id="email" name="email">
                         <small class="text-danger">{{ $errors->first('email') }}</small>
                     </div>
                     <div class="form-group required">
