@@ -76,6 +76,15 @@ class HomeController extends Controller
         return response()->view('user.author', compact('author', 'albums', 'favorite'));
     }
 
+    public function showSong(Request $request)
+    {
+        $song = $this->songRepo->find($request->id);
+
+        $favorite = $this->playlistRepo->getFavoritePlaylist();
+
+        return response()->view('user.song', compact('song', 'favorite'));
+    }
+
     public function loadDataForHomePage()
     {
         $songs = $this->songRepo->getAllSongWithAuthors();

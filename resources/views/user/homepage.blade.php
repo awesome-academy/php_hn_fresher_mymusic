@@ -14,10 +14,14 @@
         @forelse ($songs as $song)
             <x-card card-class="song" :card-name="$song->name" :description="implode(', ',$song->authors->pluck('name')->toArray())"
                 :data-song="$song->path" :data-title="$song->name"
-                data-fav="{{ $favorite->songs ? $favorite->songs->contains($song) : false }}"
+                data-fav="{{ $favorite ? $favorite->songs->contains($song) : false }}"
                 :data-thumbnail="$song->thumbnail" :song-id="$song->id"
                 :data-author="implode(', ',$song->authors->pluck('name')->toArray())">
                 <img src="{{ asset($song->thumbnail) }}" alt="burn-out">
+                <div class="quick-play">
+                    <i class="fa-solid fa-play"></i>
+                    <i class="fa-solid fa-pause d-none"></i>
+                </div>
             </x-card>
         @empty
             <p> {{ __('no_data') }}</p>

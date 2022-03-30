@@ -16,6 +16,11 @@ musicPlayer.handleEvents();
 //Call handle url history function to navigation
 ajax.main.getUrlParam();
 
+$(document).on('click', ".comment-reply", function(e) {
+    var indexclicked = $('.comment-reply').index(this);
+    $('.reply-input')[indexclicked].classList.toggle('active');
+    $('.reply-list')[indexclicked].classList.toggle('active');
+});
 //Navigation route by button sidebar
 $(document).on("click", "#homepage-button", ajax.main.homepage);
 
