@@ -153,3 +153,7 @@
   width: 300px;
   -webkit-box-orient: vertical;
 }
+
+#song-chart {
+  max-height: 400px;
+}

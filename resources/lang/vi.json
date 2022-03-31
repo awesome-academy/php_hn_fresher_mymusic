@@ -161,5 +161,7 @@
     "create_success": "Thêm mới dữ liệu thành công",
     "reply": "Trả lời",
     "comment_content": "Nội dung bình luận",
-    "related_song": "Bài hát liên quan"
+    "related_song": "Bài hát liên quan",
+    "canva_not_supported": "Trình duyệt của bạn không hỗ trợ thẻ canva. Không thể khởi tạo biểu đồ",
+    "song_chart": "Số lượng bài hát mới"
 }
