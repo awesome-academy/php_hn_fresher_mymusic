@@ -17,4 +17,7 @@ interface SongRepositoryInterface extends BaseRepositoryInterface
 
     // Delete song
     public function deleteSong(int $songId);
+
+    // Statistical song in year
+    public function statisticalSong(int $year);
 }
