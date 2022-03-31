@@ -1,5 +1,6 @@
 import trans from '../trans';
 import Chart from 'chart.js/auto';
+import axios from './axios';
 
 const totalYear = 3;
 const songChartEl = '#song-chart';
@@ -9,8 +10,16 @@ const songChartFilter = document.querySelector(songChartFilterEl);
 const songChartLabels = trans.__('attributes.month');
 const now = new Date().getFullYear();
 
-const getSongChartData = async function (date) {
-    return [date];
+const getSongChartData = async function (year) {
+    let data = [];
+    let res = await axios.get('/api/dashboard/songs/' + year);
+    if (res && res.status === 200) {
+        data = Object.values(res.data.songs);
+    } else {
+        toastr.error('have_error');
+    }
+
+    return data;
 }
 
 const initSongFilter = function () {
@@ -24,17 +33,17 @@ const initSongFilter = function () {
     }
 }
 
-const initSongChart = async function (date = now) {
+const initSongChart = async function (year = now) {
     if (songChartElement) {
         return new Chart(songChartElement, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: songChartLabels,
                 datasets: [{
                     label: trans.__('song_chart'),
-                    data: await getSongChartData(date),
+                    data: await getSongChartData(year),
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgb(75, 192, 192)',
                     tension: 0.1,
                 }]
             },

@@ -83,4 +83,8 @@ Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {
         ->middleware('auth.admin');
 
     Route::get('search', [SearchController::class, 'search'])->name('user.search');
+
+    Route::get('dashboard/songs/{year}', [DashboardController::class, 'statisticalSongsInYear'])
+        ->name('statisticalSongsInYear')
+        ->middleware('auth.admin');
 });

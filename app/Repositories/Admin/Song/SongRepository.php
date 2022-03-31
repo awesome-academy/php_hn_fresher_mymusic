@@ -17,7 +17,6 @@ class SongRepository extends BaseRepository implements SongRepositoryInterface
         return $this->model->with('authors')->get();
     }
 
-
     public function createNewSong(array $attributes, array $authorIds)
     {
         $song = $this->create($attributes);
@@ -45,5 +44,21 @@ class SongRepository extends BaseRepository implements SongRepositoryInterface
         $deleted = $this->delete($song->id);
 
         return $deleted;
+    }
+
+    public function statisticalSong(int $year)
+    {
+        $songs = $this->findByWhereLike([
+            ['created_at', $year],
+        ]);
+
+        $dates = $songs->map(function ($song, $index) {
+            return $song->created_at->format('M');
+        });
+
+        $initData = config('admin.init_statistical');
+        $statisticalData = array_count_values($dates->toArray());
+
+        return array_merge($initData, $statisticalData);
     }
 }
