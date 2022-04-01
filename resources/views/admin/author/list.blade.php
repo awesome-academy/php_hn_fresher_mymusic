@@ -7,6 +7,21 @@
         <x-breadcrumb :items="['Author','list_authors']"> </x-breadcrumb>
     </div>
     <section class="section">
+        <button class="mb-3 btn btn-primary" data-toggle="modal" data-target="#import-excel">{{ __('import_excel') }}</button>
+        <x-modal x-id="import-excel" x-title="{{ __('import_excel') }}" x-size="md">
+            <form action="{{ route('admin.authors.importExcel') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="author_file">{{ __( 'choose_excel') }}</label>
+                    <input id="author_file" type="file" name="author_file" class="hidden" accept=".xlsx, .xls, .csv, .ods" required>
+                </div>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">{{ __('submit') }}</button>
+                    </div>
+                 </div>
+            </form>
+        </x-modal>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">

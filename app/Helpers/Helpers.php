@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -11,6 +12,7 @@ class Helpers
     const USER_FILESYSTEM_DRIVER = 'user';
     const STORE_SONG_DRIVER = 'song';
     const DEFAULT_AVATAR_PATH = 'assets/img/default-avatar.png';
+    const TEMP_FOLDER = '/tmp-files/';
 
     public static function storeUserAvatar($file)
     {
@@ -72,5 +74,25 @@ class Helpers
     public static function markAsReadAll()
     {
         return auth()->user()->Notifications->markAsRead();
+    }
+
+    public static function getFileFromExcel($path)
+    {
+        $pathParts = pathinfo($path);
+        $newPath = $pathParts['dirname'] . self::TEMP_FOLDER;
+        if (!is_dir($newPath)) {
+            mkdir($newPath);
+        }
+        $newUrl = $newPath . $pathParts['basename'];
+        copy($path, $newUrl);
+        $imgInfo = getimagesize($newUrl);
+        return new UploadedFile(
+            $newUrl,
+            $pathParts['basename'],
+            $imgInfo['mime'],
+            filesize($path),
+            true,
+            true
+        );
     }
 }
