@@ -62,6 +62,12 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if (!$user->isActive()) {
+            auth()->logout();
+
+            return redirect()->route('login')->with('error', __('blocked_account'));
+        }
+
         if (!$user->email_verified_at) {
             return redirect()->route('verification.notice');
         }
