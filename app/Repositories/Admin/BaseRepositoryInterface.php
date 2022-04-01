@@ -39,4 +39,7 @@ interface BaseRepositoryInterface
 
     // Get record where not in
     public function whereNotIn(string $condition, array $attributes);
+
+    // Get record where between
+    public function whereBetween(string $condition, array $attributes);
 }

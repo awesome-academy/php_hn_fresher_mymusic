@@ -2,11 +2,16 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendWeeklyReport;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        SendWeeklyReport::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -15,7 +20,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('report:weekly')->everyMinute();
+        $schedule->command('report:weekly')->weeklyOn(0, '8:00');
     }
 
     /**

@@ -78,6 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->active === self::USER_ACTIVE;
     }
 
+    public function scopeAdmin(Builder $builder)
+    {
+        return $builder->where('role', User::ROLE_ADMIN);
+    }
+
     public function scopeActive(Builder $builder)
     {
         return $builder->where('active', User::USER_ACTIVE);

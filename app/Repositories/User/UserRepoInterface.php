@@ -11,4 +11,10 @@ interface UserRepoInterface extends BaseRepositoryInterface
 
     // Unblock user
     public function unblockUser(int $userId);
+
+    // Get user with role admin
+    public function getAllAdminAccounts();
+
+    // Statistical new users for past week
+    public function countNewUsersByWeek();
 }
