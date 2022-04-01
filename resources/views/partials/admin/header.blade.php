@@ -59,28 +59,32 @@
             <li class="nav-item dropdown">
                 <a id="notifications" class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
-                    <span class="pending badge bg-primary badge-number">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @if (!auth()->user()->unreadNotifications->isEmpty())
+                        <span class="pending badge bg-primary badge-number">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </span>
+                    @endif
                 </a><!-- End Notification Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                     <li class="dropdown-header">
                         {{ __('notification') }}
                         <a href="#">
-                            <span class="badge rounded-pill bg-primary p-2 ms-2 text-light">{{ __('mark_at_read_all') }}</span>
+                            <span class="mark-at-read badge rounded-pill bg-primary p-2 ms-2 text-light">
+                                {{ __('mark_at_read_all') }}
+                            </span>
                         </a>
                     </li>
                     <li>
                         <ul class="p-0 m-0" id="notification-list">
                             @foreach (Auth::user()->notifications as $notification)
-                                <li class="notification-item {{ $notification->unread() ? 'unread' : '' }}">
-                                    <p>{{ __('notification_mess', ['email' => $notification->data['email']]) }}</p>
+                                <li data-id="{{ $notification->id }}"
+                                    class="notification-item {{ $notification->unread() ? 'unread' : '' }}">
+                                    <p>{!! __('notification_mess', ['email' => '<b>' . $notification->data['email'] . '</b>']) !!}</p>
                                     <p class="float-right">{{ $notification->created_at->diffForHumans() }}</p>
                                 </li>
                             @endforeach
                         </ul>
-                    </li>
-                    <li class="dropdown-footer">
-                        <a href="#">{{ __('View all') }}</a>
                     </li>
                 </ul><!-- End Notification Dropdown Items -->
 

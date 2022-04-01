@@ -26,9 +26,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->all();
     }
 
-    public function getAllWithPaginate(int $paginateNumber)
+    public function getAllWithPaginate(int $paginateNumber, $orderBy = 'id', $order = 'asc')
     {
-        return $this->model->paginate($paginateNumber)->withQueryString();
+        return $this->model->orderBy($orderBy, $order)->paginate($paginateNumber)->withQueryString();
     }
 
     public function getAllWithRelationPaginate(int $perPage, array $relations)
