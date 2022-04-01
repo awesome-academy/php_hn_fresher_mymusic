@@ -252,4 +252,54 @@ class UserTest extends TestCase
         $this->assertEquals('user_id', $relation->getForeignKeyName());
         $this->assertEquals('id', $relation->getLocalKeyName());
     }
+
+    /**
+     * Test case test user account status is active
+     */
+    public function testActiveStatus()
+    {
+        $this->user->setRawAttributes([
+            'active' => static::USER_ACTIVE,
+        ]);
+
+        $result = $this->user->isActive();
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * Test case test user account status is unactive (blocked)
+     */
+    public function testBlockedStatus()
+    {
+        $this->user->setRawAttributes([
+            'active' => static::USER_UNACTIVE,
+        ]);
+
+        $result = $this->user->isActive();
+
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Test case test scopedAdmin return exact query builder
+     */
+    public function testScopeAdmin()
+    {
+        $sql = $this->user->admin()->toSql();
+        $needed = 'where `role` = ?';
+
+        $this->assertStringContainsString($needed, $sql);
+    }
+
+    /**
+     * Test case test scopeActive return exact query builder
+     */
+    public function testScopeActive()
+    {
+        $sql = $this->user->active()->toSql();
+        $needed = 'where `active` = ?';
+
+        $this->assertStringContainsString($needed, $sql);
+    }
 }
