@@ -120,5 +120,6 @@
     "comment_content": "Comment content",
     "related_song": "Related song",
     "canva_not_supported": "Your browser does not support the canvas element. Unable to initial chart",
-    "song_chart": "New songs"
+    "song_chart": "New songs",
+    "blocked_account": "Your account has been blocked"
 }
