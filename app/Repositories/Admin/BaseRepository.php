@@ -108,4 +108,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         return $records;
     }
+
+    public function whereBetween(string $condition, array $attributes)
+    {
+        return $this->model->whereBetween($condition, $attributes)->get();
+    }
 }
