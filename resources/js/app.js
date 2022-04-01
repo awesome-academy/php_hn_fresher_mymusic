@@ -1,5 +1,5 @@
 require('./bootstrap');
-
+require('./admin/notification')
 import { song } from './admin/song';
 import user from './admin/user';
 import dashboard from './admin/dashboard';

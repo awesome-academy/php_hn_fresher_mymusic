@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Admin\PLaylist;
+namespace App\Repositories\Admin\Playlist;
 
 use App\Repositories\Admin\BaseRepositoryInterface;
 

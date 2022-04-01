@@ -164,5 +164,9 @@
     "related_song": "Bài hát liên quan",
     "canva_not_supported": "Trình duyệt của bạn không hỗ trợ thẻ canva. Không thể khởi tạo biểu đồ",
     "song_chart": "Số lượng bài hát mới",
-    "blocked_account": "Tài khoản của bạn đã bị khoá"
+    "blocked_account": "Tài khoản của bạn đã bị khoá",
+    "notification": "Tất cả thông báo của bạn !!!",
+    "notification_mess": "Tài khoản :email đã đăng ký vào hệ thống. Vui lòng kiểm tra trong trang quản lý người dùng.",
+    "mark_at_read_all" : "Đánh dấu đã đọc tất cả",
+    "recent": "Vừa xong"
 }

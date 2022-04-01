@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
+use App\Notifications\RegisterNotification;
+use App\Providers\RouteServiceProvider;
+use App\Repositories\User\UserRepoInterface;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Pusher\Pusher;
 
 class RegisterController extends Controller
 {
@@ -34,15 +38,17 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userRepo;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepoInterface $userRepo)
     {
         $this->middleware('guest');
+        $this->userRepo = $userRepo;
     }
 
     public function showRegistrationForm()
@@ -92,10 +98,30 @@ class RegisterController extends Controller
         $path = Helpers::storeUserAvatar($avatar);
         $data = array_merge($data, ['avatar' => $path]);
         $user = $this->create($data);
+        $admins = $this->userRepo->getAllAdminAccounts();
+        $data = [
+            'email' => $user->email,
+        ];
 
         event(new Registered($user));
 
         $this->guard()->login($user);
+
+        $options = [
+            'cluster' => 'ap2',
+            'useTLS' => true,
+        ];
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('NotificationEvent', 'send-notification', $data);
+
+        Notification::send($admins, new RegisterNotification($data));
 
         if ($response = $this->registered($request, $user)) {
             return $response;
