@@ -18,6 +18,7 @@ use App\Repositories\User\CommentRepository;
 use App\Repositories\User\CommentRepoInterface;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -72,5 +73,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        Carbon::setLocale(config('app.locale'));
     }
 }

@@ -121,5 +121,9 @@
     "related_song": "Related song",
     "canva_not_supported": "Your browser does not support the canvas element. Unable to initial chart",
     "song_chart": "New songs",
-    "blocked_account": "Your account has been blocked"
+    "blocked_account": "Your account has been blocked",
+    "notification": "All of your notifications !!!",
+    "notification_mess": "Account :email registered in the system. Please check in the user management.",
+    "mark_at_read_all" : "Mark at read all notification",
+    "recent": "Recent"
 }

@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $builder->where('active', User::USER_ACTIVE);
     }
-    
+
     public function getRoleDescriptionAttribute()
     {
         return __('common.role.' . $this->attributes['role']);
