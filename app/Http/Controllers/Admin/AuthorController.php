@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\AuthorStoreRequest;
 use App\Http\Requests\Admin\AuthorUpdateRequest;
 use App\Repositories\Admin\Author\AuthorRepoInterface;
 use DB;
+use Exception;
 
 class AuthorController extends Controller
 {
@@ -46,11 +47,15 @@ class AuthorController extends Controller
      */
     public function store(AuthorStoreRequest $request)
     {
-        $data = $request->except('_token');
-        $thumbnail = $request->file('thumbnail');
-        $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
-        $data['thumbnail'] = $path;
-        $rs = $this->authorRepo->create($data);
+        try {
+            $data = $request->except('_token');
+            $thumbnail = $request->file('thumbnail');
+            $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
+            $data['thumbnail'] = $path;
+            $rs = $this->authorRepo->create($data);
+        } catch (Exception $e) {
+            return $this->redirect();
+        }
 
         return $this->redirect($rs, __('create_success'));
     }
@@ -63,7 +68,11 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        $author = $this->authorRepo->getAuthorWithSongAndAlbum($id);
+        try {
+            $author = $this->authorRepo->getAuthorWithSongAndAlbum($id);
+        } catch (Exception $e) {
+            return redirect()->route('admin.authors.index')->with('error', __('no_data'));
+        }
 
         return view('admin.author.view', compact('author'));
     }
@@ -76,7 +85,11 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        $author = $this->authorRepo->find($id);
+        try {
+            $author = $this->authorRepo->find($id);
+        } catch (Exception $e) {
+            return redirect()->route('admin.authors.index')->with('error', __('no_data'));
+        }
 
         return view('admin.author.edit', compact('author'));
     }
@@ -90,15 +103,19 @@ class AuthorController extends Controller
      */
     public function update(AuthorUpdateRequest $request, $id)
     {
-        $data = $request->except('_token');
-        $thumbnail = $request->file('thumbnail');
-        if (!$thumbnail) {
-            $data['thumbnail'] = $this->authorRepo->find($id)->thumbnail;
-        } else {
-            $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
-            $data['thumbnail'] = $path;
+        try {
+            $data = $request->except('_token');
+            $thumbnail = $request->file('thumbnail');
+            if (!$thumbnail) {
+                $data['thumbnail'] = $this->authorRepo->find($id)->thumbnail;
+            } else {
+                $path = $this->authorRepo->storeAsImageAuthor($thumbnail);
+                $data['thumbnail'] = $path;
+            }
+            $rs = $this->authorRepo->update($id, $data);
+        } catch (Exception $e) {
+            return $this->redirect();
         }
-        $rs = $this->authorRepo->update($id, $data);
 
         return $this->redirect($rs, __('update_success'));
     }
@@ -119,15 +136,16 @@ class AuthorController extends Controller
             $this->authorRepo->delete($id);
 
             DB::commit();
-
-            return back()->with('success', __('delete_success'));
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             DB::rollBack();
+
             return back()->with('error', __('have_error'));
         }
+
+        return back()->with('success', __('delete_success'));
     }
 
-    public function redirect($rs, $mess)
+    public function redirect($rs = null, $mess = '')
     {
         if ($rs) {
             return back()->with('success', $mess);
