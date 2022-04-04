@@ -63,4 +63,14 @@ class Helpers
 
         return Storage::delete($path);
     }
+
+    public static function markAsRead($id)
+    {
+        return auth()->user()->Notifications->find($id)->markAsRead();
+    }
+
+    public static function markAsReadAll()
+    {
+        return auth()->user()->Notifications->markAsRead();
+    }
 }

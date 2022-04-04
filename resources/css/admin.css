@@ -185,3 +185,7 @@
 .notification-item.unread:hover{
     background-color: #fff !important;
 }
+
+.pending{
+    color: #fff;
+}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\HomeController;
@@ -75,6 +76,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
         Route::put('/{id}/block', [UserController::class, 'blockUser'])->name('block');
         Route::put('/{id}/unblock', [UserController::class, 'unblockUser'])->name('unblock');
     });
+
+    Route::put('/notify/mark-as-read', [NotificationController::class, 'markAsRead']);
+    Route::put('/notify/mark-as-read-all', [NotificationController::class, 'markAsReadAll']);
 });
 
 Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {

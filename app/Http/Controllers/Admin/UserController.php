@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepoInterface;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -18,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userRepo
-            ->getAllWithPaginate(config('admin.paginate.user'));
+            ->getAllWithPaginate(config('admin.paginate.user'), 'created_at', 'desc');
 
         return view('admin.users.list', compact('users'));
     }

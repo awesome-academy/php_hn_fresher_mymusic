@@ -23,7 +23,7 @@ interface BaseRepositoryInterface
     public function delete(int $id);
 
     // Get all records of model with pagination
-    public function getAllWithPaginate(int $paginateNumber);
+    public function getAllWithPaginate(int $paginateNumber, $orderBy = 'id', $order = 'asc');
 
     // Get all records of model with pagination and relationships
     public function getAllWithRelationPaginate(int $perPage, array $relations);
