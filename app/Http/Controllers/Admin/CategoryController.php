@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Repositories\Admin\Category\CategoryRepositoryInterface;
 use App\Repositories\Admin\Song\SongRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -70,8 +71,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = $this->categoryRepo->find($id);
-        $songs = $this->songRepo->whereNotIn('id', $category->songs->pluck('id')->toArray());
+        try {
+            $category = $this->categoryRepo->find($id);
+            $currentSongsInCategory = $category->songs->pluck('id')->toArray();
+            $songs = $this->songRepo->whereNotIn('id', $currentSongsInCategory);
+        } catch (Exception $e) {
+            return redirect()->route('admin.categories.index')->with('error', __('no_data'));
+        }
 
         return view('admin.categories.show', compact('category', 'songs'));
     }
@@ -84,7 +90,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->categoryRepo->find($id);
+        try {
+            $category = $this->categoryRepo->find($id);
+        } catch (Exception $e) {
+            return redirect()->route('admin.categories.index')->with('error', __('no_data'));
+        }
 
         return view('admin.categories.edit', compact('category'));
     }
@@ -98,8 +108,12 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, $id)
     {
-        $category = $this->categoryRepo
-            ->update($id, $request->only(['name', 'description']));
+        try {
+            $category = $this->categoryRepo
+                ->update($id, $request->only(['name', 'description']));
+        } catch (Exception $e) {
+            return redirect()->route('admin.categories.index')->with('error', __('no_data'));
+        }
 
         return redirect()
             ->route('admin.categories.show', ['category' => $category->id])
@@ -121,10 +135,11 @@ class CategoryController extends Controller
             $this->categoryRepo->delete($id);
 
             DB::commit();
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             DB::rollBack();
 
-            throw $th;
+            return redirect()->route('admin.categories.index')
+                ->with('error', __('have_error'));
         }
 
         return redirect()->route('admin.categories.index')
@@ -133,30 +148,40 @@ class CategoryController extends Controller
 
     public function addSongToCategory(Request $request)
     {
-        $categories = $request->input('category_id');
-        $data = $request->only('song_id');
+        $category = $request->input('category_id');
+        $songs = $request->only('song_id');
         try {
             DB::beginTransaction();
 
-            foreach ($data as $item) {
-                $this->categoryRepo->addSongToCategory((int) $categories, $item);
+            foreach ($songs as $song) {
+                $this->categoryRepo->addSongToCategory((int)$category, $song);
             }
 
             DB::commit();
-
-            return back()->with('success', __('add_song_success'));
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             DB::rollBack();
 
-            return back()->with('error', __('have_error'));
+            return redirect()->back()->with('error', __('have_error'));
         }
+
+        return redirect()->back()->with('success', __('add_song_success'));
     }
 
     public function removeFromCategory(Request $request)
     {
-        $categories = $request->input('category_id');
-        $data = $request->only('song_id');
-        $rs = $this->categoryRepo->removeSongFromCategory((int) $categories, $data);
+        try {
+            DB::beginTransaction();
+
+            $category = $request->input('category_id');
+            $songs = $request->only('song_id');
+            $this->categoryRepo->removeSongFromCategory((int) $category, $songs);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', __('have_error'));
+        }
 
         return redirect()->back()->with('success', __('delete_success'));
     }
