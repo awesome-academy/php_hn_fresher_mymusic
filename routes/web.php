@@ -4,15 +4,15 @@ use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
 use App\Http\Controllers\User\SearchController;
-use App\Http\Controllers\User\CommentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -70,7 +70,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
     Route::post('category/add-music', [CategoryController::class, 'addSongToCategory'])->name('categories.addSong');
     Route::post('category/remove-music', [CategoryController::class, 'removeFromCategory'])
         ->name('categories.removeSong');
-
+    Route::post('authors/import', [AuthorController::class, 'importExcel'])->name('authors.importExcel');
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::put('/{id}/block', [UserController::class, 'blockUser'])->name('block');

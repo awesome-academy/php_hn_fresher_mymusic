@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AuthorStoreRequest;
 use App\Http\Requests\Admin\AuthorUpdateRequest;
+use App\Imports\AuthorImport;
 use App\Repositories\Admin\Author\AuthorRepoInterface;
 use DB;
 use Exception;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AuthorController extends Controller
 {
@@ -143,6 +146,13 @@ class AuthorController extends Controller
         }
 
         return back()->with('success', __('delete_success'));
+    }
+
+    public function importExcel(Request $request)
+    {
+        $rs = Excel::import(new AuthorImport($this->authorRepo), $request->author_file);
+
+        return back()->with('success', __('create_success'));
     }
 
     public function redirect($rs = null, $mess = '')

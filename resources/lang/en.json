@@ -125,5 +125,7 @@
     "notification": "All of your notifications !!!",
     "notification_mess": "Account :email registered in the system. Please check in the user management.",
     "mark_at_read_all" : "Mark at read all notification",
-    "recent": "Recent"
+    "recent": "Recent",
+    "import_excel": "Import Excel",
+    "choose_excel": "Choose file excel : "
 }
