@@ -18,7 +18,7 @@ class AuthorRepository extends BaseRepository implements AuthorRepoInterface
 
     public function getAuthorWithSongAndAlbum($id)
     {
-        return $this->model->where('id', $id)->with('songs', 'albums')->first();
+        return $this->model->where('id', $id)->with('songs', 'albums')->firstOrFail();
     }
 
     public function storeAsImageAuthor($file)
