@@ -10,6 +10,8 @@ use App\Repositories\Admin\Author\AuthorRepoInterface;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Request;
+use Excel;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\TestCase;
@@ -17,12 +19,14 @@ use Tests\TestCase;
 class AuthorControllerTest extends TestCase
 {
     const FAKE_THUMBNAIL_PATH = 'authors/thumbnail/author.png';
+    const FAKE_EXCEL_NAME = 'author.xlsx';
 
     protected $authors;
     protected $authorStoreRequest;
     protected $authorUpdateRequest;
     protected $authorRepo;
     protected $authorController;
+    protected $request;
 
     public function setUp(): void
     {
@@ -30,6 +34,7 @@ class AuthorControllerTest extends TestCase
         $this->authors = Author::factory()->count(10)->make();
         $this->authorStoreRequest = m::mock(AuthorStoreRequest::class);
         $this->authorUpdateRequest = m::mock(AuthorUpdateRequest::class);
+        $this->request = m::mock(Request::class);
         $this->authorRepo = m::mock(AuthorRepoInterface::class)->makePartial();
         $this->authorController = new AuthorController($this->authorRepo);
     }
@@ -217,5 +222,17 @@ class AuthorControllerTest extends TestCase
         $this->authorController->destroy(1);
 
         $this->assertArrayHasKey('error', session()->all());
+    }
+
+    public function testImportExcel()
+    {
+        $file = UploadedFile::fake()->create(self::FAKE_EXCEL_NAME);
+        $this->request->shouldReceive('only')->andReturn($file);
+        Excel::fake();
+
+        $this->authorController->importExcel($this->request);
+
+        Excel::assertImported(self::FAKE_EXCEL_NAME);
+        $this->assertArrayHasKey('success', session()->all());
     }
 }

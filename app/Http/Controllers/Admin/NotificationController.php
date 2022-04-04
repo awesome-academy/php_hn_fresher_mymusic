@@ -12,7 +12,9 @@ class NotificationController extends Controller
     public function markAsRead(Request $request)
     {
         try {
-            Helpers::markAsRead($request->id);
+            $notiId = $request->only('id');
+            $notification = Helpers::findNotificationById($notiId);
+            $markAsRead = Helpers::markAsRead($notification);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -25,7 +27,8 @@ class NotificationController extends Controller
     public function markAsReadAll()
     {
         try {
-            Helpers::markAsReadAll();
+            $notification = Helpers::getAllNotification();
+            $markAsRead = Helpers::markAsRead($notification);
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

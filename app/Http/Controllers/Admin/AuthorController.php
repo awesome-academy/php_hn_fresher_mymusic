@@ -150,7 +150,8 @@ class AuthorController extends Controller
 
     public function importExcel(Request $request)
     {
-        $rs = Excel::import(new AuthorImport($this->authorRepo), $request->author_file);
+        $file = $request->only('author_file');
+        $rs = Excel::import(new AuthorImport($this->authorRepo), $file);
 
         return back()->with('success', __('create_success'));
     }
