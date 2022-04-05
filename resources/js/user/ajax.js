@@ -12,95 +12,106 @@ const main = {
         let r = `<div class="main-content">${html}</div>`;
         this.el.innerHTML = r;
     },
-    homepage: async function (e) {
+    homepage: async function (isGoBack = false) {
         let resp = await axios.get("/homepage");
         if (resp && resp.status === 200) {
             sidebar.unactiveMenuItems();
             $("#homepage-button").addClass("c-active");
             uri.updateQueryStringParameter({ key: "", value: "homepage" });
             main.render(resp.data);
+            back.setStorage(window.location.search, isGoBack);
             musicPlayer.handleEvents();
             slick();
         }
     },
-    searchpage: async function (e) {
+    searchpage: async function (isGoBack = false) {
         let resp = await axios.get("/search");
         sidebar.unactiveMenuItems();
         $("#search-button").addClass("c-active");
         uri.updateQueryStringParameter({ key: "", value: "search" });
         main.render(resp.data);
+        back.setStorage(window.location.search, isGoBack);
         musicPlayer.handleEvents();
     },
-    categorypage: async function (id) {
+    categorypage: async function (id, isGoBack = false) {
         let resp = await axios.get("/category?id=" + id);
         uri.updateQueryStringParameter(
             { key: "", value: "category" },
             { param: "id", val: id }
         );
         main.render(resp.data);
+        sidebar.unactiveMenuItems();
         musicPlayer.handleEvents();
+        back.setStorage(window.location.search, isGoBack);
     },
-    albumpage: async function (id) {
+    albumpage: async function (id, isGoBack = false) {
         let resp = await axios.get("/album?id=" + id);
         uri.updateQueryStringParameter(
             { key: "", value: "album" },
             { param: "id", val: id }
         );
         main.render(resp.data);
-        musicPlayer.handleEvents();
+        sidebar.unactiveMenuItems();
+        back.setStorage(window.location.search, isGoBack);
         slick();
     },
-    authorpage: async function (id) {
+    authorpage: async function (id, isGoBack = false) {
         let resp = await axios.get("/author?id=" + id);
         uri.updateQueryStringParameter(
             { key: "", value: "author" },
             { param: "id", val: id }
         );
         main.render(resp.data);
+        sidebar.unactiveMenuItems();
         musicPlayer.handleEvents();
+        back.setStorage(window.location.search, isGoBack);
     },
-    playlistPage: async function (id) {
+    playlistPage: async function (id, isGoBack = false) {
         let resp = await axios.get("/playlist/" + id);
+        sidebar.unactiveMenuItems();
+        $(`.menu-item[data-id="${id}"]`).addClass("c-active");
         uri.updateQueryStringParameter(
             { key: "", value: "playlist" },
             { param: "id", val: id }
         );
         main.render(resp.data);
         musicPlayer.handleEvents();
+        back.setStorage(window.location.search, isGoBack);
     },
-    songPage : async function(id){
-        let resp = await axios.get("/song?id=" +id);
+    songPage: async function (id, isGoBack = false) {
+        let resp = await axios.get("/song?id=" + id);
         uri.updateQueryStringParameter(
-            { key: "", value: "song"},
-            { param: "id", val: id}
+            { key: "", value: "song" },
+            { param: "id", val: id }
         );
         main.render(resp.data);
         musicPlayer.handleEvents();
+        back.setStorage(window.location.search, isGoBack);
     },
-    getUrlParam: async function (url = null) {
-        const params = new URLSearchParams(window.location.search);
-        let _url = url || params.get("");
+    getUrlParam: async function (url = null, isGoBack = false) {
+        const params = new URLSearchParams(url || window.location.search);
+        let _url = params.get("");
         switch (_url) {
             case "homepage":
-                await main.homepage();
+                await main.homepage(isGoBack);
                 break;
             case "search":
-                await main.searchpage(params.get("id"));
+                await main.searchpage(isGoBack);
                 break;
             case "category":
-                await main.categorypage(params.get("id"));
+                await main.categorypage(params.get("id"), isGoBack);
                 break;
             case "album":
-                await main.albumpage(params.get("id"));
+                await main.albumpage(params.get("id"), isGoBack);
                 break;
             case "author":
-                await main.authorpage(params.get("id"));
+                await main.authorpage(params.get("id"), isGoBack);
                 break;
             case "playlist":
-                await main.playlistPage(params.get("id"));
+                await main.playlistPage(params.get("id"), isGoBack);
                 break;
             case "song":
-                await main.songPage(params.get("id"));
+                await main.songPage(params.get("id"), isGoBack);
                 break;
             default:
                 break;
@@ -132,9 +143,9 @@ const sidebar = {
             $("#homepage-button").addClass("c-active");
         }
     },
-    getFavoritePlaylist : async function(){
+    getFavoritePlaylist: async function () {
         let resp = await axios.get("/favorite");
-        _$('.favorite').setAttribute("data-id",resp.data.favorite.id);
+        _$('.favorite').setAttribute("data-id", resp.data.favorite.id);
     }
 };
 
@@ -195,13 +206,13 @@ const playlist = {
 
         _$("#add-playlist .close").click();
     },
-    addToFavorite : async function(){
+    addToFavorite: async function () {
         let favoriteId = _$('.favorite').getAttribute('data-id');
         let resp = await axios.post("/playlist/add-song", {
             playlist_id: favoriteId,
             song_id: this.songId.value,
         });
-        if(!resp.data.song.attached.length == 0){
+        if (!resp.data.song.attached.length == 0) {
             $('.fav-btn').addClass('liked');
             $('.fav-btn').removeClass('unlike');
             toastr.success(trans.__("add_song_success"));
@@ -228,13 +239,13 @@ const playlist = {
         });
         return resp;
     },
-    removeFromFavorite : async function(){
+    removeFromFavorite: async function () {
         let favoriteId = _$('.favorite').getAttribute('data-id');
         let resp = await axios.post("/playlist/remove-song", {
             playlist_id: favoriteId,
             song_id: this.songId.value,
         });
-        if(resp.status == 200){
+        if (resp.status == 200) {
             $('.fav-btn').addClass('unlike');
             $('.fav-btn').removeClass('liked');
             toastr.success(trans.__("delete_song_success"));
@@ -306,10 +317,65 @@ const search = {
     }
 };
 
+const back = {
+    historyKey: 'MYMUSIC_SS_H_K',
+    element: '.navigate',
+    storage: function () {
+        let currentStorage = window.sessionStorage.getItem(back.historyKey);
+        currentStorage = currentStorage ? JSON.parse(currentStorage) : [];
+
+        return currentStorage;
+    },
+    setStorage: function (location, isGoBack) {
+        let currentStorage = back.storage();
+        if (isGoBack == false && location != currentStorage.slice(-1)) {
+            currentStorage.push(location);
+            currentStorage = JSON.stringify(currentStorage);
+            window.sessionStorage.setItem(back.historyKey, currentStorage);
+            back.changeBackButtonStyle();
+        }
+    },
+    goBack: function () {
+        let currentStorage = back.storage();
+        if (currentStorage.length > 0) {
+            let param = currentStorage.pop();
+
+            if (param) {
+                if (param == window.location.search) {
+                    param = currentStorage.pop();
+                }
+
+                window.history.pushState({}, '', param);
+                main.getUrlParam(param, true);
+            }
+
+            if (currentStorage.length == 0) {
+                currentStorage.unshift(window.location.search);
+            }
+
+            currentStorage = JSON.stringify(currentStorage);
+            window.sessionStorage.setItem(back.historyKey, currentStorage);
+            back.changeBackButtonStyle();
+        }
+    },
+    changeBackButtonStyle: function () {
+        let currentStorage = back.storage();
+        let dom = _$(back.element);
+        if (currentStorage.length == 1 && window.location.search == currentStorage.slice(-1)) {
+            dom.style.cursor = 'default';
+            dom.style.visibility = 'hidden';
+        } else {
+            dom.style.cursor = 'pointer';
+            dom.style.visibility = 'visible';
+        }
+    }
+}
+
 export default {
     sidebar,
     main,
     uri,
     playlist,
     search,
+    back,
 };
