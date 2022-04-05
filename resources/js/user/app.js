@@ -15,7 +15,7 @@ ajax.sidebar.getFavoritePlaylist();
 musicPlayer.handleEvents();
 
 //Call handle url history function to navigation
-ajax.main.getUrlParam();
+ajax.main.getUrlParam(window.location.search);
 
 $(document).on('click', ".comment-reply", function(e) {
     var indexclicked = $('.comment-reply').index(this);
@@ -23,9 +23,13 @@ $(document).on('click', ".comment-reply", function(e) {
     $('.reply-list')[indexclicked].classList.toggle('active');
 });
 //Navigation route by button sidebar
-$(document).on("click", "#homepage-button", ajax.main.homepage);
+$(document).on("click", "#homepage-button", async function (e) {
+    await ajax.main.homepage();
+});
 
-$(document).on("click", "#search-button", ajax.main.searchpage);
+$(document).on("click", "#search-button", async function (e) {
+    await ajax.main.searchpage();
+});
 
 $(document).on("click", ".category", function () {
     ajax.main.categorypage(this.getAttribute("data-id"));
@@ -39,8 +43,8 @@ $(document).on("click", ".author", function (event) {
     ajax.main.authorpage(this.getAttribute("data-id"));
 });
 
-$(document).on("click", ".user-playlist .menu-item", function (event) {
-    ajax.main.playlistPage(this.getAttribute("data-id"));
+$(document).on("click", ".user-playlist .menu-item", async function (event) {
+    await ajax.main.playlistPage(this.getAttribute("data-id"));
 });
 
 $(document).on("click", ".send-mess-btn", function (event) {
@@ -48,10 +52,8 @@ $(document).on("click", ".send-mess-btn", function (event) {
     comment.storeComment(this);
 });
 
-$(document).on("click", ".favorite", function (event) {
-    ajax.main.playlistPage(this.getAttribute("data-id"));
-    ajax.sidebar.unactiveMenuItems();
-    this.classList.add("c-active");
+$(document).on("click", ".favorite", async function (event) {
+    await ajax.main.playlistPage(this.getAttribute("data-id"));
 });
 
 $(document).on("click", "#create-playlist .btn-create", async function (event) {
@@ -96,3 +98,17 @@ $(document).on('keyup', ajax.search.inputEl, function (e) {
         ajax.search.search();
     }, 1000);
 });
+
+$(document).on('click', ajax.back.element, function (e) {
+    ajax.back.goBack();
+});
+
+ajax.back.changeBackButtonStyle();
+$(ajax.back.element).hover(function () {
+        // over
+        ajax.back.changeBackButtonStyle();
+    }, function () {
+        // out
+        ajax.back.changeBackButtonStyle();
+    }
+);
