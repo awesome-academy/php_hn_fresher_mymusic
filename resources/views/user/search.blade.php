@@ -21,11 +21,16 @@
                 @foreach ($songs as $key => $song)
                     <div class="search-result-item song" style="background-color: {{ $song->rand_color }}"
                         data-song="{{ $song->path }}" data-title="{{ $song->name }}" data-thumbnail="{{ $song->thumbnail }}"
-                        data-id="{{ $key }}" data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
+                        data-id="{{ $key }}" data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}"
+                        song-id="{{ $song->id }}">
                         <h5 class="mb-1"> {{ $song->name }} </h5>
                         <small class="d-inline-block px-2">
                             {{ implode(', ', $song->authors->pluck('name')->toArray()) }}
                         </small>
+                        <div class="quick-play">
+                            <i class="fa-solid fa-play"></i>
+                            <i class="fa-solid fa-pause d-none"></i>
+                        </div>
                         <img src="{{ asset($song->thumbnail) }}">
                     </div>
                 @endforeach

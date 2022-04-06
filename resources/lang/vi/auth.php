@@ -16,4 +16,5 @@ return [
     'password' => 'Mật khẩu không đúng.',
     'throttle' => 'Vượt quá số lần đăng nhập cho phép. Vui lòng thử lại sau :seconds giây.',
     'is_not_admin' => 'Bạn không được cấp quyền truy cập địa chỉ này',
+    'must_login' => 'Vui lòng đăng nhập để sử dụng chức năng này',
 ];

@@ -17,5 +17,5 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'is_not_admin' => 'You are not authorized to access this site',
-
+    'must_login' => 'Please login before access this feature',
 ];
