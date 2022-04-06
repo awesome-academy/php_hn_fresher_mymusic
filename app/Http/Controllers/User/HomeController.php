@@ -84,13 +84,15 @@ class HomeController extends Controller
     {
         $song = $this->songRepo->find($request->id);
 
+        $relatedSongs = $this->songRepo->getRelatedSong($song);
+
         $favorite = $this->playlistRepo->getFavoritePlaylist();
 
         $comments = $this->commentRepo->getAllCommentWithUserFromSongId($request->id);
 
         $replies = $this->commentRepo->getAllReplyWithUserFromSongId($request->id);
 
-        return response()->view('user.song', compact('song', 'favorite', 'comments', 'replies'));
+        return response()->view('user.song', compact('song', 'favorite', 'comments', 'replies', 'relatedSongs'));
     }
 
     public function loadDataForHomePage()

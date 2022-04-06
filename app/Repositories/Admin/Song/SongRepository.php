@@ -7,6 +7,7 @@ use App\Repositories\Admin\BaseRepository;
 
 class SongRepository extends BaseRepository implements SongRepositoryInterface
 {
+    const NUMBER_RELATED_SONG = 5;
     public function getModel()
     {
         return Song::class;
@@ -60,5 +61,16 @@ class SongRepository extends BaseRepository implements SongRepositoryInterface
         $statisticalData = array_count_values($dates->toArray());
 
         return array_merge($initData, $statisticalData);
+    }
+
+    public function getRelatedSong($song)
+    {
+        return $this->model->where('id', '!=', $song->id)
+            ->whereHas('authors', function ($query) use ($song) {
+                $query->whereIn('authors.id', $song->authors->pluck('id'));
+            })
+            ->inRandomOrder()
+            ->limit(self::NUMBER_RELATED_SONG)
+            ->get();
     }
 }

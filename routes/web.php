@@ -44,8 +44,13 @@ Route::controller(PlaylistController::class)->middleware(['auth', 'verified'])->
 });
 
 Route::get('/search', [SearchController::class, 'showSearchPage']);
-Route::get('/comment', [CommentController::class, 'getListComment']);
-Route::post('/comment', [CommentController::class, 'storeComment']);
+
+Route::controller(CommentController::class)->prefix('comment')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', 'getListComment');
+    Route::post('/', 'storeComment');
+    Route::put('/update', 'updateComment');
+    Route::delete('/delete', 'deleteComment');
+});
 
 Route::prefix('account')->name('user.account.')->middleware('auth')->group(function () {
     Route::get('/', [AccountController::class, 'show'])->name('show');
