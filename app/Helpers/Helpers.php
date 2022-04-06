@@ -66,14 +66,19 @@ class Helpers
         return Storage::delete($path);
     }
 
-    public static function markAsRead($id)
+    public static function findNotificationById($id)
     {
-        return auth()->user()->Notifications->find($id)->markAsRead();
+        return auth()->user()->Notifications->find($id);
     }
 
-    public static function markAsReadAll()
+    public static function getAllNotification()
     {
-        return auth()->user()->Notifications->markAsRead();
+        return auth()->user()->Notifications;
+    }
+
+    public static function markAsRead($notification)
+    {
+        return $notification->markAsRead();
     }
 
     public static function getFileFromExcel($path)
@@ -86,6 +91,7 @@ class Helpers
         $newUrl = $newPath . $pathParts['basename'];
         copy($path, $newUrl);
         $imgInfo = getimagesize($newUrl);
+
         return new UploadedFile(
             $newUrl,
             $pathParts['basename'],

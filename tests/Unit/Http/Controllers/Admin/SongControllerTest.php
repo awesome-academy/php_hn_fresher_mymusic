@@ -49,7 +49,7 @@ class SongControllerTest extends TestCase
 
         $this->songUpdateRequest = Mockery::mock(SongUpdateRequest::class);
 
-        $this->helpers = Mockery::mock(Helpers::class)->makePartial();
+        $this->helpers = Mockery::mock('alias:' . Helpers::class);
 
         $this->authorRepo = Mockery::mock(AuthorRepoInterface::class)
             ->makePartial();
@@ -93,6 +93,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'index' return exact view
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testIndexMethodReturnExactView()
     {
@@ -108,6 +110,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'create' return exact view
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testCreateMethodReturnExactView()
     {
@@ -123,6 +127,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'store' create record successfully
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testStoreMethodCreateRecordSuccessfully()
     {
@@ -152,6 +158,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'store' get error
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testStoreMethodGetError()
     {
@@ -166,6 +174,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'show' return exact view
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testShowMethodReturnExactView()
     {
@@ -181,6 +191,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'show' cannot find id of song
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testShowMethodNotFindSongId()
     {
@@ -196,6 +208,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'edit' return exact view
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testEditMethodReturnExactView()
     {
@@ -214,6 +228,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'edit' cannot find id of song
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testEditMethodNotFindSongId()
     {
@@ -227,9 +243,10 @@ class SongControllerTest extends TestCase
         $this->assertArrayHasKey('error', session()->all());
     }
 
-
     /**
      * Test case method 'update' run successfully
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testUpdateMethodRunSuccessfully()
     {
@@ -259,6 +276,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'update' catch exception
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testUpdateMethodCatchException()
     {
@@ -273,6 +292,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'destroy' delete song successfully
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testDestroyMethodDeleteSongSuccess()
     {
@@ -287,6 +308,8 @@ class SongControllerTest extends TestCase
 
     /**
      * Test case method 'destroy' cannot find song id
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testDestroyMethodNotFindSongId()
     {
