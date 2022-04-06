@@ -112,3 +112,21 @@ $(ajax.back.element).hover(function () {
         ajax.back.changeBackButtonStyle();
     }
 );
+
+let currentSongId = null;
+$(document).on('DOMSubtreeModified', '.main-content', function (e) {
+    let musicPlayerSongId = $('#music-player').attr('data-song-id');
+    if (musicPlayerSongId && musicPlayerSongId != currentSongId) {
+        currentSongId = musicPlayerSongId;
+    }
+    $('.track').removeClass('track-active');
+    $(`.track[song-id="${currentSongId}"]`).addClass('track-active');
+    $(`.song[song-id="${currentSongId}"] .quick-play`).addClass('is-playing');
+    if ($('#music-player').get(0).paused) {
+        $('.is-playing').find('.fa-play').removeClass('d-none');
+        $('.is-playing').find('.fa-pause').addClass('d-none');
+    } else {
+        $('.is-playing').find('.fa-pause').removeClass('d-none');
+        $('.is-playing').find('.fa-play').addClass('d-none');
+    }
+});

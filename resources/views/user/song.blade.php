@@ -28,9 +28,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="track track-active" data-song="{{ $song->path }}"
+                                        <tr class="track" data-song="{{ $song->path }}"
                                             data-title="{{ $song->name }}" data-thumbnail="{{ $song->thumbnail }}"
-                                            song-id={{ $song->id }}
+                                            song-id={{ $song->id }} data-id="0"
                                             data-fav="{{ $favorite ? $favorite->songs->contains($song) : false }}"
                                             data-author="{{ implode(', ', $song->authors->pluck('name')->toArray()) }}">
                                             <td class="track__art">

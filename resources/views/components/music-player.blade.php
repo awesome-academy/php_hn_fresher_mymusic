@@ -28,13 +28,13 @@
     <!-- Center -->
     <div class="center-player">
         <div class="music-controller">
-            <div class="item mix-btn" title="{{ __('shuffleSong')}}">
+            <div class="item mix-btn" title="{{ __('shuffleSong') }}">
                 <span><i class="fa-solid fa-shuffle"></i></span>
             </div>
-            <div class="item prev-btn" title="{{ __('prev')}}">
+            <div class="item prev-btn" title="{{ __('prev') }}">
                 <span><i class="fa-solid fa-backward-step"></i></span>
             </div>
-            <div class="item center-btn" title="{{ __('playPause')}}" onclick="musicPlayer.handleEvents()">
+            <div class="item center-btn" title="{{ __('playPause') }}" onclick="musicPlayer.handleEvents()">
                 <span class="play">
                     <i class="fa-solid fa-play"></i>
                 </span>
@@ -42,10 +42,10 @@
                     <i class="fa-solid fa-pause"></i>
                 </span>
             </div>
-            <div class="item next-btn" title="{{__('next')}}">
+            <div class="item next-btn" title="{{ __('next') }}">
                 <span><i class="fa-solid fa-forward-step"></i></span>
             </div>
-            <div class="item loop-btn" title="{{__('replay')}}">
+            <div class="item loop-btn" title="{{ __('replay') }}">
                 <span><i class="fa-solid fa-rotate"></i></span>
             </div>
         </div>
@@ -58,13 +58,13 @@
 
     <!-- Right -->
     <div class="right-player">
-        <div class="comment-btn" title="{{ __('comments')}}">
+        <div class="comment-btn" title="{{ __('comments') }}">
             <span><i class="fa-solid fa-comment-dots"></i></span>
         </div>
-        <div class="lyric-btn" title="{{__('lyrics')}}">
+        <div class="lyric-btn" title="{{ __('lyrics') }}">
             <span><i class="fa-solid fa-bars-staggered"></i></span>
         </div>
-        <div class="volume-btn" title="{{__('volumn')}}">
+        <div class="volume-btn" title="{{ __('volumn') }}">
             <span class="fire"><i class="fa-solid fa-volume-high"></i></span>
             <span class="mute d-none"><i class="fa-solid fa-volume-xmark"></i></span>
         </div>
@@ -74,15 +74,17 @@
     </div>
 </div>
 
-<x-user-modal x-id="add-playlist" x-title="{{ __('add_to_playlist') }}" x-size="md">
-    <form id="add-playlist" method="post">
-        @csrf
-        <div class="form-group">
-            <input type="hidden" value="" name="song_id" id="song-id-select">
-            <label for="name">{{ __('playlist_name') }}</label>
-            <select name="playlist_id" id="select-playlist" class="form-select" aria-label="" required>
-            </select>
-        </div>
-        <button class="btn-add btn-custom" type="submit"> {{ __('submit')}} </button>
-    </form>
- </x-user-modal>
+@auth
+    <x-user-modal x-id="add-playlist" x-title="{{ __('add_to_playlist') }}" x-size="md">
+        <form id="add-playlist" method="post">
+            @csrf
+            <div class="form-group">
+                <input type="hidden" value="" name="song_id" id="song-id-select">
+                <label for="name">{{ __('playlist_name') }}</label>
+                <select name="playlist_id" id="select-playlist" class="form-select" aria-label="" required>
+                </select>
+            </div>
+            <button class="btn-add btn-custom" type="submit"> {{ __('submit') }} </button>
+        </form>
+    </x-user-modal>
+@endauth
