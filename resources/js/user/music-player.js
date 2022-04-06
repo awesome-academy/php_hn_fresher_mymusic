@@ -33,6 +33,7 @@ const app = {
     isMix: false,
     isReplay: false,
     isRandom: false,
+    songNowPlaying: null,
     handleEvents() {
         const _this = this;
         playBtn.onclick = function () {
@@ -121,29 +122,34 @@ const app = {
             if ($(e.target).is("svg") || $(e.target).is("path") || $(e.target).hasClass("quick-play")) {
                 const isFav = 1;
                 let authorArr = this.getAttribute("data-author");
-
-                unActivePlaying();
                 this.querySelector('.quick-play').classList.add('is-playing');
-                audio.src = this.getAttribute("data-song");
+                audio.setAttribute('data-song-id', this.getAttribute('song-id'));
                 songThumbnail.src = this.getAttribute("data-thumbnail");
                 nameSong.innerText = this.getAttribute("data-title");
                 authorName.innerText = authorArr;
                 songId.value = this.getAttribute("song-id");
-                if (!_this.isPlaying) {
-                    audio.play();
+                if (app.songNowPlaying == this.getAttribute("song-id")) {
+                    if (!_this.isPlaying) {
+                        audio.play();
+                        showPauseButton(this);
+                        _this.isPlaying = !_this.isPlaying;
+                    }
+                    else {
+                        audio.pause();
+                        showPlayButton(this);
+                        _this.isPlaying = !_this.isPlaying;
+                    }
+                } else {
+                    unActivePlaying();
+                    audio.src = this.getAttribute("data-song");
                     showPauseButton(this);
-                    _this.isPlaying = !_this.isPlaying;
-                }
-                else {
-                    audio.pause();
-                    showPlayButton(this);
-                    _this.isPlaying = !_this.isPlaying;
+                    app.songNowPlaying = this.getAttribute("song-id");
+                    audio.play();
                 }
                 if (this.getAttribute("data-fav") == isFav) {
                     favBtn.classList.remove('unlike')
                     favBtn.classList.add('liked')
-                }
-                else {
+                } else {
                     favBtn.classList.remove('liked');
                     favBtn.classList.add('unlike')
                 }
@@ -154,17 +160,21 @@ const app = {
         });
 
         function showPlayButton(selector) {
-            selector.querySelector('.fa-play').classList.remove('d-none');
-            selector.querySelector('.fa-pause').classList.add('d-none');
-            play.classList.remove("d-none");
-            pause.classList.add("d-none");
+            if (selector) {
+                selector.querySelector('.fa-play').classList.remove('d-none');
+                selector.querySelector('.fa-pause').classList.add('d-none');
+                play.classList.remove("d-none");
+                pause.classList.add("d-none");
+            }
         }
 
         function showPauseButton(selector) {
-            selector.querySelector('.fa-play').classList.add('d-none');
-            selector.querySelector('.fa-pause').classList.remove('d-none');
-            play.classList.add("d-none");
-            pause.classList.remove("d-none");
+            if (selector) {
+                selector.querySelector('.fa-play').classList.add('d-none');
+                selector.querySelector('.fa-pause').classList.remove('d-none');
+                play.classList.add("d-none");
+                pause.classList.remove("d-none");
+            }
         }
 
         //Unactive playing
@@ -197,6 +207,7 @@ const app = {
                 let authorArr = this.getAttribute("data-author");
                 $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");
                 audio.src = this.getAttribute("data-song");
+                audio.setAttribute('data-song-id', this.getAttribute('song-id'));
                 songThumbnail.src = this.getAttribute("data-thumbnail");
                 nameSong.innerText = this.getAttribute("data-title");
                 songId.value = this.getAttribute("song-id");

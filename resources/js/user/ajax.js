@@ -52,6 +52,7 @@ const main = {
         );
         main.render(resp.data);
         sidebar.unactiveMenuItems();
+        musicPlayer.handleEvents();
         back.setStorage(window.location.search, isGoBack);
         slick();
     },
@@ -224,10 +225,15 @@ const playlist = {
             playlist_id: favoriteId,
             song_id: this.songId.value,
         });
-        if (!resp.data.song.attached.length == 0) {
-            $('.fav-btn').addClass('liked');
-            $('.fav-btn').removeClass('unlike');
-            toastr.success(trans.__("add_song_success"));
+        if (resp && resp.status === 200) {
+            if (!resp.data.song.attached.length == 0) {
+                $('.fav-btn').addClass('liked');
+                $('.fav-btn').removeClass('unlike');
+                toastr.success(trans.__("add_song_success"));
+            }
+        }
+        if (resp && resp.response && resp.response.status == 401) {
+            toastr.error(trans.__('auth.must_login'));
         }
     },
     deletePlaylist: async function () {
@@ -241,7 +247,12 @@ const playlist = {
     },
     getPlaylistSelect: async function () {
         let resp = await axios.get("/playlist");
-        this.renderPlaylistSelect(resp.data.playlists);
+        if (resp && resp.status === 200) {
+            this.renderPlaylistSelect(resp.data.playlists);
+        }
+        if (resp && resp.response && resp.response.status == 401) {
+            toastr.error(trans.__('auth.must_login'));
+        }
     },
     removePlaylist: async function (songId) {
         let playlistId = _$(".playlist-id").value;
