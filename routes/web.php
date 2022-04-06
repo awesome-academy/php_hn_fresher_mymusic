@@ -79,6 +79,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
 
     Route::put('/notify/mark-as-read', [NotificationController::class, 'markAsRead']);
     Route::put('/notify/mark-as-read-all', [NotificationController::class, 'markAsReadAll']);
+    Route::get('/notify/get-latest-noti', [NotificationController::class, 'getLatestNotification']);
 });
 
 Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {

@@ -7,7 +7,7 @@ $(document).ready(function () {
         cluster: "ap2",
     });
     var channel = pusher.subscribe("NotificationEvent");
-    channel.bind("send-notification", function (data) {
+    channel.bind("send-notification", async function (data) {
         let pending = parseInt($("#notifications").find(".pending").html());
         if (Number.isNaN(pending)) {
             $("#notifications").append(
@@ -18,8 +18,10 @@ $(document).ready(function () {
                 .find(".pending")
                 .html(pending + 1);
         }
+        let response = await axios.get('/admin/notify/get-latest-noti');
         let notificationItem = `
-        <li class="notification-item unread">
+        <li class="notification-item unread"
+            data-id="${response.data.notification.id}">
             <p>${trans.__("notification_mess", { email: data.email })}</p>
             <p class="float-right">${trans.__("recent")}</p>
         </li>`;

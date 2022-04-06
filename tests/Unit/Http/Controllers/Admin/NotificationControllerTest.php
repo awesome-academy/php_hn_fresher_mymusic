@@ -104,4 +104,18 @@ class NotificationControllerTest extends TestCase
         $this->assertEquals(500, $response->getStatusCode());
         $this->assertArrayHasKey('error', (array) json_decode($response->getContent()));
     }
+
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+    */
+    public function testGetLatestNotificationMethod()
+    {
+        $this->helpers->shouldReceive('getLatestNotification')->andReturn($this->notification);
+
+        $response = $this->controller->getLatestNotification();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertArrayHasKey('notification', (array) json_decode($response->getContent()));
+    }
 }
