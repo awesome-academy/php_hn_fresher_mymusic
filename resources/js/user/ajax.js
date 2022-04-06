@@ -68,15 +68,20 @@ const main = {
     },
     playlistPage: async function (id, isGoBack = false) {
         let resp = await axios.get("/playlist/" + id);
-        sidebar.unactiveMenuItems();
-        $(`.menu-item[data-id="${id}"]`).addClass("c-active");
-        uri.updateQueryStringParameter(
-            { key: "", value: "playlist" },
-            { param: "id", val: id }
-        );
-        main.render(resp.data);
-        musicPlayer.handleEvents();
-        back.setStorage(window.location.search, isGoBack);
+        if (resp && resp.status === 200) {
+            main.render(resp.data);
+            sidebar.unactiveMenuItems();
+            $(`.menu-item[data-id="${id}"]`).addClass("c-active");
+            uri.updateQueryStringParameter(
+                { key: "", value: "playlist" },
+                { param: "id", val: id }
+            );
+            musicPlayer.handleEvents();
+            back.setStorage(window.location.search, isGoBack);
+        }
+        if (resp && resp.response && resp.response.status == 401) {
+            toastr.error(trans.__('auth.must_login'));
+        }
     },
     songPage: async function (id, isGoBack = false) {
         let resp = await axios.get("/song?id=" + id);
@@ -145,7 +150,9 @@ const sidebar = {
     },
     getFavoritePlaylist: async function () {
         let resp = await axios.get("/favorite");
-        _$('.favorite').setAttribute("data-id", resp.data.favorite.id);
+        if (resp && resp.status === 200) {
+            _$('.favorite').setAttribute("data-id", resp.data.favorite.id);
+        }
     }
 };
 
@@ -189,11 +196,16 @@ const playlist = {
     },
     createPlaylist: async function () {
         let resp = await axios.post("/playlist", { name: this.name.value });
-        resp.status = 200
-            ? toastr.success(trans.__("create_playlist_success"))
-            : toastr.success(trans.__("create_playlist_error"));
-        this.renderPlaylist(resp.data.playlist);
-        _$(".close").click();
+        if (resp && resp.status === 200) {
+            toastr.success(trans.__("create_playlist_success"));
+            this.renderPlaylist(resp.data.playlist);
+            _$(".close").click();
+        }
+        if (resp && resp.response) {
+            resp.response.status == 401
+                ? toastr.error(trans.__('auth.must_login'))
+                : toastr.error(trans.__('create_playlist_error'));
+        }
     },
     addToPlaylist: async function () {
         let resp = await axios.post("/playlist/add-song", {
@@ -269,49 +281,65 @@ const search = {
     render: {
         authors: function (authors) {
             let html = '';
-            authors.forEach(author => {
-                html += `
-                    <div class="search-result-item author" style="background-color: ${author.rand_color}" data-id="${author.id}">
-                        <h5> ${author.name} </h5>
-                        <img src="${author.thumbnail}">
-                    </div>`
-            });
+            if (authors.length > 0) {
+                authors.forEach(author => {
+                    html += `
+                        <div class="search-result-item author" style="background-color: ${author.rand_color}" data-id="${author.id}">
+                            <h5> ${author.name} </h5>
+                            <img src="${author.thumbnail}">
+                        </div>`
+                });
+            } else {
+                html = `<p>${trans.__('no_data')}</p>`;
+            }
             _$(search.authorsBox).innerHTML = html;
         },
         albums: function (albums) {
             let html = '';
-            albums.forEach(album => {
-                if (album.songs && album.songs.length > 0) {
-                    html += `
-                        <div class="search-result-item album" style="background-color: ${album.rand_color}" data-id="${album.id}">
-                            <h5 class="mb-1"> ${album.title} </h5>
-                            <small class="d-inline-block px-2"> ${album.author.name} </small>
-                            <img src="${album.songs[0].thumbnail}">
-                        </div>
-                    `;
-                }
-            });
+            if (albums.length > 0) {
+                albums.forEach(album => {
+                    if (album.songs && album.songs.length > 0) {
+                        html += `
+                            <div class="search-result-item album" style="background-color: ${album.rand_color}" data-id="${album.id}">
+                                <h5 class="mb-1"> ${album.title} </h5>
+                                <small class="d-inline-block px-2"> ${album.author.name} </small>
+                                <img src="${album.songs[0].thumbnail}">
+                            </div>
+                        `;
+                    }
+                });
+            } else {
+                html = `<p>${trans.__('no_data')}</p>`;
+            }
             _$(search.albumsBox).innerHTML = html;
         },
         songs: function (songs) {
             let html = '';
-            songs.forEach((song, key) => {
-                let dataAuthor = '';
-                if (song.authors && song.authors.length > 0) {
-                    dataAuthor = song.authors.map(author => {
-                        return author.name;
-                    }).join(', ');
-                }
-                html += `
-                    <div class="search-result-item song" style="background-color: ${song.rand_color}"
-                        data-song="${song.path}" data-title="${song.name}" data-thumbnail="${song.thumbnail}"
-                        data-id="${key}" data-author="${dataAuthor}">
-                        <h5 class="mb-1"> ${song.name} </h5>
-                        <small class="d-inline-block px-2">${dataAuthor}</small>
-                        <img src="${song.thumbnail}">
-                    </div>
-                `;
-            });
+            if (songs.length > 0) {
+                songs.forEach((song, key) => {
+                    let dataAuthor = '';
+                    if (song.authors && song.authors.length > 0) {
+                        dataAuthor = song.authors.map(author => {
+                            return author.name;
+                        }).join(', ');
+                    }
+                    html += `
+                        <div class="search-result-item song" style="background-color: ${song.rand_color}"
+                            data-song="${song.path}" data-title="${song.name}" data-thumbnail="${song.thumbnail}"
+                            data-id="${key}" data-author="${dataAuthor}" song-id="${song.id}">
+                            <h5 class="mb-1"> ${song.name} </h5>
+                            <small class="d-inline-block px-2">${dataAuthor}</small>
+                            <div class="quick-play">
+                                <i class="fa-solid fa-play"></i>
+                                <i class="fa-solid fa-pause d-none"></i>
+                            </div>
+                            <img src="${song.thumbnail}">
+                        </div>
+                    `;
+                });
+            } else {
+                html = `<p>${trans.__('no_data')}</p>`;
+            }
             _$(search.songsBox).innerHTML = html;
         }
     }
@@ -350,7 +378,7 @@ const back = {
             }
 
             if (currentStorage.length == 0) {
-                currentStorage.unshift(window.location.search);
+                currentStorage.unshift('?=homepage');
             }
 
             currentStorage = JSON.stringify(currentStorage);

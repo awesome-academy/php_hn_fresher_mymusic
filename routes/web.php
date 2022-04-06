@@ -82,14 +82,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verif
     Route::get('/notify/get-latest-noti', [NotificationController::class, 'getLatestNotification']);
 });
 
-Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {
-    Route::get('get-albums-of-authors', [AlbumController::class, 'getAlbumsOfAuthors'])
-        ->name('getAlbumsOfAuthors')
-        ->middleware('auth.admin');
+Route::prefix('api')->name('api.')->group(function () {
+    Route::middleware(['auth', 'auth.admin'])->group(function () {
+        Route::get('get-albums-of-authors', [AlbumController::class, 'getAlbumsOfAuthors'])
+            ->name('getAlbumsOfAuthors');
+
+        Route::get('dashboard/songs/{year}', [DashboardController::class, 'statisticalSongsInYear'])
+            ->name('statisticalSongsInYear');
+    });
 
     Route::get('search', [SearchController::class, 'search'])->name('user.search');
-
-    Route::get('dashboard/songs/{year}', [DashboardController::class, 'statisticalSongsInYear'])
-        ->name('statisticalSongsInYear')
-        ->middleware('auth.admin');
 });

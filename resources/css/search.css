@@ -90,3 +90,10 @@
   -ms-transform: rotate(-15deg);
   -o-transform: rotate(-15deg);
 }
+
+.search-result-item:hover .quick-play {
+  opacity: 1;
+  right: 8px;
+  visibility: visible;
+  bottom: 20px;
+}

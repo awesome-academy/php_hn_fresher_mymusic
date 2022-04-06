@@ -55,6 +55,8 @@ const app = {
         //Event pause song
         audio.onpause = function () {
             _this.isPlaying = false;
+            play.classList.remove("d-none");
+            pause.classList.add("d-none");
             showPlayButton(_$('.is-playing'));
         };
         //Event end of song
@@ -116,7 +118,7 @@ const app = {
         }
         // Click box event multiple
         addEventListenerList(_$$(".song"), "click", function (e) {
-            if ($(e.target).is("svg") || $(e.target).is("path") || $(e.target).hasClass("quick-play") ) {
+            if ($(e.target).is("svg") || $(e.target).is("path") || $(e.target).hasClass("quick-play")) {
                 const isFav = 1;
                 let authorArr = this.getAttribute("data-author");
 
@@ -127,40 +129,38 @@ const app = {
                 nameSong.innerText = this.getAttribute("data-title");
                 authorName.innerText = authorArr;
                 songId.value = this.getAttribute("song-id");
-                if(!_this.isPlaying){
+                if (!_this.isPlaying) {
                     audio.play();
                     showPauseButton(this);
                     _this.isPlaying = !_this.isPlaying;
                 }
-                else{
+                else {
                     audio.pause();
                     showPlayButton(this);
                     _this.isPlaying = !_this.isPlaying;
                 }
-                if(this.getAttribute("data-fav") == isFav){
+                if (this.getAttribute("data-fav") == isFav) {
                     favBtn.classList.remove('unlike')
                     favBtn.classList.add('liked')
                 }
-                else{
+                else {
                     favBtn.classList.remove('liked');
                     favBtn.classList.add('unlike')
                 }
-            }else{
+            } else {
                 ajax.main.songPage(this.getAttribute('song-id'));
             }
 
         });
 
-        function showPlayButton(selector)
-        {
+        function showPlayButton(selector) {
             selector.querySelector('.fa-play').classList.remove('d-none');
             selector.querySelector('.fa-pause').classList.add('d-none');
             play.classList.remove("d-none");
             pause.classList.add("d-none");
         }
 
-        function showPauseButton(selector)
-        {
+        function showPauseButton(selector) {
             selector.querySelector('.fa-play').classList.add('d-none');
             selector.querySelector('.fa-pause').classList.remove('d-none');
             play.classList.add("d-none");
@@ -188,7 +188,7 @@ const app = {
                 );
                 if (resp.status === 200) {
                     toastr.success(trans.__('delete_song_success'));
-                    _$( `.playlist-song.track[song-id='${this.getAttribute("song-id")}']`).remove();
+                    _$(`.playlist-song.track[song-id='${this.getAttribute("song-id")}']`).remove();
                 } else {
                     toastr.error(trans.__('delete_song_error'));
                 }
@@ -203,12 +203,11 @@ const app = {
                 _this.idSongPlay = this.getAttribute("data-id");
                 authorName.innerText = authorArr;
                 _this.lengListSong = $(".track").length;
-                if(this.getAttribute("data-fav") == isFav)
-                {
+                if (this.getAttribute("data-fav") == isFav) {
                     favBtn.classList.remove('unlike')
                     favBtn.classList.add('liked')
                 }
-                else{
+                else {
                     favBtn.classList.remove('liked');
                     favBtn.classList.add('unlike')
                 }
