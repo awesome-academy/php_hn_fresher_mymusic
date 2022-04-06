@@ -81,6 +81,11 @@ class Helpers
         return $notification->markAsRead();
     }
 
+    public static function getLatestNotification()
+    {
+        return auth()->user()->Notifications->first();
+    }
+
     public static function getFileFromExcel($path)
     {
         $pathParts = pathinfo($path);

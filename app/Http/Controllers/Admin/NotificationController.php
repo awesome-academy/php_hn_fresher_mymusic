@@ -37,4 +37,11 @@ class NotificationController extends Controller
 
         return response()->json(['markAsReadAll' => true]);
     }
+
+    public function getLatestNotification()
+    {
+        $notification = Helpers::getLatestNotification();
+
+        return response()->json(compact('notification'));
+    }
 }
