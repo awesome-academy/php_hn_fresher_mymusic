@@ -14,6 +14,11 @@ ajax.sidebar.getFavoritePlaylist();
 //Call handleEvent for play music
 musicPlayer.handleEvents();
 
+// Show song detail from related song
+$(document).on('click', ".related-song-item", function(e) {
+    ajax.main.songPage(this.getAttribute('data-songId'));
+});
+
 //Call handle url history function to navigation
 ajax.main.getUrlParam(window.location.search);
 

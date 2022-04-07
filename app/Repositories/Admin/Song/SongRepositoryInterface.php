@@ -20,4 +20,7 @@ interface SongRepositoryInterface extends BaseRepositoryInterface
 
     // Statistical song in year
     public function statisticalSong(int $year);
+
+    //Get related song by author
+    public function getRelatedSong($song);
 }

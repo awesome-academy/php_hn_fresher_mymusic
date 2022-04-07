@@ -204,7 +204,10 @@ const app = {
                 } else {
                     toastr.error(trans.__('delete_song_error'));
                 }
-            } else {
+            } else if($(e.target).hasClass("song-detail")){
+                ajax.main.songPage(this.getAttribute('song-id'));
+            }
+            else {
                 const isFav = 1;
                 let authorArr = this.getAttribute("data-author");
                 $(".track[data-id=" + _this.idSongPlay + "]").removeClass("track-active");

@@ -160,6 +160,7 @@
     "update_success": "Cập nhật dữ liệu thành công",
     "create_success": "Thêm mới dữ liệu thành công",
     "reply": "Trả lời",
+    "replies": "Trả lời",
     "comment_content": "Nội dung bình luận",
     "related_song": "Bài hát liên quan",
     "canva_not_supported": "Trình duyệt của bạn không hỗ trợ thẻ canva. Không thể khởi tạo biểu đồ",
@@ -171,5 +172,5 @@
     "recent": "Vừa xong",
     "import_excel": " Nhập dữ liệu từ excel",
     "choose_excel": "Chọn file excel : ",
-    "choose_song_first": "Cần chọn một bài hát trước khi sử dụng chức năng này"
+    "delete" : "Xóa"
 }

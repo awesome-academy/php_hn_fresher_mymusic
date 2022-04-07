@@ -117,6 +117,7 @@
     "song_category": "Songs",
     "user_not_found": "User not found",
     "reply": "Reply",
+    "replies": "replies",
     "comment_content": "Comment content",
     "related_song": "Related song",
     "canva_not_supported": "Your browser does not support the canvas element. Unable to initial chart",
@@ -128,5 +129,6 @@
     "recent": "Recent",
     "import_excel": "Import Excel",
     "choose_excel": "Choose file excel : ",
-    "choose_song_first": "Please choose a song before access this feature"
+    "choose_song_first": "Please choose a song before access this feature",
+    "delete" : "Delete"
 }

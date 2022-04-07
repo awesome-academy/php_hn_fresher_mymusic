@@ -22,7 +22,7 @@
     </td>
     <td class="show-song">
         <span song-id={{ $song->id }} class="d-inline song-detail">
-            <i class="fa-solid fa-info"></i>
+            {{ __('view') }}
         </span>
     </td>
 </tr>
