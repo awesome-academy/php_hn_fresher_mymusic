@@ -72,6 +72,11 @@
             toastr.error("{{ session('error') }}")
         </script>
     @endif
+    @if (Session::has('errors'))
+        <script>
+            toastr.error("{{ session('errors')->first() }}")
+        </script>
+    @endif
     @stack('js')
 
 </body>

@@ -37,10 +37,12 @@ const app = {
     handleEvents() {
         const _this = this;
         playBtn.onclick = function () {
-            if (_this.isPlaying) {
-                audio.pause();
-            } else {
-                audio.play();
+            if (audio.getAttribute('src')) {
+                if (_this.isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.play();
+                }
             }
         };
         //Event play song

@@ -227,7 +227,7 @@ class AuthorControllerTest extends TestCase
     public function testImportExcel()
     {
         $file = UploadedFile::fake()->create(self::FAKE_EXCEL_NAME);
-        $this->request->shouldReceive('only')->andReturn($file);
+        $this->request->shouldReceive('file')->andReturn($file);
         Excel::fake();
 
         $this->authorController->importExcel($this->request);
