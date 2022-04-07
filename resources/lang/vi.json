@@ -170,5 +170,6 @@
     "mark_at_read_all" : "Đánh dấu đã đọc tất cả",
     "recent": "Vừa xong",
     "import_excel": " Nhập dữ liệu từ excel",
-    "choose_excel": "Chọn file excel : "
+    "choose_excel": "Chọn file excel : ",
+    "choose_song_first": "Cần chọn một bài hát trước khi sử dụng chức năng này"
 }

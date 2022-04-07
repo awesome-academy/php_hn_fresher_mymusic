@@ -209,30 +209,42 @@ const playlist = {
         }
     },
     addToPlaylist: async function () {
-        let resp = await axios.post("/playlist/add-song", {
-            playlist_id: this.select.value,
-            song_id: this.songId.value,
-        });
-        resp.data.song.attached.length == 0
-            ? toastr.warning(trans.__("exits_song"))
-            : toastr.success(trans.__("add_song_success"));
-
-        _$("#add-playlist .close").click();
+        if (this.songId.value) {
+            let resp = await axios.post("/playlist/add-song", {
+                playlist_id: this.select.value,
+                song_id: this.songId.value,
+            });
+            resp.data.song.attached.length == 0
+                ? toastr.warning(trans.__("exits_song"))
+                : toastr.success(trans.__("add_song_success"));
+    
+            _$("#add-playlist .close").click();
+        } else {
+            toastr.error(trans.__('choose_song_first'));
+        }
     },
     addToFavorite: async function () {
-        let favoriteId = _$('.favorite').getAttribute('data-id');
-        let resp = await axios.post("/playlist/add-song", {
-            playlist_id: favoriteId,
-            song_id: this.songId.value,
-        });
-        if (resp && resp.status === 200) {
-            if (!resp.data.song.attached.length == 0) {
-                $('.fav-btn').addClass('liked');
-                $('.fav-btn').removeClass('unlike');
-                toastr.success(trans.__("add_song_success"));
+        if (this.songId) {
+            if (this.songId.value) {
+                let favoriteId = _$('.favorite').getAttribute('data-id');
+                let resp = await axios.post("/playlist/add-song", {
+                    playlist_id: favoriteId,
+                    song_id: this.songId.value,
+                });
+                if (resp && resp.status === 200) {
+                    if (!resp.data.song.attached.length == 0) {
+                        $('.fav-btn').addClass('liked');
+                        $('.fav-btn').removeClass('unlike');
+                        toastr.success(trans.__("add_song_success"));
+                    }
+                }
+                if (resp && resp.response && resp.response.status == 401) {
+                    toastr.error(trans.__('auth.must_login'));
+                }
+            } else {
+                toastr.error(trans.__('choose_song_first'));
             }
-        }
-        if (resp && resp.response && resp.response.status == 401) {
+        } else {
             toastr.error(trans.__('auth.must_login'));
         }
     },

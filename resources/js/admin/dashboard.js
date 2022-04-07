@@ -16,7 +16,7 @@ const getSongChartData = async function (year) {
     if (res && res.status === 200) {
         data = Object.values(res.data.songs);
     } else {
-        toastr.error('have_error');
+        toastr.error(trans.__('have_error'));
     }
 
     return data;
