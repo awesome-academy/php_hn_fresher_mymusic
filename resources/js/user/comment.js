@@ -71,7 +71,7 @@ async function renderComment(comment) {
     let parent = 0
     if (comment.parent_id == parent) {
         content = `
-        <div class="comment-body-items" data-commentId=${comment.id}>>
+        <div class="comment-body-items" data-commentId=${comment.id}>
             <div class="avatar-account">
                 <img src="${comment.user.avatar}" alt="">
             </div>
