@@ -130,5 +130,6 @@
     "import_excel": "Import Excel",
     "choose_excel": "Choose file excel : ",
     "choose_song_first": "Please choose a song before access this feature",
-    "delete" : "Delete"
+    "delete" : "Delete",
+    "update": "Update"
 }

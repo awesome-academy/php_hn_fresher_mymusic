@@ -43,8 +43,8 @@ class UserRepository extends BaseRepository implements UserRepoInterface
 
     public function countNewUsersByWeek()
     {
-        $now = Carbon::now();
-        $subDay = $now->subWeek();
+        $now = Carbon::now()->toDateTimeString();
+        $subDay = Carbon::now()->subWeek()->toDateTimeString();
         $users = $this->whereBetween('created_at', [$subDay, $now]);
 
         return $users->count();

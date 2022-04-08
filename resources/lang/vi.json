@@ -78,7 +78,7 @@
     "edit_author": "Cập nhật thông tin nghệ sĩ",
     "view_author": "Xem thông tin nghệ sĩ",
     "submit": "Xác nhận",
-    "edit": "Cập nhật",
+    "edit": "Sửa",
     "back": "Quay lại",
     "created_at": "Thời gian tạo",
     "updated_at": "Thời gian cập nhật",
@@ -172,5 +172,6 @@
     "recent": "Vừa xong",
     "import_excel": " Nhập dữ liệu từ excel",
     "choose_excel": "Chọn file excel : ",
-    "delete" : "Xóa"
+    "delete" : "Xóa",
+    "update": "Sửa"
 }
