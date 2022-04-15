@@ -131,5 +131,7 @@
     "choose_excel": "Choose file excel : ",
     "choose_song_first": "Please choose a song before access this feature",
     "delete" : "Delete",
-    "update": "Update"
+    "update": "Update",
+    "api_sent_mail_success": "An email has been sent to your email, check it out",
+    "api_failed_validation": "Uploaded data is not valid"
 }
