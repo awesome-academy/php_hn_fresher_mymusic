@@ -44,3 +44,28 @@
 .custom-control-input:checked ~ .custom-control-label::before{
     background-color: var(--fav) !important;
 }
+.facebook-login,.google-login{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+.facebook-login{
+    background: rgb(59, 89, 152);
+    color: var(--white);
+}
+.google-login{
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--dark-light);
+}
+.facebook-login span{
+    color: var(--white);
+}
+.google-login span{
+    color: var(--black);
+}
+.google-login:hover a{
+    text-decoration: none;
+}

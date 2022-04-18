@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SongController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\PlaylistController;
@@ -62,6 +63,8 @@ Route::prefix('account')->name('user.account.')->middleware('auth')->group(funct
 });
 
 Auth::routes(['verify' => true]);
+Route::get('/auth/redirect/{social}', [SocialController::class, 'redirect'])->name('social.redirect');
+Route::get('/callback/{social}', [SocialController::class, 'callback'])->name('social.callback');
 Route::get('language/{language}', [LangController::class, 'changeLanguage'])->name('language');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'auth.admin', 'verified'])->group(function () {

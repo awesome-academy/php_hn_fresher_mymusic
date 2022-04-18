@@ -175,5 +175,7 @@
     "delete" : "Xóa",
     "update": "Sửa",
     "api_sent_mail_success": "Vui lòng kiểm tra email để xác thực tài khoản của bạn",
-    "api_failed_validation": "Dữ liệu gửi lên không hợp lệ"
+    "api_failed_validation": "Dữ liệu gửi lên không hợp lệ",
+    "login_facebook" : "Đăng nhập với FaceBook",
+    "login_google" : "Đăng nhập với Google"
 }

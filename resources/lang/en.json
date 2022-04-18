@@ -133,5 +133,7 @@
     "delete" : "Delete",
     "update": "Update",
     "api_sent_mail_success": "An email has been sent to your email, check it out",
-    "api_failed_validation": "Uploaded data is not valid"
+    "api_failed_validation": "Uploaded data is not valid",
+    "login_facebook" : "Login with Facebook",
+    "login_google" : "Login with Google"
 }

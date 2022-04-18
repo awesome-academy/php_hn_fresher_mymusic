@@ -52,6 +52,8 @@ class UserTest extends TestCase
             'email',
             'avatar',
             'password',
+            'provider',
+            'provider_id'
         ];
 
         $this->assertEquals($fillable, $this->user->getFillable());

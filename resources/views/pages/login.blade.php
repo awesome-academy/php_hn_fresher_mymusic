@@ -7,6 +7,25 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <h4 class="text-center pt-5">{{ __('To continue, log in to MyMusic.') }}</h4>
+                <div class="social-login">
+                    <div class="facebook-login">
+                        {{-- <a href="{{ route('social.redirect',['facebook']) }}"> --}}
+                        <a href="#">
+                            <span>
+                                <i class="fa-brands fa-facebook"></i>
+                                {{ __('login_facebook') }}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="google-login">
+                        <a href="{{ route('social.redirect',['google']) }}">
+                            <span>
+                                <i class="fa-brands fa-google"></i>
+                                {{ __('login_google') }}
+                            </span>
+                        </a>
+                    </div>
+                </div>
                 <form id="login-form" action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="form-group required">
