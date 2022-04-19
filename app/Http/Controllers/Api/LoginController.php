@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\LoginRequest;
 use App\Repositories\User\UserRepoInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,9 @@ class LoginController extends Controller
         $this->userRepo = $userRepo;
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         try {
-            $this->validateLogin($request);
             $user = $this->userRepo->findByWhere(['email' => $request->email])->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
@@ -39,14 +39,6 @@ class LoginController extends Controller
                 'error' => $error->getMessage(),
             ], 500);
         }
-    }
-
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string|min:6',
-        ]);
     }
 
     public function logout()

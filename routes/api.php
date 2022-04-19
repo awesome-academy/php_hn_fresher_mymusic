@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout']);
+
+    Route::middleware('api.admin')->group(function () {
+        Route::resource('albums', AlbumController::class)->except(['create', 'edit']);
+    });
 });
